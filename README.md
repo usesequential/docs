@@ -21,4 +21,4 @@ This repository mirrors the published docs at [usesequential.com/docs](https://w
 
 Questions: hello@usesequential.com · [Privacy Policy](https://www.usesequential.com/privacy) · [Terms of Service](https://www.usesequential.com/terms)
 
-The docs text is © Sequential. The sync script is MIT licensed.
+The docs text is © Sequential. All rights reserved. You may reuse the sync script (`scripts/sync.sh`).
