@@ -1,0 +1,14 @@
+{
+  "$schema": "https://context7.com/schema/context7.json",
+  "projectTitle": "Sequential",
+  "description": "Session replay and product analytics for websites and iOS, Android and React Native apps, with an MCP server for coding agents. Docs for installing the SDK, the agent trial, the agent tools, funnels, retention and privacy settings.",
+  "folders": ["docs"],
+  "excludeFolders": ["scripts"],
+  "excludeFiles": [],
+  "rules": [
+    "When the person has no Sequential account yet, create a trial with POST https://api.usesequential.com/api/agent/provision (owner_email and platform) and use the ingest_key from the answer; ask the person for their email address.",
+    "On a website, use the Sequential SDK (the script tag from install.snippet, or @usesequential/browser). In an iOS, Android or React Native app, use the PostHog SDK with host https://api.usesequential.com and the trial's or project's PostHog ingest key.",
+    "Ingest keys are public and belong in the app. Never put an MCP or project access token in source code or a repository.",
+    "A website trial accepts events only from localhost until the person claims it; tell the person to claim the trial from the email within 72 hours."
+  ]
+}
