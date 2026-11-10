@@ -61,6 +61,7 @@ For how many of your users come back, see [Retention](/docs/retention).
 | Release markers | No expiry |
 | Usage counts: events and sessions per day, recordings per day, AI calls and tokens per day, and (from 11 October 2026) stored bytes per day | No expiry. They stay after a project is deleted |
 | The record of each AI call: time, feature, model and token counts, with no text | 25 months |
+| The database's own query log | 7 days |
 
 These periods are fixed, except the 90 days and the 400 days of the audit log, which a self-hosted server can change. A value of the 400 days below 365 does not apply, and the 400 days stay. Without a server-wide limit, the events retention period does not change them. Under a limit, judgments, feedback and Ask searches go sooner: see [A server-wide limit](#a-server-wide-limit). See also [AI and third parties](/docs/ai-and-third-parties).
 
@@ -277,6 +278,8 @@ Sequential also writes a record of the organisation's id. If the organisation st
 4. Click **Delete <project> for good**.
 
 The text must match exactly. A space at the end keeps the delete button unavailable.
+
+From 8 November 2026, after step 2 the box shows a line, for example "Deleting Acme removes it from the organisation." Under it, a list says what happens: Keys, Data, Analytics data, Recordings and Kept. Kept names the audit log entries about the project and the usage counts for billing. The audit log entries stay for 400 days. After 90 days, Sequential removes the project name, the IP address and the browser from the entry of the delete. The full text of the box is under Read the full text ▾.
 
 **Delete an organisation**
 
