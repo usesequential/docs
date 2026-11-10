@@ -55,7 +55,7 @@ Sequential can refuse a code with "That code is not right. Check the time on you
 
 ## Two-factor authentication without a password
 
-From 20 October 2026, an account that you create with an emailed code has no password. An account that you create with Google or Microsoft, when it is available, has no password too.
+From 20 October 2026, an account that you create with an emailed code has no password. An account that you create with Google, GitHub or Microsoft, when it is available, has no password too.
 
 You set up 2FA in the same way, but Sequential does not ask for a password. In place of the password, Sequential checks that you signed in on this device in the last 15 minutes.
 
@@ -315,6 +315,38 @@ From 11 October 2026, a completed reset also verifies your email address, if it 
 
 The reset link carries a secret in its address. From 11 October 2026, Sequential's own website does not record the page that the link opens. It also does not record a sign-in page that leads back to it. The page sends no referrer, so the next page and other websites do not get the link. Your browser does not keep it in its cache.
 
+## Sign-in methods
+
+Connect Google, GitHub or Microsoft to your account to sign in with it. Go to **Settings › Security › Sign-in methods**. Sequential shows this section only when Google, GitHub or Microsoft sign-in is available. The page says: "Connect a provider to sign in with it. The address of the provider account must be the address of your Sequential account."
+
+1. Click **Connect GitHub**, **Connect Google** or **Connect Microsoft**. If two-factor authentication is on, Sequential can ask for your code first.
+2. Sign in to the provider. It sends you back to Sequential.
+
+The page then says, for example: "GitHub is connected. You can sign in with it." The row shows Connected and the date. A provider that is not connected shows Not connected.
+
+### Disconnect a provider
+
+1. Click **Disconnect…**.
+2. Sequential asks: "Disconnect GitHub? You cannot sign in with GitHub after that." Click **Disconnect GitHub**, or **Keep it**. If two-factor authentication is on, Sequential can ask for your code first.
+
+The page then says, for example: "GitHub is disconnected. You cannot sign in with it now."
+
+If a provider is your only way to sign in, the row has no Disconnect…. It says, for example: "GitHub is your only way to sign in. To disconnect it, set a password first." See [Add a password](#add-a-password).
+
+### Messages
+
+| Message | What to do |
+|---|---|
+| "GitHub was not connected. Its address is not the address of your Sequential account." | Use a provider account with the address of your Sequential account. |
+| "GitHub was not connected. That GitHub account is already connected to another Sequential account, or you have another GitHub account connected." | Disconnect the other connection first. |
+| "GitHub was not connected. GitHub did not confirm a verified email address for that account." | Verify the address at the provider, then try again. |
+| "GitHub was not connected. You cancelled at GitHub." | Try again, and allow the access at the provider. |
+| "GitHub was not connected. Enter your two-factor code, then connect it again." | Enter your code, then click Connect again. |
+| "GitHub was not connected. Try again." | Try again. |
+| "This is your last way to sign in. Set a password first, then disconnect it." | Set a password, then disconnect. |
+
+The messages name the provider: GitHub, Google or Microsoft.
+
 ## Security emails
 
 Sequential sends these emails about your account. Look up an email by its subject.
@@ -359,7 +391,7 @@ The limits are there to slow down guessing.
 | Enter a 2FA code, at sign-in or during set-up | 10 a minute |
 | Enter a backup code | 5 a minute |
 | Request a password reset | 5 a minute |
-| Continue with Google or Continue with Microsoft (when it is available), change your password, start 2FA set-up, turn off 2FA, make new backup codes | 3 every 10 seconds |
+| Continue with Google, Continue with GitHub or Continue with Microsoft (when it is available), change your password, start 2FA set-up, turn off 2FA, make new backup codes | 3 every 10 seconds |
 
 Two more limits apply to 2FA codes, per account:
 
@@ -378,7 +410,7 @@ No. If you lose your authenticator app and your backup codes, there is no self-s
 
 ### Which sign-ins ask for the two-factor code?
 
-A sign-in with a password or with an emailed sign-in code. When Google or Microsoft sign-in is available, signing in with Continue with Google or Continue with Microsoft asks for the code too, the same as signing in with a password. A trusted device skips it. Two-factor codes come from authenticator apps only: an emailed sign-in code takes the place of a password, not of a two-factor code.
+A sign-in with a password or with an emailed sign-in code. When Google, GitHub or Microsoft sign-in is available, signing in with Continue with Google, Continue with GitHub or Continue with Microsoft asks for the code too, the same as signing in with a password. A trusted device skips it. Two-factor codes come from authenticator apps only: an emailed sign-in code takes the place of a password, not of a two-factor code.
 
 ### Why does Sequential ask me to sign in again?
 

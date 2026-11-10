@@ -5,7 +5,7 @@
 > **At a glance**
 >
 > - **Before you start:** An inbox at the address you sign up or are invited with. Nothing in your app.
-> - **Know this:** On the hosted service, anyone can [create an account](#create-your-account) with a password or, when available, an emailed code, Google or Microsoft.
+> - **Know this:** On the hosted service, anyone can [create an account](#create-your-account) with a password or, when available, an emailed code, Google, GitHub or Microsoft.
 > - **Know this:** To add a colleague, use [Invite people](#invite-teammates). Each invitation goes to one email address; its link works for 48 hours.
 > - **Who can:** Owners and admins. Members and viewers only while Who may invite is Every member, up to their own role.
 > - **Default:** Who may invite: Every member, up to their own role. Only owners and admins can change it, in Settings › Organisation.
@@ -23,6 +23,7 @@
 | [Emailed code](#emailed-code), when Sequential sends sign-in codes | None | Not needed: the first code creates the account already verified |
 | Password | At least 10 characters | Needed |
 | [Google](#sign-in-with-google), when available | None | — |
+| [GitHub](#sign-in-with-github), when available | None | — |
 | [Microsoft](#sign-in-with-microsoft), when available | None | — |
 
 Variants (tabs on the page; each is written out below): Emailed code · Password
@@ -136,7 +137,7 @@ The sign-up, sign-in, waitlist and invitation pages, the two-factor setup and **
 - `invite_accepted`: the role of an accepted invitation only. Never the organisation, the person who invited you, or your email
 - `feedback_sent`: the number of a feedback item after Sequential accepted it. Never its text. See [Send feedback to the Sequential team](/docs/send-feedback)
 
-These events hold no name, no email and no typed text. An event with any other value is not sent. Sequential records nothing on a claim link, a reset link, an OAuth page or a staff page, or on a page on the way to one of them. It records nothing in a page opened with an email's proof link (`#m=`). Nothing is recorded in the demo, or while Sequential staff view the app as a customer. An email verification, a password reset and, when Google or Microsoft sign-in is available, a Google or Microsoft sign-in send no event from these pages. Sequential's own backend sends them: see **What our own backend records**.
+These events hold no name, no email and no typed text. An event with any other value is not sent. Sequential records nothing on a claim link, a reset link, an OAuth page or a staff page, or on a page on the way to one of them. It records nothing in a page opened with an email's proof link (`#m=`). Nothing is recorded in the demo, or while Sequential staff view the app as a customer. An email verification, a password reset and, when Google, GitHub or Microsoft sign-in is available, a Google, GitHub or Microsoft sign-in send no event from these pages. Sequential's own backend sends them: see **What our own backend records**.
 
 ### What our own backend records
 
@@ -144,7 +145,7 @@ From 18 October 2026, Sequential's own backend also sends product events to Sequ
 
 - `email_verified`: that you verified your email, and how long after sign-up: less than 1 hour, 1 to 24 hours, or more
 - `password_reset_completed`: that you reset your password
-- `signed_in`: that you signed in with Google or Microsoft, when it is available
+- `signed_in`: that you signed in with Google, GitHub or Microsoft, when it is available
 - `agent_tool_called`: the name of the agent tool, the kind of client (Claude Code, Cursor, ChatGPT, claude.ai or other), and MCP or REST. Its person is the person of the token
 - `fix_linked`: the kind of a fix link: pull request, commit or issue. Never its address
 - `release_recorded`: that a release was recorded. Never its version, commit or environment
@@ -178,6 +179,14 @@ If two-factor authentication is on, a Google sign-in asks for a two-factor code,
 | "Sign-up here is by invitation only. Ask a teammate to invite you." | Sign in | Sign-up is invite-only. | — |
 | "This account uses two-factor. Sign in with your code first, then connect the provider." | Sign in | The account has two-factor authentication on, and you have not used Google with it before. | Sign in with your email, your password and your code. |
 | "Sign-in did not complete. Try again." | Sign in | A refusal that Sequential does not know. | — |
+
+## Sign in with GitHub
+
+When GitHub sign-in is available, click **More sign-in options** on the Sign in page, then **Continue with GitHub**. On the Create an account page, Continue with GitHub is also under More sign-in options. Sequential asks GitHub only to read your profile and your email addresses (the scopes read:user and user:email). GitHub must have verified your email address. If it has not, the Sign in page says: "The provider has not verified this email address. Verify it there, or use an emailed code."
+
+GitHub sign-in works in the same way as [Google sign-in](#sign-in-with-google). Your first GitHub sign-in creates your account, so the sign-up mode applies. If two-factor authentication is on, it asks for your code. An account created with GitHub has no password. The limits are the same.
+
+GitHub does not sign you in to an account that you created in another way. To use GitHub with that account, sign in to it, then connect GitHub in **Settings › Security › Sign-in methods**. If you click Continue with GitHub first, the Sign in page says: "An account with this address already exists. Sign in to it another way. Then connect the provider in Settings › Security › Sign-in methods." See [Sign-in methods](/docs/two-factor-and-security#sign-in-methods). You can disconnect GitHub there, but not when it is your only way to sign in.
 
 ## Sign in with Microsoft
 
@@ -415,7 +424,7 @@ On Create an account, a person sees:
 | "Sign-up is busy right now. Try again later today." | — | Over the daily limit of new accounts in total. | — |
 | "Sign-up is not available for a moment. Try again in a minute." | — | Sequential cannot check the limits. | — |
 
-When Google or Microsoft sign-in is available, a refused Continue with Google or Continue with Microsoft, over a limit or when Sequential cannot check the limits, shows the same message on the Sign in page.
+When Google, GitHub or Microsoft sign-in is available, a refused Continue with Google, Continue with GitHub or Continue with Microsoft, over a limit or when Sequential cannot check the limits, shows the same message on the Sign in page.
 
 Join the waitlist:
 
