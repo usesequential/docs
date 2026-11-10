@@ -4,8 +4,10 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 rm -f docs/*.md
-curl -fsS https://www.usesequential.com/llms.txt -o /tmp/sequential-llms.txt
-grep -oE 'https://www\.usesequential\.com/docs/[a-z0-9-]+\.md' /tmp/sequential-llms.txt | sort -u | while read -r u; do
+list=$(mktemp)
+trap 'rm -f "$list"' EXIT
+curl -fsS https://www.usesequential.com/llms.txt -o "$list"
+grep -oE 'https://www\.usesequential\.com/docs/[a-z0-9-]+\.md' "$list" | sort -u | while read -r u; do
   curl -fsS "$u" -o "docs/$(basename "$u")"
 done
 ls docs | wc -l
