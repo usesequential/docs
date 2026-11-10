@@ -55,7 +55,7 @@ Sequential can refuse a code with "That code is not right. Check the time on you
 
 ## Two-factor authentication without a password
 
-From 20 October 2026, an account that you create with an emailed code has no password. An account that you create with Google, when Google sign-in is available, has no password too.
+From 20 October 2026, an account that you create with an emailed code has no password. An account that you create with Google or Microsoft, when it is available, has no password too.
 
 You set up 2FA in the same way, but Sequential does not ask for a password. In place of the password, Sequential checks that you signed in on this device in the last 15 minutes.
 
@@ -359,7 +359,7 @@ The limits are there to slow down guessing.
 | Enter a 2FA code, at sign-in or during set-up | 10 a minute |
 | Enter a backup code | 5 a minute |
 | Request a password reset | 5 a minute |
-| Continue with Google (when Google sign-in is available), change your password, start 2FA set-up, turn off 2FA, make new backup codes | 3 every 10 seconds |
+| Continue with Google or Continue with Microsoft (when it is available), change your password, start 2FA set-up, turn off 2FA, make new backup codes | 3 every 10 seconds |
 
 Two more limits apply to 2FA codes, per account:
 
@@ -378,7 +378,7 @@ No. If you lose your authenticator app and your backup codes, there is no self-s
 
 ### Which sign-ins ask for the two-factor code?
 
-A sign-in with a password or with an emailed sign-in code. When Google sign-in is available, signing in with Continue with Google asks for the code too, the same as signing in with a password. A trusted device skips it. Two-factor codes come from authenticator apps only: an emailed sign-in code takes the place of a password, not of a two-factor code.
+A sign-in with a password or with an emailed sign-in code. When Google or Microsoft sign-in is available, signing in with Continue with Google or Continue with Microsoft asks for the code too, the same as signing in with a password. A trusted device skips it. Two-factor codes come from authenticator apps only: an emailed sign-in code takes the place of a password, not of a two-factor code.
 
 ### Why does Sequential ask me to sign in again?
 

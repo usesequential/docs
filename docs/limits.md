@@ -449,7 +449,7 @@ Limits count per network address, so teammates behind one office network share t
 | Resend the verification email | 3 a minute |
 | Ask for an emailed sign-in code | 3 a minute and 30 an hour |
 | Enter an emailed sign-in code | 3 a minute |
-| Continue with Google (when Google sign-in is available), change your password, set up or disable two-factor authentication, regenerate backup codes | 3 every 10 seconds |
+| Continue with Google or Continue with Microsoft (when it is available), change your password, set up or disable two-factor authentication, regenerate backup codes | 3 every 10 seconds |
 | Join the waitlist | 5 every 10 minutes |
 | Any other sign-in or account action | 100 a minute |
 
@@ -475,7 +475,7 @@ New accounts per day (a UTC day), server defaults:
 - 5 from one network address, 10 for one email domain and 50 in total.
 - An address with a pending invitation skips the network and domain limits, but counts toward the total.
 - Large free-mail domains, such as gmail.com, outlook.com, icloud.com, proton.me, gmx.de and seznam.cz, skip only the domain limit.
-- Only accounts that are actually created count: an email sign-up, a first Continue with Google when Google sign-in is available, a first sign-in with an emailed code, and sign-up from an invitation.
+- Only accounts that are actually created count: an email sign-up, a first Continue with Google or Continue with Microsoft when it is available, a first sign-in with an emailed code, and sign-up from an invitation.
 - Over a limit: 429, with Retry-After until the end of the UTC day. If Sequential cannot check the limits: 503, try again in a minute.
 
 Other sign-in rules:

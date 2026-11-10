@@ -5,7 +5,7 @@
 > **At a glance**
 >
 > - **Before you start:** An inbox at the address you sign up or are invited with. Nothing in your app.
-> - **Know this:** On the hosted service, anyone can [create an account](#create-your-account) with a password or, when available, an emailed code or Google.
+> - **Know this:** On the hosted service, anyone can [create an account](#create-your-account) with a password or, when available, an emailed code, Google or Microsoft.
 > - **Know this:** To add a colleague, use [Invite people](#invite-teammates). Each invitation goes to one email address; its link works for 48 hours.
 > - **Who can:** Owners and admins. Members and viewers only while Who may invite is Every member, up to their own role.
 > - **Default:** Who may invite: Every member, up to their own role. Only owners and admins can change it, in Settings › Organisation.
@@ -23,6 +23,7 @@
 | [Emailed code](#emailed-code), when Sequential sends sign-in codes | None | Not needed: the first code creates the account already verified |
 | Password | At least 10 characters | Needed |
 | [Google](#sign-in-with-google), when available | None | — |
+| [Microsoft](#sign-in-with-microsoft), when available | None | — |
 
 Variants (tabs on the page; each is written out below): Emailed code · Password
 
@@ -135,7 +136,7 @@ The sign-up, sign-in, waitlist and invitation pages, the two-factor setup and **
 - `invite_accepted`: the role of an accepted invitation only. Never the organisation, the person who invited you, or your email
 - `feedback_sent`: the number of a feedback item after Sequential accepted it. Never its text. See [Send feedback to the Sequential team](/docs/send-feedback)
 
-These events hold no name, no email and no typed text. An event with any other value is not sent. Sequential records nothing on a claim link, a reset link, an OAuth page or a staff page, or on a page on the way to one of them. It records nothing in a page opened with an email's proof link (`#m=`). Nothing is recorded in the demo, or while Sequential staff view the app as a customer. An email verification, a password reset and, when Google sign-in is available, a Google sign-in send no event from these pages. Sequential's own backend sends them: see **What our own backend records**.
+These events hold no name, no email and no typed text. An event with any other value is not sent. Sequential records nothing on a claim link, a reset link, an OAuth page or a staff page, or on a page on the way to one of them. It records nothing in a page opened with an email's proof link (`#m=`). Nothing is recorded in the demo, or while Sequential staff view the app as a customer. An email verification, a password reset and, when Google or Microsoft sign-in is available, a Google or Microsoft sign-in send no event from these pages. Sequential's own backend sends them: see **What our own backend records**.
 
 ### What our own backend records
 
@@ -143,7 +144,7 @@ From 18 October 2026, Sequential's own backend also sends product events to Sequ
 
 - `email_verified`: that you verified your email, and how long after sign-up: less than 1 hour, 1 to 24 hours, or more
 - `password_reset_completed`: that you reset your password
-- `signed_in`: that you signed in with Google, when Google sign-in is available
+- `signed_in`: that you signed in with Google or Microsoft, when it is available
 - `agent_tool_called`: the name of the agent tool, the kind of client (Claude Code, Cursor, ChatGPT, claude.ai or other), and MCP or REST. Its person is the person of the token
 - `fix_linked`: the kind of a fix link: pull request, commit or issue. Never its address
 - `release_recorded`: that a release was recorded. Never its version, commit or environment
@@ -177,6 +178,14 @@ If two-factor authentication is on, a Google sign-in asks for a two-factor code,
 | "Sign-up here is by invitation only. Ask a teammate to invite you." | Sign in | Sign-up is invite-only. | — |
 | "This account uses two-factor. Sign in with your code first, then connect the provider." | Sign in | The account has two-factor authentication on, and you have not used Google with it before. | Sign in with your email, your password and your code. |
 | "Sign-in did not complete. Try again." | Sign in | A refusal that Sequential does not know. | — |
+
+## Sign in with Microsoft
+
+When Microsoft sign-in is available, the Sign in page shows Continue with Microsoft. It is for a Microsoft work or school account. A personal Microsoft account, such as an outlook.com or hotmail.com address, cannot sign in. Microsoft then says: "You can't sign in here with a personal account. Use your work or school account instead."
+
+Microsoft sign-in works in the same way as [Google sign-in](#sign-in-with-google). Your first Microsoft sign-in creates your account, so the sign-up mode applies. If two-factor authentication is on, it asks for your code. An account created with Microsoft has no password. The messages are the same, and so are the limits.
+
+Sequential accepts the address only when Microsoft Entra ID confirms it. If it does not, the Sign in page says: "Your Microsoft work account did not confirm your email. Ask your IT admin to turn on the verified email claim (xms_edov) for Sequential, or sign in another way."
 
 ## Invite teammates
 
@@ -406,7 +415,7 @@ On Create an account, a person sees:
 | "Sign-up is busy right now. Try again later today." | — | Over the daily limit of new accounts in total. | — |
 | "Sign-up is not available for a moment. Try again in a minute." | — | Sequential cannot check the limits. | — |
 
-When Google sign-in is available, a refused Continue with Google, over a limit or when Sequential cannot check the limits, shows the same message on the Sign in page.
+When Google or Microsoft sign-in is available, a refused Continue with Google or Continue with Microsoft, over a limit or when Sequential cannot check the limits, shows the same message on the Sign in page.
 
 Join the waitlist:
 

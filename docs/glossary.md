@@ -360,7 +360,7 @@ The hash covers these parts of the questions, in order:
 - The judge was unsure: No signal of the judge fired in these sessions. This is a result, not a failure.
 - Time basis: The sessions that started 2 hours or more after the release count.
 - Try on a session: Every run is a real judgment. To use it, pick a session in its list and click Try it. You see the answers before you save. It uses the daily allowance for Try on a session.
-- Two-factor authentication: Sequential asks for the code when you sign in with a password, or with Google when Google sign-in is available. An organisation can require it of every member.
+- Two-factor authentication: Sequential asks for the code when you sign in with a password, or with Google or Microsoft when it is available. An organisation can require it of every member.
 - Unclear: An unclear answer is a result, not a failure. Sequential keeps "I don't know" apart from "I don't think so" on purpose. From 9 November 2026, on the page of a session, an unclear signal is a reading with Right and Wrong.
 - User: Before your app identifies them, the user id is the anonymous id. After that, it is the value that your app passes. Each user id is one row on People. With the Sequential SDK, PostHog or Mixpanel, an anonymous id that is linked to one identified value is counted in that value's row.
 - User property: It describes the person, not one event. User properties show as Visitor property in the filter bar, and under What your app sent about them on a person's page in People. The Info tab of a session page shows them under Their properties.
