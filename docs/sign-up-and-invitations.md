@@ -157,15 +157,15 @@ An event that your own request in the app caused can carry the session of that b
 
 ## Sign in with Google
 
-When Google sign-in is available, the Sign in page shows Continue with Google. Your first Google sign-in creates your account, so the sign-up mode applies.
+When Google sign-in is available, click **More sign-in options** on the Sign in page, then **Continue with Google**. Your first Google sign-in creates your account, so the sign-up mode applies.
 
 If two-factor authentication is on, a Google sign-in asks for a two-factor code, the same as a password sign-in. Continue with Google does not sign you in to an account that has two-factor authentication on if you have not used Google with that account before.
 
 ### How Google sign-in works in detail
 
-- When Google sign-in is available, Continue with Google sits above the email form.
-- Create an account shows the same button. There, the line under the form covers it.
-- On the Sign in page, under Continue with Google, the page says "By creating an account, you confirm that you act for a business or organisation and accept the Terms. See the Privacy Policy." A new account then goes to onboarding, or to the page of the link that you came from. An existing account goes to that page, or to the Brief.
+- When Google sign-in is available, More sign-in options sits next to Email me a code. Click it to show Continue with Google below them.
+- Create an account shows the same action and button. There, the line under the form covers it.
+- On the Sign in page, under the buttons that More sign-in options shows, the page says "By creating an account, you confirm that you act for a business or organisation and accept the Terms. See the Privacy Policy." A new account then goes to onboarding, or to the page of the link that you came from. An existing account goes to that page, or to the Brief.
 - When Google sign-in is available and you have turned on two-factor authentication, a Google sign-in asks for your code on the same page as a password sign-in. A trusted device skips it.
 - An account created with Google has no password. It can set up two-factor authentication without one, and it can add a password with Set password on Settings › Security. See [Two-factor authentication without a password](/docs/two-factor-and-security#two-factor-authentication-without-a-password).
 - If Sequential refuses a Google sign-in, you return to the Sign in page, which says why. The page keeps the link that you came from, such as an invitation. So after a second try, you still land on that page.
@@ -181,7 +181,7 @@ If two-factor authentication is on, a Google sign-in asks for a two-factor code,
 
 ## Sign in with Microsoft
 
-When Microsoft sign-in is available, the Sign in page shows Continue with Microsoft. It is for a Microsoft work or school account. A personal Microsoft account, such as an outlook.com or hotmail.com address, cannot sign in. Microsoft then says: "You can't sign in here with a personal account. Use your work or school account instead."
+When Microsoft sign-in is available, click **More sign-in options** on the Sign in page, then **Continue with Microsoft**. It is for a Microsoft work or school account. A personal Microsoft account, such as an outlook.com or hotmail.com address, cannot sign in. Microsoft then says: "You can't sign in here with a personal account. Use your work or school account instead."
 
 Microsoft sign-in works in the same way as [Google sign-in](#sign-in-with-google). Your first Microsoft sign-in creates your account, so the sign-up mode applies. If two-factor authentication is on, it asks for your code. An account created with Microsoft has no password. The messages are the same, and so are the limits.
 
