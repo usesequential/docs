@@ -90,7 +90,7 @@ In Settings › Members, owners and admins see an SSO chip on each person who si
 
 On the sign-in page, enter your **Work email**, click **More sign-in options**, then **Continue with SSO**. Under the button, Sequential says: "Your organisation must have set up single sign-on with Sequential." If Work email is empty, Sequential puts the cursor in it and says: "Enter your work email, then continue with SSO." Your browser opens your identity provider, and then comes back to Sequential.
 
-When you type an address at a verified domain, Continue with SSO shows above the form as the main button. You do not need More sign-in options then. The password button then says Sign in with password.
+When you type an address at a verified domain, Continue with SSO shows above the form as the main button. You do not need More sign-in options then. From 11 November 2026, there is one exception: when Settings › Security sends you to sign in with an email code, Continue with SSO stays under More sign-in options. The password button then says Sign in with password.
 
 On the Create an account page, Continue with SSO is also under More sign-in options.
 

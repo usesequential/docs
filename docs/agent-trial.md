@@ -22,7 +22,8 @@ No account is needed to start.
 1. **Create a trial.** Send one call: `POST https://api.usesequential.com/api/agent/provision` with the JSON body `{"owner_email": "<the person's email>", "platform": "web"}`. `platform` is `web`, `ios`, `android` or `react-native`. If you do not have the person's email, ask for it. The answer is 201 with `ingest_key`, `install.snippet` (the code that adds the SDK, with the key in it) and `claim_url`. [What the agent calls](#what-the-agent-calls) and [Errors and what the agent should do](#errors-and-what-the-agent-should-do) give the details.
 2. **Add the snippet.** On a website, use the [Sequential SDK](/docs/sequential). Keep both parts of the snippet: the small inline script and the tag. The inline script keeps calls such as `sequential.identify()` until the SDK loads. The key of a trial works only with the Sequential SDK on a website, and with the PostHog SDK in an iOS, Android or React Native app ([Mobile apps](/docs/mobile)). To keep the PostHog, Mixpanel, Amplitude, Pendo or Smartlook SDK of a website, the person claims the trial first. Then the person copies the key of that source on Settings › Setup ([Install Sequential](/docs/install)).
 3. **Check that events arrive.** Before the claim, a website trial accepts events only from `localhost`. Run the site on your computer and open a few pages in a normal browser, or ask the person to do it. Sequential refuses a browser that runs headless or says that it is a bot, so a check with a headless browser shows nothing. A mobile trial accepts events from any build. Recording starts after the claim.
-4. **Tell the person to claim the trial within 72 hours.** The email "A Sequential project was set up for this address" has the link. Before the claim, the trial accepts at most 100 sessions. The claim stops the localhost rule and the limit of 100 sessions. After the claim, Sequential records mobile apps and judges new sessions.
+4. **Propose questions for this product.** From 11 November 2026, the trial's token can do it. For each tool call, send one JSON-RPC POST to `mcp.url`, with `mcp.token` as the bearer token. Read the questions with `get_rubric`. Send at most 3 changes as one proposal with `propose_rubric`: the whole document and `base_version`. Keep each text short. Do not send `preview_session_id`. The answer has `status: "check_pending"` and `apply_url`. Give the person the `apply_url`. Sequential checks the text after the claim. Then an owner or an admin applies it on the Questions page. If Sequential refuses the call, do not try again with new ids: tell the person.
+5. **Tell the person to claim the trial within 72 hours.** The email "A Sequential project was set up for this address" has the link. Before the claim, the trial accepts at most 100 sessions. The claim stops the localhost rule and the limit of 100 sessions. After the claim, Sequential records mobile apps and judges new sessions.
 
 ### What the agent calls
 
@@ -37,7 +38,7 @@ POST `/api/agent/provision` with a JSON body. It needs no account and no token.
 The answer is 201 with:
 
 - `project_id` and `ingest_key`
-- `mcp.url` and `mcp.token`: the agent's access to the trial over MCP
+- `mcp.url` and `mcp.token`: the agent's access to the trial over MCP. From 11 November 2026, the token has the scopes `sessions:read`, `analytics:read`, `sessions:explore` and `insights:propose`, so it can call `get_rubric` and `propose_rubric`. You can also send a tool's arguments as the JSON body of POST `/api/agent/<tool>`.
 - `claim_url`, `expires_at` and `limits`
 - `install.snippet`: the code that adds the SDK. For `web`, it is the snippet of [Sequential SDK](/docs/sequential) in two parts: a small inline script and the tag. For a mobile platform, it is one line for the PostHog SDK. And `install.docs`: this page
 - `terms_url`: the address of the Sequential [Terms of Service](/terms)
@@ -53,6 +54,8 @@ The answer is 201 with:
 | 403 `trial_origin_locked` | Events from a site that is not local | Run the app on localhost, or claim the trial |
 | 403 `trial_replay_after_claim` | A mobile app sent a recording | Claim the trial |
 | 402 `trial_session_cap` | The trial used its 100 sessions | Claim the trial |
+| 429 `trial_proposal_cap` | The trial has 2 proposals already. Before the claim, a trial keeps at most 2 | Tell the person to claim the trial |
+| 403 `trial_token_no_preview` | The trial's token sent `preview_session_id`. Its token never runs a preview, also after the claim: a preview is a paid AI run that a person starts | Send the proposal without `preview_session_id`. A member can test it on the Questions page |
 | 401 `unknown_ingest_key` | The trial expired. The key stops working within about a minute after expiry. Sequential deletes the trial within the next hour | Set up a new trial |
 
 ## Claim the trial
@@ -88,6 +91,7 @@ No sessions yet? Before the claim, a website trial accepts events only from `loc
 | Sessions | 100 sessions. |
 | Time | 72 hours. Data is kept 7 days. The 7 days also apply after you claim the trial. |
 | AI | No AI. Sequential does not judge the sessions, and the agent tools withhold visitor text as `{"withheld": "not screened"}`. Sequential sends nothing to the judge. |
+| Proposed questions | From 11 November 2026, the agent can propose a change to the questions. Sequential keeps at most 2 proposals. No person sees one until it passes its text check, which runs after the claim. The check runs when an owner, an admin or a member opens the Questions page or clicks Apply. A proposal that passes shows there, under the name "Agent trial". A proposal that fails is closed and never shows, and the audit log has one row. Nothing changes in the questions until an owner or an admin applies the proposal. |
 
 What Sequential keeps from a trial, and for how long: [Privacy at a glance](/docs/privacy-overview#agent-trials).
 
@@ -120,6 +124,8 @@ Result: The card then goes, and the page opens.
 
 ### What waits until you accept the terms
 
+Only a trial that Sequential added when you signed in waits for this click. A claim with the link in the email, or on `/claim`, accepts the terms in the same step.
+
 Until you accept, the app opens no page of the project except Settings. It shows and reads none of the project's data. This applies to every project in the organisation of the trial, also in your other tabs.
 
 - Ask or jump shows no recent picks, cases, people or saved views of the project.
@@ -142,7 +148,7 @@ Until you accept, Sequential does not judge the sessions of the project, and the
 | Message | Where | What it means | What to do |
 |---|---|---|---|
 | "We added the project “<name>”, set up for <your email>. Not yours? Delete it in Settings." | Notice | Sequential added a trial to your account. The name is the text that the agent chose. | Click "Dismiss" to close the notice. |
-| "An agent token can read this project until <date>." | Notice | The notice also says this while the agent's token works. With it is "Revoke it", which opens Settings › Agents & tokens of that project. | — |
+| "An agent token can read this project and propose question changes until <date>." | Notice | The notice also says this while the agent's token works. With it is "Revoke it", which opens Settings › Agents & tokens of that project. | — |
 | "Checking for a trial an agent started for you…" | Onboarding | If you have no organisation yet, onboarding first says this. | — |
 | "An AI agent set up “<name>” for <your email>. Before you see its data, accept the Terms, which include the data processing terms." | Terms card | The card that Sequential shows in place of the page until you accept the terms. It has links to the Terms and to the data processing terms (section 14). The card does not show in Settings. | Click "Accept and continue". |
 

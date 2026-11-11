@@ -67,7 +67,7 @@ You set up 2FA in the same way, but Sequential does not ask for a password. In p
 
    **If you signed in on this device more than 15 minutes ago**
 
-   The section says "Sign in again, then try again: this needs a sign-in from the last 15 minutes." Click **Sign in again**. Sequential signs you out on this device only. Sign in again, for example with a new emailed code, and Sequential takes you back to Security.
+   The section says "Sign in again, then try again: this needs a sign-in from the last 15 minutes." Click **Sign in again**. Sequential signs you out on this device only. Sign in again, for example with a new emailed code, and Sequential takes you back to Security. From 11 November 2026, an account with no password reads instead: "Sign in again with an email code, then try again. A sign-in through a provider or single sign-on does not count here." Its button is **Sign in with an email code**. It signs you out and opens the sign-in page with your address filled in. The sign-in page then says: "To make this change, sign in with an email code: use "Email me a code". A sign-in through a provider or single sign-on does not count."
 
 3. Scan the QR code, save your backup codes, and enter the code from your app, as in [Set up two-factor authentication](#set-up-two-factor-authentication).
 
@@ -85,7 +85,7 @@ From 8 November 2026, the section says "This account has no password: add one to
 
    If 2FA is on, Sequential first asks for a code from your app or a backup code. Enter it and click **Continue**.
 
-   If 2FA is off and you signed in on this device more than 15 minutes ago, the section says "Sign in again, then try again: this needs a sign-in from the last 15 minutes."
+   If 2FA is off and you signed in on this device more than 15 minutes ago, the section says "Sign in again, then try again: this needs a sign-in from the last 15 minutes." From 11 November 2026, an account with no password reads "Sign in again with an email code, then try again. A sign-in through a provider or single sign-on does not count here.", with the button **Sign in with an email code**.
 
 Result: The page says "Password set.", and Sequential sends the email "A password was added to your Sequential account". After that, the section is the usual Password section.
 

@@ -267,7 +267,7 @@ Result: After Apply, a message says, for example, "Applied. The judge asks the n
 
 ### For agents: reading and proposing questions
 
-The agent reads the questions with `get_rubric`. Then it calls `propose_rubric` with the whole new set of questions and the version that it read. It can also propose to go back to a version of the history. It can ask for a test on one session.
+The agent reads the questions with `get_rubric`. Then it calls `propose_rubric` with the whole new set of questions and the version that it read. It can also propose to go back to a version of the history. It can ask for a test on one session. The answer has `status` `proposed`. From 11 November 2026, a proposal from the token of an unclaimed [agent trial](/docs/agent-trial) has `status` `check_pending`: no person sees it until it passes its text check after the claim. That token cannot ask for a test.
 
 From 29 October 2026, if `get_rubric` withheld a text, the agent can send the withheld value back unchanged at the same place. Sequential then keeps the text that the questions have at that place, and the agent never sees it. Sequential refuses a withheld value at a place that has no text, for example in a new question.
 
