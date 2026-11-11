@@ -158,7 +158,7 @@ When you invite a teammate with Invite people in the rail, the dialog shows a se
 | Owner | "An owner can do everything an admin can, and also delete the organisation." |
 | Admin | It says that an admin can do everything a member can. An admin can also hand fixes to agents and approve their hand-offs, change roles, remove teammates, and change project settings and keys. |
 | Member | "A member can do everything a viewer can, and also accept or dismiss findings and record changes." |
-| Viewer | "A viewer can see every case, recording and chart, use Ask, copy a case’s brief (which marks it handed off) and check the judge’s readings (Right or Wrong)." From 11 November 2026, a viewer cannot start a new Ask, only read answers already given. |
+| Viewer | "A viewer can see every case, recording and chart, use Ask (the judge’s answers: those already asked), copy a case’s brief (which marks it handed off) and check the judge’s readings (Right or Wrong)." |
 
 Settings › Members also has What each role can do: a sentence for each role, and Every permission, role by role under it. Sequential reads both from the backend.
 
