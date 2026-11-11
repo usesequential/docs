@@ -317,7 +317,7 @@ The reset link carries a secret in its address. From 11 October 2026, Sequential
 
 ## Sign-in methods
 
-Connect Google, GitHub or Microsoft to your account to sign in with it. Go to **Settings › Security › Sign-in methods**. Sequential shows this section only when Google, GitHub or Microsoft sign-in is available. The page says: "Connect a provider to sign in with it. The address of the provider account must be the address of your Sequential account."
+Connect Google, GitHub or Microsoft to your account to sign in with it. Go to **Settings › Security › Sign-in methods**. Sequential shows this section only when Google, GitHub or Microsoft sign-in is available. The page says: "Connect a provider to sign in with it." The provider account must have the address of your Sequential account.
 
 1. Click **Connect GitHub**, **Connect Google** or **Connect Microsoft**. If two-factor authentication is on, Sequential can ask for your code first.
 2. Sign in to the provider. It sends you back to Sequential.

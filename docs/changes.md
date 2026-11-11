@@ -98,7 +98,7 @@ From 10 November 2026, an owner or an admin can retract a release, or correct it
 - A retracted release is left out of every list of releases, and nothing is measured against it. Its page says "Release 2.4.0 is retracted." and when a person retracted it.
 - An access token or an agent connection cannot record a retracted version again, from an agent or from your CI. Sequential refuses with "A person retracted this release."
 - Record it again, on the page of a retracted release, records it again at the time that you give. It then names no case: name it in this release from each case's page. If you open the page again later, the release is recorded again without its title, notes and change list, and the page says so.
-- Correct the time: "Record this release again with the right time and commit. Its words and the cases it names stay." When an agent's post replaced an earlier time, the form shows the time and commit from before it, after "Before the agent’s post:".
+- Correct the time: "Record this release again with the right time and commit. Its words and the cases it names stay." From 11 November 2026, when the time moves by 1 second or more, Sequential measures the cases that the release names again from the new time: the before window, the after window and the result, also a result that was final. After your correction, Sequential starts to measure them at once. A change of the commit alone measures nothing again. You cannot move the time to before an open case that the release names opened. Sequential says, for example: "This release came before F-12 opened, so it cannot hold the fix." When an agent's post replaced an earlier time, the form shows the time and commit from before it, after "Before the agent’s post:".
 
 ## Confirm proposals
 

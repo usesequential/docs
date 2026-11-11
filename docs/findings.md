@@ -593,6 +593,7 @@ The sentences say what the rate did, for example "Before fe@2: 12 of 300 (4%) se
 - Otherwise it uses the time basis.
 - Once a measurement is on the release basis, it stays on it.
 - Until the result is final, a measurement on the time basis moves to the release basis once your events carry the release name.
+- From 11 November 2026, when the time of a release moves by 1 second or more, Sequential measures the cases that it names again from the new time, also a result that was final. This happens when a person corrects the time on the release page, and when your CI or an agent records the same version again with another time. A post without a time records the time of the request, so a CI job that records the same version again without a time moves the time too. After a correction on the release page, Sequential starts to measure at once. After a post from CI or an agent, it measures in its next hourly check. See [Changes](/docs/changes).
 
 ### How many sessions are needed
 
