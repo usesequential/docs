@@ -64,7 +64,7 @@ When you answer:
 
 ## Judge a recording now
 
-The judge's reading, on the full page of a session, has the button Judge this recording now. When the page already shows a reading, the button says Judge again. It asks the judge for a reading now, with your current questions.
+The judge's reading, on the full page of a session, has the button Judge this recording now. When the page already shows a reading, the button says Judge again. It asks the judge for a reading now, with your current questions. From 11 November 2026, a viewer reads a judgement already made, but cannot start a new one: "Judging a recording needs a member role or higher; a viewer can read judgements already made."
 
 The new reading replaces the stored reading on this page until you leave the page. Evidence, the lists and the stored judgment keep the stored reading.
 

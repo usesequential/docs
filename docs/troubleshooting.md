@@ -405,7 +405,7 @@ Did the fix work? on a case shows what the rate did after a release. See [Cases 
 
 | Message | Likely cause | What to do |
 |---|---|---|
-| "No release names F-12 yet. Sequential measures a fix once a release names it." | No release marker for the project's environment names the case. Sequential measures only markers for the project's environment. | Name the case in `finding_ids` of the marker. Check the `environment` that your CI job sends. |
+| "No release names F-12 yet. Sequential measures a fix once a release names it." | No release marker for the project's environment names the case. Sequential measures only markers for the project's environment. | Name the case in `finding_ids` of the marker. Check the `environment` that your CI job sends. An owner or an admin can also click **The fix is live** on the case page. See [Record that the fix is live](/docs/findings#record-that-the-fix-is-live). |
 | "Sequential could not check the releases just now." | Sequential could not read the release markers. It does not mean that no release named the case. | Reload the page. |
 
 ## People and accounts

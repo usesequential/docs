@@ -73,7 +73,7 @@ Each change has:
 | Outside world | `holiday`, `competitor`, `store`, `search`, `season` | note | Everyone |
 | Tracking | `sdk`, `recording_policy`, `event_rename`, `tracking_plan` | minor | Everyone |
 
-Releases that you send with `record_release`, `POST /api/releases` or the CLI also show as changes of the kind Release. You do not have to record them again. A release has no change id, so you cannot edit or retract it. On the Changes page, a release opens its release page.
+Releases that you send with `record_release`, `POST /api/releases` or the CLI also show as changes of the kind Release, and so does a release from The fix is live on a case page. You do not have to record them again. A change of the kind Release that you record here names no case. The form says: "This puts a release on the timeline. It names no case. To measure a fix, an owner or admin uses “The fix is live” on the case's page." A release has no change id, so you cannot edit or retract it. On the Changes page, a release opens its release page.
 
 ### How a release shows on the Changes page
 

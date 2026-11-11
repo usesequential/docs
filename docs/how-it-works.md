@@ -139,7 +139,7 @@ Each case moves along five steps: New, Handed off, Fix linked, Shipped, Measured
 
 2. Under **Fix**, paste the URL of the pull request, commit or issue. Click **Link**.
 
-3. Name the case in the release that ships the fix. Then Sequential measures it.
+3. Name the case in the release that ships the fix. An owner or an admin can also click **The fix is live** on the case. Then Sequential measures it. See [Record that the fix is live](/docs/findings#record-that-the-fix-is-live).
 
 - Sequential counts the sessions with an event on the case's page, and from 4 November 2026 also the sessions that hit the problem in that window. Of these, it counts the sessions that hit the problem.
 - The before window is up to 14 days before the release. Sequential counts it once and keeps it.

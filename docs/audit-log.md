@@ -335,7 +335,7 @@ Account
 | `auth.passkey_added` | A teammate adds a passkey | "added a passkey" |
 | `auth.passkey_deleted` | A teammate removes a passkey | "removed a passkey" |
 | `auth.account_link_started` | A teammate starts to link a Google or GitHub account | "started linking a GitHub account" |
-| `auth.account_linked` | The provider completes the link. The entry has no organisation, so no organisation's log shows it | "linked a GitHub account for signing in" |
+| `auth.account_linked` | The provider completes the link. The entry has no organisation, so no organisation's log shows it. From 11 November 2026, for GitHub, it also has `login`, the GitHub login | "linked a GitHub account for signing in" |
 | `auth.account_unlinked` | A teammate unlinks an account that they sign in with | "unlinked an account they signed in with" |
 | `auth.sign_out` | A teammate signs out | "signed out" |
 | `auth.session_revoked` | A teammate signs out one of their sessions | "signed out one of their devices" |

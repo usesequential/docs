@@ -5,7 +5,7 @@
 > **Key facts**
 >
 > - No per-project or custom roles. To limit a teammate to some projects, put those projects in another organisation; see [Limits](#limits).
-> - A viewer is not read-only: they can use Ask, Judge this recording now, Copy brief and check the judge.
+> - A viewer is not read-only: they can use Copy brief and check the judge. From 11 November 2026, a viewer reads the answers that Ask, Judge this recording now and judging steps in words already gave, but cannot start a new one.
 > - The Ask and Judge this recording now allowances are per project: one teammate can use all the team's daily allowance.
 > - You cannot suspend a teammate. To end their access, remove them.
 > - Removal or a lower role can end claude.ai connections and stop project access tokens (`sq_pat_…`); leaving can stop tokens too.
@@ -57,6 +57,7 @@ Cases:
 | From 5 November 2026: turn Let agents dismiss cases on or off | ✓ | ✓ | — | — |
 | Hand a case to an agent (Hand to an agent or Copy brief for an agent), and approve or decline an agent's request (Approve hand-off, Decline) | ✓ | ✓ | — | — |
 | Copy a new case's brief with Copy brief. This marks the case as handed off | ✓ | ✓ | ✓ | ✓ |
+| From 11 November 2026: record that a fix is live, on the case page (The fix is live) | ✓ | ✓ | — | — |
 
 Changes:
 
@@ -145,6 +146,7 @@ Own invitations: only the invitations that they sent. Cancel invitation… works
 | You want to move an app to a new ingest key and turn off the old key. | You need Admin or Owner to rotate the key. |
 | Your support lead wants to add a question to the project's questions. | They need Admin or Owner. |
 | A CI job must mark releases. | An owner or an admin creates a project access token (`sq_pat_…`) with the `releases:write` scope. |
+| You have no CI job, and a fix is live. | From 11 November 2026, an owner or an admin clicks The fix is live on the case page. |
 | An agent must record releases. | From 10 November 2026, an owner, an admin or a member connects it through claude.ai or ChatGPT with "Also: it records releases" ticked. |
 
 ### Role descriptions in the app
@@ -156,7 +158,7 @@ When you invite a teammate with Invite people in the rail, the dialog shows a se
 | Owner | "An owner can do everything an admin can, and also delete the organisation." |
 | Admin | It says that an admin can do everything a member can. An admin can also hand fixes to agents and approve their hand-offs, change roles, remove teammates, and change project settings and keys. |
 | Member | "A member can do everything a viewer can, and also accept or dismiss findings and record changes." |
-| Viewer | "A viewer can see every case, recording and chart, use Ask, copy a case’s brief (which marks it handed off) and check the judge’s readings (Right or Wrong)." |
+| Viewer | "A viewer can see every case, recording and chart, use Ask, copy a case’s brief (which marks it handed off) and check the judge’s readings (Right or Wrong)." From 11 November 2026, a viewer cannot start a new Ask, only read answers already given. |
 
 Settings › Members also has What each role can do: a sentence for each role, and Every permission, role by role under it. Sequential reads both from the backend.
 
@@ -273,7 +275,7 @@ An owner or an admin can invite you again. While Who may invite is Every member,
 More about the rules in Agents and tokens when a role changes:
 
 - A token depends on its creator. From 20 October 2026, a token stops working 7 days after its creator loses access, unless an owner or admin adopts it. See [Limits and defaults](/docs/limits).
-- The mark. From 20 October 2026, Sequential marks the token. Its `exports:write` and `changes:read_sensitive` stop at once. If it can write organisation-wide changes, that stops at once too. The owners and admins get an email. See [Limits and defaults](/docs/limits).
+- The mark. From 20 October 2026, Sequential marks the token. Its `exports:write` and `changes:read_sensitive` stop at once, and from 11 November 2026 also its `ask:use`. If it can write organisation-wide changes, that stops at once too. The owners and admins get an email. See [Limits and defaults](/docs/limits).
 - A token with `exports:write` exports only while the teammate who created it is an owner or admin. Sequential checks this at each export call. If that teammate is now a member or viewer, or left the organisation, the call gets 403 `export_creator_not_admin`.
 - The exports that a token with `exports:write` already made stay, and the other owners and admins can still download them. To export with a token again, an owner or admin creates a new token. See [Export your data](/docs/export-your-data#use-the-api-with-an-access-token).
 - When an admin or a member becomes a viewer, Sequential ends each claude.ai connection that they made in this organisation and that has `ask:use`, `findings:link`, `insights:propose`, `changes:propose`, `changes:read_sensitive` or, from 10 November 2026, `releases:write`. Read and investigate has `ask:use`. See [Connect claude.ai](/docs/connect-claude-ai). For `changes:read_sensitive`, see [Who sees a change](/docs/changes#who-can-see-and-do-what).
@@ -332,7 +334,13 @@ Only owners and admins can switch background judging off or on, with Judge new s
 
 ### Which allowance does a viewer use?
 
-Every role, viewer included, can use Ask and Judge this recording now. Ask uses the project's daily Ask allowance. See [Ask](/docs/ask).
+Owners, admins and members can use Ask and Judge this recording now. Ask uses the project's daily Ask allowance. See [Ask](/docs/ask).
+
+From 11 November 2026, a viewer reads the answers already given, but cannot start a new one. Staff who view as a customer cannot start one either. Sequential refuses a new answer with 403 `ai_use_required` and one of these sentences:
+
+- Asking about sessions needs a member role or higher; a viewer can read answers already asked.
+- Judging a recording needs a member role or higher; a viewer can read judgements already made.
+- Judging steps in words needs a member role or higher; a viewer can read the steps already judged.
 
 Judge this recording now uses the project's daily allowance for judging on demand, apart from the allowances of Ask and background judging. See [Reading an AI verdict](/docs/reading-verdicts).
 

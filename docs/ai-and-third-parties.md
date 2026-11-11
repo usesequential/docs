@@ -85,8 +85,8 @@ With Sequential's own SDK, every script your pages load comes from Sequential, n
 
 | Feature | Roles that can use it |
 |---|---|
-| Ask | Owner, Admin, Member, Viewer |
-| **Judge this recording now** | Owner, Admin, Member, Viewer |
+| Ask | Owner, Admin, Member. From 11 November 2026, a viewer reads answers already given |
+| **Judge this recording now** | Owner, Admin, Member. From 11 November 2026, a viewer reads judgements already made |
 | **Try it** | Owner, Admin |
 | Ask from an agent (`ask_sessions`) | An agent with a token that has the scope `ask:use`. Only owners and admins create tokens |
 

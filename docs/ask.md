@@ -4,7 +4,7 @@
 
 > **At a glance**
 >
-> - **Who can:** [Any project role](/docs/roles-and-permissions). Viewers can also run Ask. An agent needs the scope `ask:use` ([Ask from an agent](#ask-from-an-agent)).
+> - **Who can:** Owners, admins and members ([Roles and permissions](/docs/roles-and-permissions)). From 11 November 2026, a viewer reads answers already given, but cannot start a new Ask: "Asking about sessions needs a member role or higher; a viewer can read answers already asked." An agent needs the scope `ask:use` ([Ask from an agent](#ask-from-an-agent)).
 > - **Before you start:** Session ids, [readable events](#what-it-needs) and, to watch a match, a recording. For a description, judging set up on your Sequential server.
 > - **You get:** For a description: the likely matches among up to 200 sessions of the last 7 days that the judge reads, surest first.
 > - **Know this:** A description finds sessions. It does not count them. For "how many", type a funnel line, or use [Funnels](/docs/funnels).

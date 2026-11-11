@@ -317,12 +317,14 @@ The reset link carries a secret in its address. From 11 October 2026, Sequential
 
 ## Sign-in methods
 
-Connect Google, GitHub or Microsoft to your account to sign in with it. Go to **Settings › Security › Sign-in methods**. Sequential shows this section only when Google, GitHub or Microsoft sign-in is available. The page says: "Connect a provider to sign in with it." The provider account must have the address of your Sequential account.
+Connect Google, GitHub or Microsoft to your account to sign in with it. Go to **Settings › Security › Sign-in methods**. Sequential shows this section only when Google, GitHub or Microsoft sign-in is available. The page says: "Connect a provider to sign in with it. The provider account can have a different email address from your Sequential account. Sequential sends a mail to your address each time a provider is connected." This is so from 11 November 2026. The provider must say that its address is verified. The address of your Sequential account does not change. A sign-in with Google or Microsoft connects only an account with your own address. GitHub connects only from this page.
 
-1. Click **Connect GitHub**, **Connect Google** or **Connect Microsoft**. If two-factor authentication is on, Sequential can ask for your code first.
+1. Click **Connect GitHub**, **Connect Google** or **Connect Microsoft**. If two-factor authentication is on, Sequential can ask for your code first. If it is off, you must have signed in on this browser with your password or an email code in the last 5 minutes. Else the page says, for example: "To connect GitHub, sign in again with your password or an email code. Then connect GitHub in the next 5 minutes." Click **Sign in again**. Sequential signs you out. After you sign in, it opens Sign-in methods again.
 2. Sign in to the provider. It sends you back to Sequential.
 
 The page then says, for example: "GitHub is connected. You can sign in with it." The row shows Connected and the date. A provider that is not connected shows Not connected.
+
+From 11 November 2026, Sequential then sends an email to the address of your Sequential account, for example "A GitHub account was connected to your Sequential account". See [Security emails](#security-emails).
 
 ### Disconnect a provider
 
@@ -337,7 +339,6 @@ If a provider is your only way to sign in, the row has no Disconnect…. It says
 
 | Message | What to do |
 |---|---|
-| "GitHub was not connected. Its address is not the address of your Sequential account." | Use a provider account with the address of your Sequential account. |
 | "GitHub was not connected. That GitHub account is already connected to another Sequential account, or you have another GitHub account connected." | Disconnect the other connection first. |
 | "GitHub was not connected. GitHub did not confirm a verified email address for that account." | Verify the address at the provider, then try again. |
 | "GitHub was not connected. You cancelled at GitHub." | Try again, and allow the access at the provider. |
@@ -360,6 +361,7 @@ Sequential sends these emails about your account. Look up an email by its subjec
 | "New sign-in to your Sequential account" | Email | From 23 October 2026, a sign-in from a browser that has not signed in to your account before is complete. | If it was not you, reset your password, then on Security sign out of every other device. |
 | "Your password was used on a new device" | Email | Someone entered your password in a browser that has not signed in to your account before, and did not finish two-factor authentication within 10 minutes. Your second factor stopped them. | If it was not you, change your password. |
 | "A password was added to your Sequential account" | Email | A password was set on Security. See [Add a password](#add-a-password). | — |
+| "A GitHub account was connected to your Sequential account" | Email | From 11 November 2026, Sequential sends it each time a provider is connected to your account: when someone clicks Connect, and when a Google or Microsoft sign-in connects an account with your own address. For GitHub, the email names the GitHub login. Single sign-on and a new sign-up send no such email. | If this was not you, remove it in Settings › Security › Sign-in methods and change your password. Then contact support. |
 | "Reset your Sequential password" | Email | The link to choose a new password. The link is valid for one hour. | See [Reset your password](#reset-your-password). |
 | "<organisation> asks you to turn on two-factor authentication" | Email | A reminder from an owner or admin of your organisation to turn on 2FA. It links to Settings › Security. | See [Set up two-factor authentication](#set-up-two-factor-authentication). |
 

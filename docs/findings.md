@@ -30,11 +30,11 @@ Use Cases to follow a problem from the first time Sequential counts it to the re
 
 4. Click **Link**.
 
-5. Record a release marker for each release. Name the case in it, for example `"finding_ids": ["F-12"]`, or with a `Sequential-Finding: F-12` trailer that `sequential-release` reads.
+5. Record a release marker for each release. Name the case in it, for example `"finding_ids": ["F-12"]`, or with a `Sequential-Finding: F-12` trailer that `sequential-release` reads. From 11 November 2026, an owner or an admin can also click **The fix is live** on the case page. See [Record that the fix is live](#record-that-the-fix-is-live).
 
 Result: About once an hour, Sequential compares the sessions before the release with the sessions after it. After the release, the Did the fix work? card on the case shows what the rate did. It never says why.
 
-Sequential measures only markers for the project's own environment. As the version, use the same name that your browser SDK sends as its release. See [Mark a release](#mark-a-release).
+Sequential measures only markers for the project's own environment. As the version, use the same name that your browser SDK sends as its release. See [Mark a release](#mark-a-release). A release from The fix is live has a name of its own, so Sequential measures it by time, unless your browser events carry that name.
 
 For noise, [dismiss the case](#confirm-or-dismiss-a-case) or mute cases like it. A muted case still counts. Sequential deletes nothing.
 
@@ -78,7 +78,7 @@ On a project where detection is paused, the line under the title says so. See [H
 ### The Cases list in detail
 
 - From 4 November 2026, there is also Muted, while a mute rule mutes a case.
-- From 1 November 2026, the id of a case, such as F-12, is a button in the list, on the board and on the case page. Click it to copy the id. It does not open the case. The button then reads "Copied" for 2 seconds. If the browser refuses the copy, it says "Could not copy. Select F-12 and copy it." In the list and on the board, a hint shows when you point to the id or move the keyboard focus to it: "Name F-12 in the release that ships the fix, when you or your agent record it. Then Sequential measures the fix." Press Esc to hide it. On the case page, this line shows under the summary of the case. See [Mark a release](#mark-a-release).
+- From 1 November 2026, the id of a case, such as F-12, is a button in the list, on the board and on the case page. Click it to copy the id. It does not open the case. The button then reads "Copied" for 2 seconds. If the browser refuses the copy, it says "Could not copy. Select F-12 and copy it." In the list and on the board, a hint shows when you point to the id or move the keyboard focus to it: "Name F-12 in the release that ships the fix. Your release step, your agent, or an owner or admin on the case page can record it. Then Sequential measures the fix." Press Esc to hide it. On the case page, this line shows under the summary of the case. See [Mark a release](#mark-a-release).
 - The line under the title counts the open cases, for example "12 open, 3 of them new. 1 has gone quiet." Under the tabs, one line says how the list is sorted, then the rule, for example: "Sorted by impact: people reached, weighted by the share who gave up. Cases open at 3 sessions from 2 people in 7 days, or at once on a failed request or an error in your own code." While detection is paused, the line gives only the order. On the board, it gives only the rule.
 - Cases that happen now come first. Quiet cases come after them. Fixed and dismissed cases come last. Inside each group, Sort sets the order: Impact (the default: the people reached, weighted by the share who gave up), People (the most people first), Sessions (the most sessions first, also sessions with no person id) or Newest (the newest case first). A tie goes to the case seen latest. With People or Sessions, each row shows that number darker. The order is in the address, for example `?sort=people`, so you can share it. From 3 November 2026, this browser remembers the order that you chose, for each project, and Cases opens in it the next time. A link with `?sort=` opens in its own order. With nothing remembered, or in a browser that keeps no site data, such as a private window, Cases opens at Impact. To go back to Impact, choose it in Sort. Your teammates and your other browsers keep their own order. When you come back to Cases in the same tab within 10 minutes, the last list shows at once, with its tab, its filter and its scroll, and "Updating…" shows next to the tabs while Sequential reads the list again. The board always uses Impact.
 - From 3 November 2026, cases of one pattern show as one row in the list when 2 or more of them have the same standing: live, quiet, fixed or dismissed. Click the row to see its cases. A group only shows the cases together: each case keeps its number, its stage, its fix and its measuring. The patterns are:
@@ -272,7 +272,7 @@ To hand cases to a coding agent:
 - From 15 October 2026, when an open case had no occurrence in the last 7 days, the brief says "Not seen since" the last time, "(more than 7 days). Check that it still happens before you change code." Its definition of done then says that zero occurrences after a change do not show a fix. For an agent, `list_findings` and `get_finding` give `quiet_since`: the last occurrence of such a case. For any other case, `quiet_since` is `null`.
 - From 9 October 2026, the brief has a Steps before it happened section. It shows the last steps before the case in up to 2 sample sessions, sessions with a recording first, and up to 6 steps for each: the pages that the person opened, as route templates, the clicks and the form submits, the names of custom events and the errors. In the copy that a token, an agent, a webhook or a hand-off gets, a click or a form step reads "(element text withheld)", and a click case says "Element text: withheld" and masks the selector. From 2 November 2026, a click step and a click case quote the label when it is made only of common interface words, and the selector keeps its class names and ids that are made only of such words, such as `.add-to-cart`. From 11 October 2026, the brief that you copy in the app is the same copy. The text of each step is in its own quoted block, up to 60 characters, redacted and screened like every quote. The section quotes at most 1,200 bytes in all. It never shows the properties of custom events. When a session has a recording, the section links to the replay at that moment. The link contains the session id, only when the id has 8 to 64 letters, digits and hyphens.
 - The brief tells an agent to call `link_fix` only when the agent's token can call it.
-- From 9 November 2026, the brief ends with a Report section, the one instruction for the end of a fix. It tells the agent to name the case: "Fixes F-12" in the pull request description, and the trailer `Sequential-Finding: F-12` on the fix commit. Then it says who records the release that ships the fix. When a token recorded a release of the project's environment in the last 30 days, it says "Your release step records releases: do not call record_release." Else it tells the agent that Sequential measures the fix only after a release that names the case is recorded, and to tell you that a release step (CI or the Sequential CLI) can record it. From 10 November 2026, it also names an agent connected with "Also: it records releases" ticked. An agent that can record releases is told how to record it.
+- From 9 November 2026, the brief ends with a Report section, the one instruction for the end of a fix. It tells the agent to name the case: "Fixes F-12" in the pull request description, and the trailer `Sequential-Finding: F-12` on the fix commit. Then it says who records the release that ships the fix. When a token recorded a release of the project's environment in the last 30 days, it says "Your release step records releases: do not call record_release." Else it tells the agent that Sequential measures the fix only after a release that names the case is recorded, and to tell you that a release step (CI or the Sequential CLI) can record it. From 10 November 2026, it also names an agent connected with "Also: it records releases" ticked. From 11 November 2026 (brief@17), it also names an owner or an admin with "The fix is live" on the case's page. An agent that can record releases is told how to record it.
 - The first lines of the brief give its screening state. If they say "screen paused, N quoted passages withheld", each quoted passage reads `[instruction-like text removed]`. Sequential could not check its allowance. Open the case again later and copy the brief again.
 
 ### Hand to an agent
@@ -304,7 +304,7 @@ From 2 November 2026, a bar under the header of Cases gives you a prompt for you
 - If you have no connection yet, the panel says "No agent connected yet? Connect your agent in Agents."
 - If the copy fails, the panel opens so that you can select the prompt and copy it.
 
-The pull request alone does not measure the fix. Sequential measures a release that names the case. See [Releases from GitHub: changes and case ids](#releases-from-github-changes-and-case-ids).
+The pull request alone does not measure the fix. Sequential measures a release that names the case. See [Releases from GitHub: changes and case ids](#releases-from-github-changes-and-case-ids). An owner or an admin can also record the release on the case page. See [Record that the fix is live](#record-that-the-fix-is-live).
 
 ### What counts as a handoff
 
@@ -376,9 +376,51 @@ The form shows only on an open case.
 - Adding the same address again changes nothing. The first link stays, with its first author.
 - Sequential stores and shows a link. The server never opens the address. In the app, you can click the link to open it in a new tab.
 
+## Record that the fix is live
+
+From 11 November 2026, an owner or an admin can say on the case page when a fix went live. Sequential then records a release that names the case, and measures the case as for any release. You need no CI job, no token and no agent.
+
+1. Open the case. In the decision card, click **The fix is live**.
+
+   Result: The button shows at New, Handed off and Fix linked. After Improved, No change, Worse, Regressed or Not measured, it says **A new fix is live**.
+
+2. In **Live since (your local time)**, give the date and time when the fix went live for your users. The form starts with the current minute.
+
+3. Optional: click **Change the name**, then type a **Release name**: "1 to 64 letters, digits or signs, no spaces." Without a name, the release gets a name from the time, for example `fix-2026-11-11-1432`. The form shows it after "Recorded as release".
+
+4. Click **Record**.
+
+   Result: For example: "Recorded. Release fix-2026-11-11-1432 names this case. Sequential measures it from 2 hours after that time."
+
+- The form says: "Sequential compares the sessions in the 14 days before this time with the sessions that start 2 hours or more after it, for up to 28 days." For a case from your server, it says: "Sequential compares how often your server reported it in the 14 days before this time with the days from 2 hours after it. It needs at least 7 days, and your server must keep sending events."
+- When no browser event carries that name, Sequential measures by time. Then the card says: "Counting the sessions that started 2 hours or more after the fix went live. Nothing to do until it has enough traffic." See [Release basis and time basis](#release-basis-and-time-basis).
+- At Fix linked, an owner or an admin reads: "A fix is linked. When it is live for your users, say so, and Sequential measures it." A member or a viewer reads: "An owner or admin can record that the fix is live." They have no button.
+- The button does not show in the demo, for staff who view as a customer, on a case that is not open, or while an agent asks to take the case.
+- The form never changes a release that is recorded. To name the case in a recorded release, use Name a release on the case page. See [Mark a release](#mark-a-release).
+- If you record the same name at the same minute for a second case, the form names that case in the same release.
+
+### Messages of The fix is live
+
+| Message | Where | What it means | What to do |
+|---|---|---|---|
+| "Give the date and time the fix went live." | The fix is live | Live since is empty, or not a date and time. | — |
+| "That time does not exist on that day." | The fix is live | The clock skips that time on that day, for example when summer time starts. Give another time. | — |
+| "The time is later than now." | The fix is live | Give a time that is not in the future. | — |
+| "This time is before the case opened, so it cannot be the fix." | The fix is live | Give a time after the case opened. | — |
+| "Release 2.4.0 (…) already names this case and is not earlier. Sequential measures against the latest release." | The fix is live | A release at this time or later names the case. Give a later time. | — |
+| "A release name is 1 to 64 letters, digits or signs, with no spaces." | The fix is live | Change the name. | — |
+| "Release 2.4.0 exists already, recorded for …. Name this case in it under “Name a release”, or change the name." | The fix is live | A release with this name is recorded at another time. The form does not change it. | — |
+| "Release 2.4.0 was retracted. Record it again on its page, or change the name." | The fix is live | A person retracted a release with this name. “its page” links to the release page. | — |
+| "Sequential reads this time as in the future. Check the clock of this computer." | The fix is live | Sequential refused the time. The clock of your computer is likely wrong. | — |
+| "The releases could not be read." | The fix is live | Sequential could not read the releases that name the case, so the form sends nothing. Click Try again. | — |
+| "Release 2.4.0 is recorded. This case is not named in it yet." | The fix is live | The release is recorded, but naming the case failed. Click **Name this case in it**. Close keeps the release. | — |
+| "It last happened on …, more than 14 days before this time. Sequential compares the 14 days before the time, so it would probably have nothing to compare. Give the time the fix went live." | The fix is live | A warning: the result would likely be Not measured. The button then says **Record anyway**. | — |
+| "It happened again after this time (last on …). Sequential counts that against the fix." | The fix is live | A note. Record still works. | — |
+| "The 28 days after this time are over. Sequential gives its answer at once and counts no later session." | The fix is live | A note. Record still works. | — |
+
 ## Mark a release
 
-A release marker tells Sequential that you shipped a version, and which cases it is for.
+A release marker tells Sequential that you shipped a version, and which cases it is for. From 11 November 2026, an owner or an admin can also record one on the case page, with no token. See [Record that the fix is live](#record-that-the-fix-is-live).
 
 Record the marker with POST `/api/releases`. Name the cases in `finding_ids`, for example `["F-12"]`. The token needs the `releases:write` scope, for example a project access token (`sq_pat_…`) with that scope. An agent can use the `record_release` tool. From 10 November 2026, an agent connected through claude.ai or ChatGPT can use it too, when an owner, an admin or a member ticked "Also: it records releases" for it. See [Connect claude.ai](/docs/connect-claude-ai#the-consent-page).
 
@@ -426,7 +468,7 @@ For one repository with several projects, write the project key before the numbe
 
 ### Name a case in a release on its page
 
-From 9 November 2026, a case page has the card Releases that name this case, under Fix. It lists the releases of the project's environment that name the case, the newest first. With no such release, it says "No release names this case yet."
+From 9 November 2026, a case page has the card Releases that name this case, under Fix. It lists the releases of the project's environment that name the case, the newest first. With no such release, it says "No release names this case yet." From 11 November 2026, an owner or an admin also reads, for example: "When the fix is live, use “The fix is live” on this page."
 
 Only an owner or an admin can change the list. A member or a viewer sees the list without buttons. The demo, and staff who view as a customer, see no buttons either. A token cannot use the card: an agent or your CI names cases when it records the release.
 
@@ -455,6 +497,7 @@ From 1 November 2026, a marker can also say what shipped, in words for a person.
 
 - Sequential never refuses a release because of these texts. It removes control characters, masks text that looks like a secret, such as a token, an email address or a card number, and cuts a text that is too long at its limit. The text stays masked when it is stored.
 - It drops a link that is not https or that holds a user name or a password, and a change without a title. Sequential does not open the links.
+- From 11 November 2026, a person who is signed in to the app can send `only_new: true` to POST `/api/releases`. Sequential then refuses a version that is stored, also a retracted one: 409 `release_exists`, with the stored `released_at` and `retracted`. Sequential does not read `only_new` from a token.
 - The answer of POST `/api/releases` has the stored marker. When Sequential changed a text, `adjusted` lists each field and what it did: `cut`, `masked`, `dropped` or `cleaned`.
 - The answer of `record_release` has the ids and counts only (`has_title`, `has_notes`, `changes_total`), not the texts.
 - Each marker has a `group_key`. Markers with the same environment, the same commit and the same day (UTC) have the same key. Without a commit, the key is the version. The API never merges or hides a marker.
@@ -507,7 +550,7 @@ The Did the fix work? card on the case shows the measurement for the newest rele
 
 | Message | Where | What it means | What to do |
 |---|---|---|---|
-| "No release names F-12 yet. Sequential measures a fix once a release names it." | Did the fix work? | No marker for the project's environment names the case. A marker for another environment does not count. | Name the case in `finding_ids` of the marker. Check the `environment` that your CI job sends. See [Mark a release](#mark-a-release). |
+| "No release names F-12 yet. Sequential measures a fix once a release names it." | Did the fix work? | No marker for the project's environment names the case. A marker for another environment does not count. | Name the case in `finding_ids` of the marker. Check the `environment` that your CI job sends. An owner or an admin can also click **The fix is live** on the case page. See [Mark a release](#mark-a-release). |
 
 After the first measurement, the card shows:
 
@@ -523,7 +566,7 @@ The card compares two groups of sessions. Other changes can move the rate too, f
 
 | Message | Where | What it means | What to do |
 |---|---|---|---|
-| "A fix is linked. Name this case in the release that ships it (your release step, or record_release), and Sequential measures it." | Did the fix work? | Before the first measurement: a pull request, commit or issue link is on the case. | Record the release with the case in `finding_ids`. From 10 November 2026, an agent connected through claude.ai or ChatGPT can record it with `record_release`, when "Also: it records releases" was ticked. From 9 November 2026, an owner or an admin can also name the case in a recorded release, under Releases that name this case. |
+| "A fix is linked. Sequential measures it once a release names this case: your release step, your agent, or an owner or admin in Sequential can record it." | Did the fix work? | Before the first measurement: a pull request, commit or issue link is on the case. | Record the release with the case in `finding_ids`. From 10 November 2026, an agent connected through claude.ai or ChatGPT can record it with `record_release`, when "Also: it records releases" was ticked. From 9 November 2026, an owner or an admin can also name the case in a recorded release, under Releases that name this case. From 11 November 2026, an owner or an admin can click **The fix is live** on the case page. See [Record that the fix is live](#record-that-the-fix-is-live). |
 | "Release v1.4.0 claims to fix it. Measuring starts with the next sessions." | Did the fix work? | A release marker names the case. The first measurement has not run yet. | — |
 | "Sequential could not check the releases just now." | Did the fix work? | Before the first measurement: Sequential could not read the release markers. So it does not say that no release named the case. If Sequential cannot read the markers but has a stored result, it shows that result. | Reload the page. |
 | "Before fe@2: 12 of 300 (4%) sessions hit it. After: 0 of 150 (0%)." | Did the fix work? | An example of the one sentence next to the stage pill, after the first measurement. It says what the rate did. | — |
