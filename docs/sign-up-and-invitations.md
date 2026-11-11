@@ -464,7 +464,7 @@ The Sequential team approves waitlist entries by hand. The approval email has a 
 
 ## Limits
 
-- There is no shareable invite link, and no joining by email domain, SSO or SCIM. You can invite at most 20 people at a time.
+- There is no shareable invite link. A person joins by email domain only through [single sign-on](/docs/single-sign-on): at their first sign-in, a person at a verified domain joins as Member or Viewer. With [provisioning (SCIM)](/docs/single-sign-on#provisioning-scim), your identity provider adds and removes people. You can invite at most 20 people at a time.
 - You cannot change the 48-hour invitation expiry.
 - An organisation can have at most 100 pending invitations and at most 100 members.
 - You cannot change the email address on an account.

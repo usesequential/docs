@@ -476,7 +476,7 @@ From 7 November 2026, the [Sequential CLI](/docs/cli) (`npx @usesequential/cli`)
 - `--range` is a git range, for example `v1.2.0..HEAD`. A base of all zeros, as on a first push, reads only the head commit.
 - `--commit-sha` is the deployed commit. `--sha` is the same option.
 - `--github-changes` reads the release from the GitHub API, with no checkout. It needs `--commit-sha`, and `GITHUB_TOKEN` and `GITHUB_REPOSITORY`. Use `--range` or `--github-changes`, not both.
-- On success, it prints for example "Recorded release v1.3.0 (2 findings: F-12, F-14)" or "Recorded release v1.3.0 (no findings named)". With `--github-changes`, it adds the count of changes, for example "; 3 changes since 3f2a9c1".
+- On success, it prints for example "Recorded release v1.3.0 (2 cases: F-12, F-14)" or "Recorded release v1.3.0 (no cases named)". With `--github-changes`, it adds the count of changes, for example "; 3 changes since 3f2a9c1".
 - On a refusal or a network error, it prints the error and exits with 1. It never follows a redirect, and it never prints the token.
 
 The GitHub Action takes the same values as inputs: `version`, `environment`, `sha`, `released-at`, `title`, `range`, `github-changes`, `base`, `project-key`, `findings`, `github-token`, `token` and `api-url`. Only `version` and `token` are required. `github-token` is the token of the workflow by default.
@@ -490,7 +490,7 @@ With `--github-changes` (in the Action: `github-changes: 'true'`), the command r
 3. The merged pull requests of the 100 newest commits. Each one counts once, at most 50. They go to the release as its changes, with title, link and number.
 4. The case ids: `Sequential-Finding: F-12` lines in the commit messages, and "Fixes F-12" in pull request titles and texts. These words also count: fix, fixed, close, closes, closed, resolve, resolves and resolved. A list such as "Fixes F-3, F-4 and F-5" counts too. At most 50.
 
-If a GitHub read fails, the command prints one line and records the release without changes and without case ids from GitHub, for example "GitHub: could not compare bbbbbbb...aaaaaaa (HTTP 404); the release is recorded without changes or finding ids from GitHub."
+If a GitHub read fails, the command prints one line and records the release without changes and without case ids from GitHub, for example "GitHub: could not compare bbbbbbb...aaaaaaa (HTTP 404); the release is recorded without changes or case ids from GitHub."
 
 On Vercel: Vercel deploys with its own GitHub App, so no workflow of yours runs the deploy. Run the Action on `deployment_status`, only when the state is `success` and the environment starts with `Production`. Set `version` and `sha` to `github.event.deployment.sha`, the full commit sha. Set the SDK's release to the same sha. See [Release basis and time basis](#release-basis-and-time-basis).
 
