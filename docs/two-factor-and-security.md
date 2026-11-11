@@ -59,6 +59,8 @@ From 20 October 2026, an account that you create with an emailed code has no pas
 
 You set up 2FA in the same way, but Sequential does not ask for a password. In place of the password, Sequential checks that you signed in on this device in the last 15 minutes.
 
+From 11 November 2026, on an account with no password, that sign-in must be your own proof: an email code, a passkey, or a verification link that you clicked in time. A sign-in with Google, GitHub, Microsoft or single sign-on does not count. This applies when you turn 2FA on or off, show the QR code again, make new backup codes, and confirm 2FA with your first code. So enter the first code within the 15 minutes. If it is too late, Sequential refuses the code: sign in again with an email code, and the same QR code still works.
+
 1. Go to **Settings › Security**.
 
 2. Under Two-factor, click **Turn on two-factor**.
@@ -76,6 +78,8 @@ You set up 2FA in the same way, but Sequential does not ask for a password. In p
 On Security, the Password section says "You sign in with emailed codes, so this account has no password. Add one to sign in without waiting for a mail."
 
 From 8 November 2026, the section says "This account has no password: add one to sign in without waiting for a mail." A row "Needs" says "Without two-factor: a sign-in on this device in the last 15 minutes. With two-factor on: a code from your authenticator, a backup code or a passkey in the last 15 minutes." The old text is behind "Read the full text ▾".
+
+From 11 November 2026, without two-factor, that sign-in must be an email code, a passkey or a verification link that you clicked in time. A sign-in with Google, GitHub, Microsoft or single sign-on does not count. The same applies when you add a passkey.
 
 1. Enter a **New password** of at least 10 characters.
 
@@ -322,7 +326,7 @@ Connect Google, GitHub or Microsoft to your account to sign in with it. Go to **
 1. Click **Connect GitHub**, **Connect Google** or **Connect Microsoft**. If two-factor authentication is on, Sequential can ask for your code first. If it is off, you must have signed in on this browser with your password or an email code in the last 5 minutes. Else the page says, for example: "To connect GitHub, sign in again with your password or an email code. Then connect GitHub in the next 5 minutes." Click **Sign in again**. Sequential signs you out. After you sign in, it opens Sign-in methods again.
 2. Sign in to the provider. It sends you back to Sequential.
 
-The page then says, for example: "GitHub is connected. You can sign in with it." The row shows Connected and the date. A provider that is not connected shows Not connected.
+The page then says, for example: "GitHub is connected. You can sign in with it." The row shows Connected and the date. From 11 November 2026, if Sequential refuses the connection when the provider sends you back, it opens Security again with the message. A provider that is not connected shows Not connected.
 
 From 11 November 2026, Sequential then sends an email to the address of your Sequential account, for example "A GitHub account was connected to your Sequential account". See [Security emails](#security-emails).
 
@@ -342,6 +346,7 @@ If a provider is your only way to sign in, the row has no Disconnect…. It says
 | "GitHub was not connected. That GitHub account is already connected to another Sequential account, or you have another GitHub account connected." | Disconnect the other connection first. |
 | "GitHub was not connected. GitHub did not confirm a verified email address for that account." | Verify the address at the provider, then try again. |
 | "GitHub was not connected. You cancelled at GitHub." | Try again, and allow the access at the provider. |
+| "GitHub was not connected. Sign in again with your password or an email code, then connect GitHub in the next 5 minutes." | Sign in again, then connect GitHub within 5 minutes. |
 | "GitHub was not connected. Enter your two-factor code, then connect it again." | Enter your code, then click Connect again. |
 | "GitHub was not connected. Try again." | Try again. |
 | "This is your last way to sign in. Set a password first, then disconnect it." | Set a password, then disconnect. |
