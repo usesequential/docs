@@ -26,7 +26,7 @@
 
 5. Under Visits, last 30 days, click a session.
 
-Result: The replay of that session opens beside the page. In the app, a visit is a session.
+Result: The replay of that session opens in the peek. In the app, a visit is a session.
 
 Type at least 2 characters. A name, an email or an account name can match in part, and upper and lower case do not matter. An id matches exactly, or by its start for a person who is identified.
 
@@ -142,7 +142,7 @@ The title counts the people and tells who they are, for example "1,140 people wh
 The page has two tabs:
 
 - People lists the people, the person with the latest event first. A row shows the person, Visits and Last seen, on the funnel's dates. Under the name, a row shows the email, or "Identified" or "Anonymous". Click a row to open the person's page. The page then shows a note: "From a funnel" and the dates of the funnel, then one sentence, such as "They did “Pricing” and did not go on to “Sign-up”." for a person who stopped, or "They did every step:" and the steps for a person who did every step. Back to the list opens the list again, and × closes the note. The note shows only in the tab that opened the list, as the list does. If the list is no longer open in the tab, for example after a reload, the person's page says once "The funnel list this link came from is no longer open in this tab." Show 50 more lists the next 50.
-- Their events lists the latest 100 events of these people, on the funnel's dates. A line over them says, for example, "The latest events of these 240 people, 20 Oct to 27 Oct." For the people who stopped after a step, each of their events that matches that step gets the tag Step and the number of the step, and the line adds, for example, "Their events that match step 2, “Sign-up”, are marked." Sequential marks a step only when the step uses exact event names or event types. For any other step, the line says, for example, "Step 2’s events can’t be marked here." and no event gets a tag. For the people who did every step, no event gets a tag. Click an event to watch its session beside the page. Person shows the person beside the page. Details shows the fields of the event.
+- Their events lists the latest 100 events of these people, on the funnel's dates. A line over them says, for example, "The latest events of these 240 people, 20 Oct to 27 Oct." For the people who stopped after a step, each of their events that matches that step gets the tag Step and the number of the step, and the line adds, for example, "Their events that match step 2, “Sign-up”, are marked." Sequential marks a step only when the step uses exact event names or event types. For any other step, the line says, for example, "Step 2’s events can’t be marked here." and no event gets a tag. For the people who did every step, no event gets a tag. Click an event to watch its session in the peek. Person shows the person in the peek. Details shows the fields of the event.
 
 If none of them has an event on the funnel's dates, the page says "None of them were seen in the funnel's window." and "The funnel's people may have been removed since it ran." If Sequential cannot read the list, the page says why, with Try again.
 
@@ -182,13 +182,13 @@ From 8 November 2026, the top of the page has a headline, some rows and a scope 
 
 Under it are the buttons:
 
-- Watch their latest visit opens the newest visit beside the page. If the newest visit has no recording to play, the button reads Watch their latest recorded visit. It opens the newest visit that has one.
+- Watch their latest visit opens the newest visit in the peek. If the newest visit has no recording to play, the button reads Watch their latest recorded visit. It opens the newest visit that has one.
 - All events of this person opens Workbench › Events with the person's events since they were first seen.
 - All sessions in the finder opens Workbench › Sessions with the person's sessions since they were first seen.
 
 Cases they ran into is under the top of the page, before the visits. It lists up to 20 cases that the person's own events hit in the last 7 days, the most recently seen first. The dismissed cases come last. From 2 November 2026, each case is a card with its title and, for example, "3 of their visits". From 8 November 2026, the stage of the case follows, for example "3 of their visits · Fixed". For a case that none of their visits had, such as an error from your server outside a visit, it shows how many times it happened, for example "2 times · New". A dismissed case says "Dismissed". Point to a card to see the case's number, its kind and page, and when it was last seen.
 
-Visits, last 30 days lists the person's sessions of the last 30 days, by day, the most recent first. From 2 November 2026, each visit has a line that shows how long ago it started, its length, the flag and the name of its country, an icon for the device (phone, tablet or desktop) and the browser on the operating system. When your server sent events in the visit, it also says, for example, "3 server events". Sequential leaves out a part that it does not know. Under the line is the verdict of background judging in one sentence. On the right are Events and a play button. The label of the play button names the moment worth seeing and its time in the recording: "Play from", the moment, "at" and the time. Without a moment, it says "Play the visit". In place of the play button, it can show "No recording", or "Ready by" and a time while Sequential prepares the recording. It can also say why the recording cannot play. If the state of the recording did not come with the list, a visit can show "Recording state not known" until the page gets the state a moment later. Click the verdict or the play button to watch the visit beside the page. Events opens the events of the visit in Workbench › Events.
+Visits, last 30 days lists the person's sessions of the last 30 days, by day, the most recent first. From 2 November 2026, each visit has a line that shows how long ago it started, its length, the flag and the name of its country, an icon for the device (phone, tablet or desktop) and the browser on the operating system. When your server sent events in the visit, it also says, for example, "3 server events". Sequential leaves out a part that it does not know. Under the line is the verdict of background judging in one sentence. On the right are Events and a play button. The label of the play button names the moment worth seeing and its time in the recording: "Play from", the moment, "at" and the time. Without a moment, it says "Play the visit". In place of the play button, it can show "No recording", or "Ready by" and a time while Sequential prepares the recording. It can also say why the recording cannot play. If the state of the recording did not come with the list, a visit can show "Recording state not known" until the page gets the state a moment later. Click the verdict or the play button to watch the visit in the peek. Events opens the events of the visit in Workbench › Events.
 
 From 2 November 2026, the list first shows up to 5 visits of the newest day. Show 2 more visits from 2 Nov shows the rest of that day, and All 14 visits shows all of them. When all are shown, Load more visits reads the next 50, and a line counts the visits shown. If they do not load, the button reads Try again.
 
@@ -214,13 +214,13 @@ If Sequential cannot read the person, the page says why, with Try again.
 
 ### Open a person's sessions and replays
 
-On People, click a row to open the person's page. To see a person beside the list instead, select the row with `j` or `k` and press `o`.
+On People, click a row to open the person's page. To see a person in the peek instead, select the row with `j` or `k` and press `o`.
 
 On the person's page:
 
 | Choose | Result |
 |---|---|
-| A session | The replay of that session, beside the page. |
+| A session | The replay of that session, in the peek. |
 | All sessions in the finder | Workbench › Sessions, filtered to that person. |
 | All events of this person | Workbench › Events for that person. |
 
@@ -384,7 +384,7 @@ The cards under the facts:
 
 - Activity: the account's sessions per day in the range. A sentence over the chart gives the total and the busiest day.
 - This range and the one before: a table that compares the range with the same number of days before it. Its columns are, for example, Last 7 days and 7 days before. Its rows are Sessions, People active, Sessions with a problem and People who hit a problem. Under it, a line gives the share, for example "3 of 41 sessions (7.3%) had a JavaScript error or a failed request." See the 41 sessions, or the key `s`, opens Workbench › Sessions with the account's sessions in the range. The 3 with a problem opens only the sessions with a problem.
-- People in this account: up to 6 people, from all the data that Sequential keeps. The card lists the same people that the People fact counts. The people with the most sessions with a problem in the range come first, then the most recently seen. A line over the list counts them and the people not seen in the last 7 days, for example "Showing 6 of 14 people, problems first; 3 not seen in the last 7 days." Each row shows the person, their sessions with a problem in the range, and when they were last seen. Click a person to see them beside the page. With no one, it says "No person carries this account yet. People join it when their own events carry its id."
+- People in this account: up to 6 people, from all the data that Sequential keeps. The card lists the same people that the People fact counts. The people with the most sessions with a problem in the range come first, then the most recently seen. A line over the list counts them and the people not seen in the last 7 days, for example "Showing 6 of 14 people, problems first; 3 not seen in the last 7 days." Each row shows the person, their sessions with a problem in the range, and when they were last seen. Click a person to see them in the peek. With no one, it says "No person carries this account yet. People join it when their own events carry its id."
 - Cases its people ran into: the cases that the account's people hit in the last 7 days, the most people first. Each row shows the case's number, its title, its kind and page, and how many of the account's people it hit. It also shows "from your server" for a case from your server, when the case was last seen, and "dismissed" for a dismissed case. With none, it says "No case in the last 7 days."
 - What your site sent about it: the newest value of each account property that is not blank, and when it was set. It shows up to 50 properties, by name. A value shows up to 200 characters. With 50, a line says "The first 50 traits, by name." If your app sends none, it says "No account traits. Your site sends them with the account (for example name, company_name and plan)."
 
@@ -423,19 +423,19 @@ URL-encode the id first. For example, write a `/` in the id as `%2F`. An older `
 
 ### Which keys and other pages open a person?
 
-- On People, press `j` and `k` to move through the rows. Press `↵` to open the selected person's page, or `o` to see the person beside the list.
-- On a person's page, `j` and `k` move through the visits. `↵` opens the selected visit beside the page.
+- On People, press `j` and `k` to move through the rows. Press `↵` to open the selected person's page, or `o` to see the person in the peek.
+- On a person's page, `j` and `k` move through the visits. `↵` opens the selected visit in the peek.
 
 You can also open a person from other pages:
 
-- On a session's page, click All about and the person's name. In a session beside a page, click the person's name.
+- On a session's page, click All about and the person's name. In a session in the peek, click the person's name.
 - In Workbench › Funnels, under Who left here, click a person under The people.
 - On the page that View them in People opens, click a row.
 - In Workbench › Events, click Person on a matching event.
 - On an account's page, click a person under People in this account.
 - In [Search or jump to](/docs/search-or-jump-to), type a name, an email or an account name.
 
-From Funnels, Events and an account's page, the person opens beside the page. [Find and replay sessions](/docs/sessions-and-replay) covers the player.
+From Funnels, Events and an account's page, the person opens in the peek. [Find and replay sessions](/docs/sessions-and-replay) covers the player.
 
 ### What happens to a session that starts before identify?
 

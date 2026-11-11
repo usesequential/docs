@@ -4,7 +4,7 @@
 
 > **At a glance**
 >
-> - **Who can:** Owners, admins and members ([Roles and permissions](/docs/roles-and-permissions)). From 11 November 2026, a viewer reads answers already given, but cannot start a new Ask: "Asking about sessions needs a member role or higher; a viewer can read answers already asked." An agent needs the scope `ask:use` ([Ask from an agent](#ask-from-an-agent)).
+> - **Who can:** Owners, admins and members ([Roles and permissions](/docs/roles-and-permissions)). From 11 November 2026, a viewer reads answers already given, but cannot start a new Ask: "Asking about sessions needs a member role or higher; a viewer can read answers already asked." Funnel, retention and people questions run for a viewer as before. A viewer's question that the judge reads still runs: an answer asked before comes back, and the page shows that sentence as a note. For staff who view as a customer, a question that the judge reads does not run: "Viewing as a customer is read-only: judging spends the customer’s allowance, so it is not offered here." An agent needs the scope `ask:use` ([Ask from an agent](#ask-from-an-agent)).
 > - **Before you start:** Session ids, [readable events](#what-it-needs) and, to watch a match, a recording. For a description, judging set up on your Sequential server.
 > - **You get:** For a description: the likely matches among up to 200 sessions of the last 7 days that the judge reads, surest first.
 > - **Know this:** A description finds sessions. It does not count them. For "how many", type a funnel line, or use [Funnels](/docs/funnels).
@@ -62,7 +62,7 @@ Under the box, Ask says how it reads your line before you press Enter. With noth
 
 5. Click a session card.
 
-   Result: The session opens beside the list, at its moment.
+   Result: The session opens in the peek, at its moment.
 
 Each answer stays in the thread. Ask keeps answers only while the tab is open. To see an answer again later, click Keep on board: it keeps the answer on your Board. Ask again runs the line again.
 
@@ -122,7 +122,7 @@ The near-miss and too-short counts show only when they are above 0. So an empty 
 - The sentence on the card says what the background judgment of the session found. A session without one says "Not judged yet."
 - If you cannot play the recording now, the card says why in place of the moment: "Recording not ready yet", "Recording expired", "No playable recording" or "No recording".
 - "No playable recording" means that Sequential never received the full recording.
-- A click opens the session beside the list, at its moment. Under "Why you are seeing this", it can show your question.
+- A click opens the session in the peek, at its moment. Under "Why you are seeing this", it can show your question.
 - A session can open at a slightly different moment. The moment counts time from the session's first event, not from the start of the recording.
 - Ask reads the recording state of each result when it answers. To see a newer state, click Ask again.
 - If the judge picked no event, the card can show the moment of the background judgment instead.

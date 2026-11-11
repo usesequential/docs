@@ -19,7 +19,7 @@ A teammate has one role in each organisation. Each role can also do everything i
 | Owner | Delete the organisation. Invite a teammate as an owner, make a teammate an owner, or change or remove an owner. |
 | Admin | Change the questions, recording settings, projects and keys. Manage project access tokens (`sq_pat_…`) and teammates. Hand cases to agents. Export data. Read the Audit log. |
 | Member | Set a verdict on a case. Record changes. Save, rename and remove saved views. See and copy ingest keys. |
-| Viewer | See every case, recording and chart. Read Settings › Recording & data and Settings › Setup. Use Ask and Judge this recording now. Copy a case's brief. Check the judge: answer Right or Wrong on a reading. Invite teammates with your own role or a lower one, if Who may invite allows (on by default). |
+| Viewer | See every case, recording and chart. Read Settings › Recording & data and Settings › Setup. Use Ask: from 11 November 2026, the judge's answers only when they were already asked. Show a judgement already made on a session. Copy a case's brief. Check the judge: answer Right or Wrong on a reading. Invite teammates with your own role or a lower one, if Who may invite allows (on by default). |
 
 The teammate who creates the organisation is its first owner. Nobody can remove the only owner or change their role.
 
@@ -40,9 +40,9 @@ Ask, judging and questions:
 
 | Action | Owner | Admin | Member | Viewer |
 |---|:-:|:-:|:-:|:-:|
-| Use [Ask](/docs/ask) | ✓ | ✓ | ✓ | ✓ |
+| Use [Ask](/docs/ask). From 11 November 2026, a viewer gets only answers already asked for a question that the judge reads; funnel, retention and people questions run as before | ✓ | ✓ | ✓ | ✓ |
 | Check the judge: answer Right or Wrong on a reading ([Feedback and calibration](/docs/feedback-and-calibration)) | ✓ | ✓ | ✓ | ✓ |
-| Ask the judge to read a session now (Judge this recording now, Judge again) | ✓ | ✓ | ✓ | ✓ |
+| Ask the judge to read a session now (Judge this recording now, Judge again). From 11 November 2026, a viewer gets Show a judgement already made | ✓ | ✓ | ✓ | — |
 | See the Questions page and Calibration | ✓ | ✓ | ✓ | ✓ |
 | Turn background judging off or on (Judge new sessions automatically under Judging on Settings › Recording & data) | ✓ | ✓ | — | — |
 | Edit the questions (Edit questions), go back to the defaults (Restore defaults), Apply or Reject a proposed edit, and use Try on a session ([Customise the questions](/docs/rubric)) | ✓ | ✓ | — | — |
@@ -336,7 +336,7 @@ Only owners and admins can switch background judging off or on, with Judge new s
 
 Owners, admins and members can use Ask and Judge this recording now. Ask uses the project's daily Ask allowance. See [Ask](/docs/ask).
 
-From 11 November 2026, a viewer reads the answers already given, but cannot start a new one. Staff who view as a customer cannot start one either. Sequential refuses a new answer with 403 `ai_use_required` and one of these sentences:
+From 11 November 2026, a viewer reads the answers already given, but cannot start a new one. On a session, the viewer's button says Show a judgement already made. Staff who view as a customer cannot start one either. Sequential refuses a new answer with 403 `ai_use_required` and one of these sentences:
 
 - Asking about sessions needs a member role or higher; a viewer can read answers already asked.
 - Judging a recording needs a member role or higher; a viewer can read judgements already made.

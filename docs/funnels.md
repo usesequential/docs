@@ -139,7 +139,7 @@ To watch the session of a person who left:
 
 1. To open a drop, click its line between two bars. Or, after you click Show as a table, click its number under **Left before the next**.
 2. In Who left here › The people, find the person.
-3. Click their **Watch** button. It opens the session where they did the step, beside the page, at that moment.
+3. Click their **Watch** button. It opens the session where they did the step, in the peek, at that moment.
 
 Not every person has a Watch button. See [Why funnel and replay counts differ](#why-funnel-and-replay-counts-differ).
 
@@ -157,7 +157,7 @@ The panel Who left here opens under the chart. Its title names the step, such as
 
 In the list of people in Who left here:
 
-- Click a person to open them beside the page.
+- Click a person to open them in the peek.
 - A button such as Show 50 more lists more people.
 
 A new result closes the panel. Press Close or Esc to close the panel.
@@ -305,7 +305,7 @@ In Who left here, a person with a session id has a session button:
 | Watch | Any other person with a session id. |
 | No button | The person's event has no session id. |
 
-Both Watch and Visit open the session beside the page.
+Both Watch and Visit open the session in the peek.
 
 Under the people, the panel gives the retention periods of the project, for example "Recordings are kept 30 days here, events 30 days." These are the periods in force for the project. See [Data retention and deletion](/docs/retention-and-deletion).
 

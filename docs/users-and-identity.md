@@ -115,7 +115,7 @@ Page by page:
 
 - People lists one row per user id, with Person, "Visits, 7 days" and Last seen. With the Sequential SDK, PostHog or Mixpanel, an anonymous id that is linked to one identified value is counted in that value's row. Click a row to open that person's page, with their visits and All events of this person. See [People and accounts](/docs/users-and-accounts).
 - Workbench › Funnels match each person's events to the steps in order. With the Sequential SDK, PostHog or Mixpanel, the steps before and after identify join.
-- On Funnels, Who left here lists the people who left after a step. For a person who identified, it uses the identified value. Click a person to open them beside the page.
+- On Funnels, Who left here lists the people who left after a step. For a person who identified, it uses the identified value. Click a person to open them in the peek.
 - By default, Workbench › Retention puts each person in the cohort of the day of their first start event ever, when that day is in the window. This is not their first day ever. Then it checks whether they did a return event exactly N days later. [Retention](/docs/retention) has the other cohort rules.
 - Workbench › Flows build paths per person. With the Sequential SDK, PostHog or Mixpanel, one path covers the events from before and after identify.
 - Workbench › Events counts distinct people when Count is People. With the Sequential SDK, PostHog or Mixpanel, a person who identifies counts once. A blank id is not a person.

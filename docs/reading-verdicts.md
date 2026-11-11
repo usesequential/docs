@@ -16,7 +16,7 @@
 
 2. Click the card of the session.
 
-   Result: The session opens beside the list, at its moment.
+   Result: The session opens in the peek, at its moment.
 
 3. Click **Open full**, or press O, to open the full page of the session.
 
@@ -60,11 +60,11 @@ When the questions changed since the judge read the session:
 When you answer:
 
 - Select a reading, then press E for Right or X for Wrong. The page then says, for example, "Saved: “Abandoned” was wrong."
-- In the session beside the list, Came to and Outcome also have Right and Wrong, as two small buttons. There the note says "Saved" or "Not saved".
+- In the session in the peek, Came to and Outcome also have Right and Wrong, as two small buttons. There the note says "Saved" or "Not saved".
 
 ## Judge a recording now
 
-The judge's reading, on the full page of a session, has the button Judge this recording now. When the page already shows a reading, the button says Judge again. It asks the judge for a reading now, with your current questions. From 11 November 2026, a viewer reads a judgement already made, but cannot start a new one: "Judging a recording needs a member role or higher; a viewer can read judgements already made."
+The judge's reading, on the full page of a session, has the button Judge this recording now. When the page already shows a reading, the button says Judge again. It asks the judge for a reading now, with your current questions. From 11 November 2026, a viewer gets **Show a judgement already made** instead. It shows a judgement that the judge already made for these events, and starts no new one. Under it, the page says: "Judging a recording needs a member role or higher; a viewer can read judgements already made." A viewer never gets Judge again. For staff who view as a customer, the button is off, with "Viewing as a customer is read-only: judging spends the customer’s allowance, so it is not offered here."
 
 The new reading replaces the stored reading on this page until you leave the page. Evidence, the lists and the stored judgment keep the stored reading.
 
@@ -92,7 +92,7 @@ Result: You can check the new reading with Right or Wrong, as any other reading.
 
 | Topic | What happens |
 |---|---|
-| Who can use it | Every role: owners, admins, members and viewers. It needs access to the recordings of the project. |
+| Who can use it | Owners, admins and members. It needs access to the recordings of the project. From 11 November 2026, a viewer gets Show a judgement already made: it shows a judgement already made, and never starts a new one. |
 | Allowance | It uses the project's daily allowance for judging on demand. Background judging, Ask and Try on a session each have their own allowance. The line under the button says "Uses this project’s allowance for judging on demand today. An answer already made for these events is free." |
 | Saved answers | Sequential keeps the judge's answer for the same events and questions for up to 7 days. The first click can return that answer, free. The line under the reading then says that it is "the judge’s earlier answer for this recording (nothing was spent)". |
 | Judge again | Judge again asks for a fresh answer only after a reading made on this page. After a fresh answer from Judge again, the session gets the next fresh answer 10 minutes later at the earliest. Before then, the line says "This is the reading made at …: a session can be judged again 10 minutes after its last fresh reading." |

@@ -18,7 +18,7 @@ A check, a Right or Wrong on one reading of the judge, records whether the judge
 
 2. Click the card of the session.
 
-   Result: The session opens beside the list.
+   Result: The session opens in the peek.
 
 3. Click **Open full**, or press O.
 
@@ -35,7 +35,7 @@ Or select a reading, then press E for Right or X for Wrong.
 | Where | What you can check |
 |---|---|
 | The session page | Each reading: Came to, Outcome, Friction, each signal that is on, and Worth watching or Not worth watching. From 9 November 2026, also each signal that is unclear, and each moment that the judge found |
-| The session beside a list | Came to and Outcome |
+| The session in the peek | Came to and Outcome |
 | Workbench › Sessions | Came to, else Outcome (column: The judge’s reading) |
 | Ask | Each session of an answer: "A match for your question?", with Right and Wrong. It counts in your score (your own count, on the session page), not in Calibration |
 | Evidence cards | Nothing |
@@ -45,7 +45,7 @@ From 9 November 2026, a moment on the session page reads "Moment", then "Struggl
 ### What happens when you click Right or Wrong
 
 - If you click the other answer, your latest check replaces the earlier one.
-- In the session beside the list, the buttons are small icons, with a note beside them.
+- In the session in the peek, the buttons are small icons, with a note beside them.
 - Beside each reading, a word says how sure the judge was, from "unsure" to "almost certain". Hover over it to see the percent. Calibration compares your checks with the stated likelihood.
 - A reading made under an earlier wording, and a reading from Ask, get no line on how often people agree with the judge.
 - Under the readings, the link "Calibration: how often people agree with the judge" opens that section of the Questions page. From 6 November 2026, the link shows also before your first check.
@@ -59,8 +59,8 @@ From 9 November 2026, a moment on the session page reads "Moment", then "Struggl
 | Message | Where | What it means | What to do |
 |---|---|---|---|
 | "Not saved:" | The session page, after you click Right or Wrong | Sequential cannot save your click. The reason follows. | — |
-| "Saved" | The session beside the list, in the note beside the small icons | Sequential saved your check. | — |
-| "Not saved" | The session beside the list, in the note beside the small icons | Sequential cannot save your click. | Hover over "Not saved" to see the reason. |
+| "Saved" | The session in the peek, in the note beside the small icons | Sequential saved your check. | — |
+| "Not saved" | The session in the peek, in the note beside the small icons | Sequential cannot save your click. | Hover over "Not saved" to see the reason. |
 | "The judge gave this answer 41%" | When you hover over the word that says how sure the judge was | An example. The percent of the reading. | — |
 | "Outcome: people agree with the judge on 41 of 48 checks (85.4%)." | Under the readings, after you save a check | An example. From 6 November 2026, this line shows how often people agree with the judge on that question, under its current wording. | — |
 | "Came to: the first check of this question as it reads now." | Under the readings, after the first check of a question | An example. From 6 November 2026, this is the line after the first check of a question. | — |

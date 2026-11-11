@@ -26,7 +26,7 @@ Evidence shows the last 7 days: today and the 6 days before, as whole UTC days.
 
 5. Click a card.
 
-   Result: The session opens beside the list, at its [moment](#moments-and-their-names).
+   Result: The session opens in the peek, at its [moment](#moments-and-their-names).
 
 6. Play the recording, or click a moment under it.
 
@@ -42,10 +42,10 @@ Or use the keys. Nothing is selected until you press J or K.
 |---|---|
 | J | Selects the next session |
 | K | Selects the previous session |
-| Enter, or click Watch ↵ | Opens the selected session beside the list |
+| Enter, or click Watch ↵ | Opens the selected session in the peek |
 | O | Opens the full page of the selected session |
 | Esc | Clears the selection |
-| J or K, when a session is open beside the list | Also changes the session that it shows |
+| J or K, when a session is open in the peek | Also changes the session that it shows |
 
 ### What each filter shows
 
@@ -158,7 +158,7 @@ A moment can open late. The time of a moment counts from the first event of the 
 
 ### What you see when you open a session
 
-When you open a session beside the list, you see:
+When you open a session in the peek, you see:
 
 - "Why you are seeing this", when the reason adds something to the rest.
 - The person, when the session started, how long it was, the country and the browser. Click the name to open the person.

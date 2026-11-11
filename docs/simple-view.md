@@ -97,7 +97,7 @@ Beside the title, the card says "Top 5 from Evidence". It shows the first 5 sess
 
 - Each row is a session card, as on Evidence: the person, when the session started and how long it was, the sentence of the judge, and the moment worth seeing.
 - If the recording cannot play, the row says why, for example "No recording" or "Ready by" with a time.
-- Click a row to open the session beside the page ([Find and replay sessions](/docs/sessions-and-replay)).
+- Click a row to open the session in the peek ([Find and replay sessions](/docs/sessions-and-replay)).
 - All sessions opens Evidence. See [Evidence: the sessions worth a look](/docs/watch).
 
 ### Where people click

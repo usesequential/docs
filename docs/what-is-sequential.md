@@ -80,7 +80,7 @@ The analytics pages:
 Evidence:
 
 - Where it can, Evidence links to the key moment in the replay.
-- Watch ↵ opens the session beside the list, at the key moment, such as where they struggled or gave up.
+- Watch ↵ opens the session in the peek, at the key moment, such as where they struggled or gave up.
 - Right and Wrong on each reading, on the page of the session, record whether the reading was right. They never re-judge. See [Evidence](/docs/watch).
 
 Ask:

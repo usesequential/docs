@@ -305,7 +305,7 @@ Changes apply from the next page load. They never apply to earlier recordings.
 ## 7. Open a replay
 
 1. Click **Evidence** in the rail.
-2. Click a session card. The session opens beside the list, with the player.
+2. Click a session card. The session opens in the peek, with the player.
 
 A recording can take up to about 6 minutes after its last upload to become playable. If you cannot play the session now, the card says why in place of the moment.
 

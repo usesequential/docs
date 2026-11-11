@@ -29,11 +29,23 @@
 
    Result: A Person id condition finds the whole person. There is no Apply button. The list loads again after each change.
 
-6. Click a row to watch the session beside the list.
+6. Click a row to watch the session in the peek.
 
    Result: The Recording column says "Ready" when you can play the session now, and else why you cannot. Hold the pointer on it to see why ([When the list or player is missing data](#when-the-list-or-player-is-missing-data)).
 
 7. To open the full session page, click the row's time, or press O.
+
+### The peek
+
+A session or a person that you open from a list opens in the peek, a panel on the right. Its width depends on the width of your browser window:
+
+| Window width | The peek |
+|---|---|
+| 1600 px or more | Beside the page. The page gets narrower. |
+| 901 to 1599 px | Over the right part of the page. The page keeps its width. |
+| 900 px or less | Over the whole page. |
+
+Press Esc to close the peek.
 
 ### List columns and filters
 
@@ -206,9 +218,9 @@ Under Their properties, Info shows the user properties "As the project sent them
 The judge's reading shows the lane of the session, the verdict in one sentence, and each reading of the judge with how sure it is.
 
 - Click Right or Wrong on a reading. This tells everyone how far the judge can be trusted. It does not judge the session again.
-- The session beside a list has Right and Wrong only on Came to and Outcome.
+- The session in the peek has Right and Wrong only on Came to and Outcome.
 - In the queue of Check 5 sessions, Call it first can hide the reading until you answer one question. See [Call it first](/docs/feedback-and-calibration#call-it-first).
-- With a playable recording, Judge this recording now asks the judge to read the session now. When a reading shows, the button says Judge again. Every role can use it. It uses the project's daily allowance for judging on demand. The new reading shows on this page only. See [Reading verdicts](/docs/reading-verdicts).
+- With a playable recording, Judge this recording now asks the judge to read the session now. When a reading shows, the button says Judge again. Owners, admins and members can use it. From 11 November 2026, a viewer gets Show a judgement already made: a judgement that the judge already made, no new one. It uses the project's daily allowance for judging on demand. The new reading shows on this page only. See [Reading verdicts](/docs/reading-verdicts).
 - A line says when the judge read the session and from how many events, for example "Read 2 h ago from all 42 events."
 - The judge's moments and What went wrong follow, with the link All events of this session.
 - See [Reading verdicts](/docs/reading-verdicts).
@@ -296,7 +308,7 @@ Sequential puts no name, email, element text, event property or token into the p
 Ask your agent is in these places:
 
 - On the session page, after Earlier, All about and Later.
-- On a session beside a list, after the name of the person.
+- On a session in the peek, after the name of the person.
 - Under the player, in Errors, below each error. In Console, in an error row after you click it. See [DevTools in replays](/docs/devtools).
 - In Workbench › Events, when you compare a day or an hour, as Ask your agent about this day or Ask your agent about this hour. See [Compare a point with the usual day](/docs/events-explorer#compare-a-point-with-the-usual-day).
 - At the top of Workbench › Events, Sessions, Funnels and Flows, and of People, when the page shows its answer: Ask your agent about this view, Ask your agent about these sessions, Ask your agent about this funnel, Ask your agent about these paths and Ask your agent about these people. Funnels does not show it while you compare before and after a change.
@@ -465,7 +477,7 @@ See [Recording settings](/docs/recording-settings) and [Masking and redaction](/
 | "No page view, click or custom event was recorded in this session." | What they did | The session ids of the events and the recording usually do not match. | — |
 | "No screen view, tap or custom event was recorded in this session." | What they did | From 8 November 2026, the same message for a session from a mobile app. The session page of an app session says screen and tap in place of page and click. | — |
 | "Sequential has the recording of this session, but no event of the site or app carries its id." | The session page | The events of the session carry another session id, or none. The page plays the recording, but it has no session details and no reading of the judge. Earlier and Later still show when the same person has recordings before or after it. | — |
-| "No event of the site or app carries this session id." | A session beside a list | Beside a list, such a session says this. Its events carry another session id, or none. | — |
+| "No event of the site or app carries this session id." | A session in the peek | Beside a list, such a session says this. Its events carry another session id, or none. | — |
 
 ## Heatmaps
 
@@ -651,10 +663,10 @@ Old links. A link to `/sessions` opens Evidence. An older link with `mode=latest
 
 ### How else can I open a replay?
 
-- Evidence: click a card, or press Enter on it, to watch it beside the list at its moment. Click Open full, or press O, to open the session page at that moment.
+- Evidence: click a card, or press Enter on it, to watch it in the peek at its moment. Click Open full, or press O, to open the session page at that moment.
 - Ask: click a session card. See [Ask: one line about sessions, funnels, retention or people](/docs/ask).
 - People: open a person, then click Watch their latest visit, or click one of their visits.
-- Workbench › Events: click a matching event to watch its session beside the list.
+- Workbench › Events: click a matching event to watch its session in the peek.
 - Workbench › Sessions: click Watch these to play the sessions of the list one after another.
 - On the session page: Earlier and Later step to the same person's previous or next session. Press [ or ]. With only the Sequential SDK, the Earlier and Later buttons that step between a person's sessions are not available, even after `identify`.
 
