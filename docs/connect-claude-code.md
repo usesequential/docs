@@ -144,6 +144,8 @@ From 19 October 2026, Claude Code can connect in two ways: with a sign-in to Seq
 
 From 1 November 2026, on `/mcp`, a connection that does not have an extra of the consent page lists that extra's tool as a stub. The title of the stub ends with "(not enabled)". The server's instructions also name what the connection does not have. A token cannot hold `feedback:write` or `changes:propose`, so a token on `/mcp` always lists the `send_feedback` stub.
 
+From 12 November 2026, the token of an [agent trial](/docs/agent-trial) is the exception. It lists no stubs, and its instructions name only what it can do. They end with "After the person claims the project, they can connect an agent through the consent page."
+
 ## Next steps
 
 - [Your first hour](/docs/quickstart#connect-your-agent): the Connect your agent step in onboarding.
