@@ -208,6 +208,8 @@ These actions ask for a current code from your app or a backup code, unless you 
 
 A sign-in on a trusted device does not count. See [What each action asks for](#what-2fa-needs).
 
+From 12 November 2026, POST `/api/me/two-factor/step-up` answers 400 `not_enrolled` for an account without 2FA. That answer does not count as a try.
+
 1. Enter the current 6-digit code from your app, or one of your backup codes, in **Code**.
 
 2. Click **Continue**.
@@ -337,7 +339,7 @@ From 11 November 2026, Sequential then sends an email to the address of your Seq
 
 The page then says, for example: "GitHub is disconnected. You cannot sign in with it now."
 
-If a provider is your only way to sign in, the row has no Disconnect…. It says, for example: "GitHub is your only way to sign in. To disconnect it, set a password first." See [Add a password](#add-a-password).
+If a provider is your only way to sign in, the row has no Disconnect…. The page lists only providers. From 12 November 2026, removing the password through the API (POST `/api/auth/unlink-account` with the password row) on an account without 2FA needs a sign-in on this browser by password, email code or passkey in the last 5 minutes, else 403 `REAUTH_REQUIRED`. It says, for example: "GitHub is your only way to sign in. To disconnect it, set a password first." See [Add a password](#add-a-password).
 
 ### Messages
 
