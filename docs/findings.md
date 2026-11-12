@@ -772,7 +772,7 @@ Under the title, a rail shows how far the case got, in five steps: New, Handed o
 | Stage | What it means |
 |---|---|
 | New | Nothing has happened to the case yet. |
-| Handed off | Someone copied the fix brief or opened a GitHub issue from it. Or a token read the case or its brief: GET `/api/findings/:n` counts too. The history shows when. See [What counts as a handoff](#what-counts-as-a-handoff). |
+| Handed off | Someone copied the fix brief or opened a GitHub issue from it. Or a token read the case or its brief: GET `/api/findings/:n` counts too. From 12 November 2026, a token's read of a dismissed case does not count. The history shows when. See [What counts as a handoff](#what-counts-as-a-handoff). |
 | Waiting on you | An agent asked to take the case. An owner or admin approves or declines it. See [Hand to an agent](#hand-to-an-agent). |
 | Fix linked | A pull request, commit or issue link is on the case. |
 | Shipped | A release marker names the case. The first measurement has not run yet. |
@@ -811,6 +811,8 @@ A case page has a Changes card under Fix. It shows the changes that are linked t
 Agents and project access tokens (`sq_pat_…`) read cases with the [Agent tools](/docs/agent-tools) or the API, such as GET `/api/findings`. These two blocks hold most of the fields and scopes for cases.
 
 Text that your visitors typed can try to steer an agent. With Let agents dismiss cases on, such text can close a case. See [Agents that review cases](#agents-that-review-cases).
+
+From 12 November 2026, an agent gets no fix brief for a dismissed case. `get_fix_brief` answers 409 `dismissed`: "This finding is dismissed, so no fix brief is given and this call did not hand the finding off. Do not start a fix. get_finding says who dismissed it (dismissed_by_kind) and gives the reason when one was stored (latest_verdict). If the person you work for wants a fix, a person reopens the finding on its page first." Over MCP, this is a tool error with that text. Sequential writes nothing for the call. With a token, GET `/api/findings/:n/brief` answers 409 `dismissed`: "This finding is dismissed, so no fix brief is given. A person reopens it before a fix." GET `/api/findings/:n` still gives the brief of a dismissed case, but it does not hand the case off. In the app, nothing changes.
 
 [Limits](/docs/limits) has the limits for tokens and agents.
 
