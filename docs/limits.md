@@ -400,7 +400,7 @@ The endpoint `/mcp/readonly` does not stop this spend. To stop an agent from run
 | A fix link | `https://` only, at most 500 characters, no control characters | Sequential refuses the link, for example "url: at most 500 characters". |
 | Cases named on one release | 50 | POST `/api/releases` refuses more: "finding_ids: up to 50 ids like F-12". The `sequential-release` command reads the first 50. |
 | A release version | 1–64 printable ASCII characters | Sequential refuses the release. |
-| Open a GitHub issue | 7,500 characters of link | Longer: the issue opens without a body, and Sequential copies the brief for you to paste. |
+| Write a GitHub issue yourself | 7,500 characters of link | Longer: the issue opens without a body, and Sequential copies the brief for you to paste. |
 | Agent case reviews | 100 a project in a UTC day, 25 for one connection. Of them, dismissals that apply at once: 25, and 5 for one connection | Over it: "This project's agent reviews for today are used up. Try tomorrow." A dismissal over its limit waits for a person. |
 | Agent session checks | 500 a project in a UTC day. From 9 November 2026, 200 for one connection (before, 100) | Over the project's limit: "This project's agent checks for today are used up. Try tomorrow." Over the connection's limit: "This connection's checks for today are used up. Try tomorrow." |
 

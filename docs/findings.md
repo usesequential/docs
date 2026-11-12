@@ -129,7 +129,7 @@ The main column, from the top:
 6. Evidence: the sample sessions. The last paragraphs of this block describe them.
 7. Who it reaches: the top 5 Browsers, Systems and Releases of the sessions. A case from your server says "None from a server error."
 8. Did the fix work? See [Read the result](#read-the-result).
-9. What the agent receives: the fix brief, open by default. Under it, GitHub repository and Open a GitHub issue.
+9. What the agent receives: the fix brief, open by default. Under it, GitHub repository and Write a GitHub issue yourself.
 
 The side panel, from the top:
 
@@ -239,13 +239,13 @@ At the stage New, the decision card has Copy brief. On a project with no agent w
 
 2. Click **Copy brief**.
 
-### Open a GitHub issue
+### Write a GitHub issue yourself
 
 1. In the main column of the case, go to **What the agent receives**.
 
 2. Under **GitHub repository**, enter the repository as `owner/name`.
 
-3. Click **Open a GitHub issue**.
+3. Click **Write a GitHub issue yourself**.
 
    Result: The issue opens in a new tab. Its title is "Fix Sequential finding F-12", and its body is the brief.
 
@@ -253,12 +253,12 @@ At the stage New, the decision card has Copy brief. On a project with no agent w
 
 | Message | Where | What it means | What to do |
 |---|---|---|---|
-| "The brief is held back until its people check passes. It cannot be copied yet." | The case page | Sequential cannot check the brief for known people. Until then, Copy brief, Copy brief for an agent and Open a GitHub issue do not work. The case and its evidence still show. | — |
+| "The brief is held back until its people check passes. It cannot be copied yet." | The case page | Sequential cannot check the brief for known people. Until then, Copy brief, Copy brief for an agent and Write a GitHub issue yourself do not work. The case and its evidence still show. | — |
 | "The clipboard is not available here." | When a copy fails | The copy failed. | — |
 | "Remembered in this browser only" | GitHub repository | Sequential remembers the repository in this browser only, for each project. | — |
-| "Type the repository as owner/name to open an issue." | The hint under GitHub repository | Open a GitHub issue is off. The hint under the field says why. | — |
-| "The brief was copied: paste it as the issue body." | Open a GitHub issue | The brief is too long for the link, so Sequential copied it. | — |
-| "The brief was too long for the link. Copy it from the brief and paste it as the issue body." | Open a GitHub issue | The brief is too long for the link, and the copy failed. | — |
+| "Type the repository as owner/name to open an issue." | The hint under GitHub repository | Write a GitHub issue yourself is off. The hint under the field says why. | — |
+| "The brief was copied: paste it as the issue body." | Write a GitHub issue yourself | The brief is too long for the link, so Sequential copied it. | — |
+| "The brief was too long for the link. Copy it from the brief and paste it as the issue body." | Write a GitHub issue yourself | The brief is too long for the link, and the copy failed. | — |
 
 To hand cases to a coding agent:
 
@@ -308,7 +308,7 @@ The pull request alone does not measure the fix. Sequential measures a release t
 
 ### What counts as a handoff
 
-- Copy brief, Copy brief again and Open a GitHub issue in the app.
+- Copy brief, Copy brief again and Write a GitHub issue yourself in the app.
 - Copy brief for an agent, Hand to an agent, Send to webhook and Approve hand-off, once Sequential has recorded the hand-off. A webhook send that fails does not count. The audit log records it as `finding.dispatched`, not `finding.handed_off`.
 - A token that reads the case or its brief. GET `/api/findings/:n` carries the fix brief, so it counts as a handoff. So do GET `/api/findings/:n/brief`, the `get_fix_brief` tool and POST `/api/agent/get_fix_brief`.
 

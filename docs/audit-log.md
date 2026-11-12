@@ -248,7 +248,7 @@ A token with `findings:link` can add fix links.
 
 | Action code | Recorded when | Reads as |
 |---|---|---|
-| `finding.handed_off` | The first time a case is handed off: someone clicks Copy brief or Open a GitHub issue on the case, or a token reads the case or its fix brief. Later hand-offs make no entry | "copied a case’s brief" (Copy brief), "opened a GitHub issue from a case" (Open a GitHub issue) or "fetched a case’s brief" (a token) |
+| `finding.handed_off` | The first time a case is handed off: someone clicks Copy brief or Write a GitHub issue yourself on the case, or a token reads the case or its fix brief. Later hand-offs make no entry | "copied a case’s brief" (Copy brief), "opened a GitHub issue from a case" (Write a GitHub issue yourself) or "fetched a case’s brief" (a token) |
 | `finding.link_added` | Someone, or a token with `findings:link`, adds a fix link. Adding a link that is already there makes no entry | "linked a fix to a case" |
 | `finding.link_removed` | Someone removes a fix link. A token cannot remove one | "removed a fix link from a case" |
 | `finding.mute_rule_created`, `finding.mute_rule_updated`, `finding.mute_rule_deleted` | From 4 November 2026: someone makes, changes or removes a mute rule | "recorded “mute rule created” for a case", and the same with "updated" or "deleted" |
