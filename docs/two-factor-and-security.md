@@ -406,6 +406,7 @@ Two more limits apply to 2FA codes, per account:
 
 - After five wrong codes in one sign-in, the next try ends the sign-in with "Too many wrong codes for this sign-in, so it was closed." Start again with your password.
 - Ten wrong codes in a row on your account, across sign-ins, lock code entry for 15 minutes. The message says "Too many wrong codes. This account is locked for 15 minutes, then you can try again." A correct code resets the count.
+- From 12 November 2026, the first code that confirms a new 2FA set-up, or a backup code at that step, has its own limit: 5 tries in each quarter of an hour (from :00, :15, :30 and :45) and 20 tries in a UTC day. Over it, Sequential refuses even the right code, and the page says "Too many codes. Wait 15 minutes, then try again. The limit is 20 tries in one day." The set-up does not end: you can try again later.
 
 Too many wrong passwords for one address: from 23 October 2026, after 10 wrong passwords for one email address within 15 minutes, Sequential pauses password sign-in for that address for 15 minutes, from every network address. The page says "Too many wrong passwords for this address. Try again in 15 minutes, or sign in with an emailed code."
 

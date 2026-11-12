@@ -457,6 +457,7 @@ Limits count per network address, so teammates behind one office network share t
 |---|---|
 | Five wrong codes in one sign-in | The sign-in ends: "Too many wrong codes for this sign-in, so it was closed." Select Sign in again. |
 | Ten wrong codes in a row | Code entry locks for 15 minutes. The message says "Too many wrong codes. This account is locked for 15 minutes, then you can try again." |
+| From 12 November 2026: the first code of a new 2FA set-up, or a backup code at that step | 5 tries in each quarter of an hour and 20 in a UTC day, the right code too. Then: "Too many codes. Wait 15 minutes, then try again. The limit is 20 tries in one day." The answer is 429 `TWO_FACTOR_CONFIRM_LIMIT` with Retry-After. |
 
 Password sign-in has no per-account lockout, only the per-address limit. See [Two-factor authentication and account security](/docs/two-factor-and-security).
 
