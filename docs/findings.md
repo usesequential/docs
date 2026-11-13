@@ -78,7 +78,7 @@ On a project where detection is paused, the line under the title says so. See [H
 ### The Cases list in detail
 
 - From 4 November 2026, there is also Muted, while a mute rule mutes a case.
-- From 1 November 2026, the id of a case, such as F-12, is a button in the list, on the board and on the case page. Click it to copy the id. It does not open the case. The button then reads "Copied" for 2 seconds. If the browser refuses the copy, it says "Could not copy. Select F-12 and copy it." In the list and on the board, a hint shows when you point to the id or move the keyboard focus to it: "Name F-12 in the release that ships the fix. Your release step, your agent, or an owner or admin on the case page can record it. Then Sequential measures the fix." Press Esc to hide it. On the case page, this line shows under the summary of the case. See [Mark a release](#mark-a-release).
+- From 1 November 2026, the id of a case, such as F-12, is a button in the list, on the board and on the case page. Click it to copy the id. It does not open the case. The button then reads "Copied" for 2 seconds. If the browser refuses the copy, it says "Could not copy. Select F-12 and copy it." In the list and on the board, a hint shows when you point to the id or move the keyboard focus to it: "Name F-12 in the release that ships the fix. Your release step, your agent, or an owner or admin on the case page can record it. Then Sequential measures the fix." Press Esc to hide it. On the case page, this line shows under the summary of the case. From 12 November 2026, it does not show on a dismissed case. See [Mark a release](#mark-a-release).
 - The line under the title counts the open cases, for example "12 open, 3 of them new. 1 has gone quiet." Under the tabs, one line says how the list is sorted, then the rule, for example: "Sorted by impact: people reached, weighted by the share who gave up. Cases open at 3 sessions from 2 people in 7 days, or at once on a failed request or an error in your own code." While detection is paused, the line gives only the order. On the board, it gives only the rule.
 - Cases that happen now come first. Quiet cases come after them. Fixed and dismissed cases come last. Inside each group, Sort sets the order: Impact (the default: the people reached, weighted by the share who gave up), People (the most people first), Sessions (the most sessions first, also sessions with no person id) or Newest (the newest case first). A tie goes to the case seen latest. With People or Sessions, each row shows that number darker. The order is in the address, for example `?sort=people`, so you can share it. From 3 November 2026, this browser remembers the order that you chose, for each project, and Cases opens in it the next time. A link with `?sort=` opens in its own order. With nothing remembered, or in a browser that keeps no site data, such as a private window, Cases opens at Impact. To go back to Impact, choose it in Sort. Your teammates and your other browsers keep their own order. When you come back to Cases in the same tab within 10 minutes, the last list shows at once, with its tab, its filter and its scroll, and "Updating…" shows next to the tabs while Sequential reads the list again. The board always uses Impact.
 - From 3 November 2026, cases of one pattern show as one row in the list when 2 or more of them have the same standing: live, quiet, fixed or dismissed. Click the row to see its cases. A group only shows the cases together: each case keeps its number, its stage, its fix and its measuring. The patterns are:
@@ -129,7 +129,7 @@ The main column, from the top:
 6. Evidence: the sample sessions. The last paragraphs of this block describe them.
 7. Who it reaches: the top 5 Browsers, Systems and Releases of the sessions. A case from your server says "None from a server error."
 8. Did the fix work? See [Read the result](#read-the-result).
-9. What the agent receives: the fix brief, open by default. Under it, GitHub repository and Write a GitHub issue yourself.
+9. What the agent receives: the fix brief, open by default. Under it, GitHub repository and Write a GitHub issue yourself. From 13 November 2026, a dismissed case does not show this section.
 
 The side panel, from the top:
 
@@ -228,6 +228,8 @@ You can mute kinds of cases that you do not want in Open. A muted case stays ope
 ## Hand off a case
 
 Everyone on the project can copy the brief, viewers too. To read the brief first, go to What the agent receives in the main column of the case.
+
+From 13 November 2026, a dismissed case hands nothing to an agent. Its page does not show What the agent receives or Write a GitHub issue yourself. If you dismiss a case after a hand-off in the same visit, the prompt to paste to your agent goes too. Reopen brings the brief back. A new hand-off shows a new prompt.
 
 ### Copy the brief
 
@@ -468,7 +470,7 @@ For one repository with several projects, write the project key before the numbe
 
 ### Name a case in a release on its page
 
-From 9 November 2026, a case page has the card Releases that name this case, under Fix. It lists the releases of the project's environment that name the case, the newest first. With no such release, it says "No release names this case yet." From 11 November 2026, an owner or an admin also reads, for example: "When the fix is live, use “The fix is live” on this page."
+From 9 November 2026, a case page has the card Releases that name this case, under Fix. It lists the releases of the project's environment that name the case, the newest first. With no such release, it says "No release names this case yet." From 12 November 2026, a dismissed case does not ask for a release. Its card has no Name a release, and it shows only when a release names the case already: the list stays, and an owner or an admin can still click Remove from this release. With no such release, the card is not shown. Did the fix work? is not shown either while it only says "No release names F-12 yet. Sequential measures a fix once a release names it." Reopen brings them back. From 11 November 2026, an owner or an admin also reads, for example: "When the fix is live, use “The fix is live” on this page."
 
 Only an owner or an admin can change the list. A member or a viewer sees the list without buttons. The demo, and staff who view as a customer, see no buttons either. A token cannot use the card: an agent or your CI names cases when it records the release.
 
@@ -499,6 +501,7 @@ From 1 November 2026, a marker can also say what shipped, in words for a person.
 - It drops a link that is not https or that holds a user name or a password, and a change without a title. Sequential does not open the links.
 - From 11 November 2026, a person who is signed in to the app can send `only_new: true` to POST `/api/releases`. Sequential then refuses a version that is stored, also a retracted one: 409 `release_exists`, with the stored `released_at` and `retracted`. Sequential does not read `only_new` from a token.
 - The answer of POST `/api/releases` has the stored marker. When Sequential changed a text, `adjusted` lists each field and what it did: `cut`, `masked`, `dropped` or `cleaned`.
+- From 12 November 2026, when an agent records a release and Sequential replaces a person's name with `[person]`, `adjusted` lists that field with `what: "masked"` and `reason: "person"`: `/title`, `/notes` (one entry for all the notes) or the title of a change, such as `/changes/0/title`. A link with a name in it is not stored: `adjusted` lists it as `dropped`. It names the field, never the text. The answer of `record_release` has `adjusted` too.
 - The answer of `record_release` has the ids and counts only (`has_title`, `has_notes`, `changes_total`), not the texts.
 - Each marker has a `group_key`. Markers with the same environment, the same commit and the same day (UTC) have the same key. Without a commit, the key is the version. The API never merges or hides a marker.
 
