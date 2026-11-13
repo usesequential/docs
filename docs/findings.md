@@ -790,7 +790,7 @@ Under the title, a rail shows how far the case got, in five steps: New, Handed o
 - New, Worse and Regressed are red. A New case that has gone quiet is not red.
 - The list never shows Shipped. Until Sequential measures a new release, the list shows the last result that it stored for the case. This result can be for an older release. With no stored result, the list shows Fix linked, Handed off or New. Open the case to see the stage for the newest release.
 
-What happened to this case lists who did what: the detector opened the case, the brief left Sequential, an agent asked to take the case, someone linked a fix, a release named the case, Sequential confirmed the fix or saw it again, and the last verdict with its reason. Each line says how long ago. Hover over the time to see the date.
+What happened to this case lists who did what: the detector opened the case, the brief left Sequential, an agent asked to take the case, someone linked a fix, a release named the case, Sequential confirmed the fix or saw it again, and the last verdict with its reason. Each line says how long ago. Hover over the time to see the date. From 13 November 2026, when a dismissal ends an agent's waiting request, the line says who ended it: "Sequential ended the agent’s request to take the case: it closed the case" after Sequential's own check, or "An agent ended the request to take the case: it dismissed the case" after an agent's verdict. The agent that dismissed the case can be another connection than the one that asked. When a person ended the request, the line still says "A person saw the agent’s request lapse: the case changed".
 
 ## Changes card
 

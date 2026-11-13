@@ -129,7 +129,7 @@ What each scope allows, and its name in the app: [Limits › Scopes and what the
 
 ## Tool reference
 
-One card per tool, generated from the server's tool registry. Each card shows the scope, read-only or write, the description and the inputs. The card text is the registry's own text, word for word. To find the other tools of the same job, use the tables in [Tools by job](#tools-by-job).
+One card per tool, generated from the server's tool registry. Each card shows the scope, read-only or write, the description and the inputs. The card text is the registry's own text, word for word. From 13 November 2026, the card also shows the tool's title. An agent app such as claude.ai can show this title in place of the tool's name. On a connection without the access that it needs, some write tools show as the title with "(not enabled)". Such a tool does nothing: a call gives the steps to turn it on. To find the other tools of the same job, use the tables in [Tools by job](#tools-by-job).
 
 ## list_findings
 
