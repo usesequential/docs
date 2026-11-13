@@ -70,7 +70,7 @@ Read this before you describe Sequential in a privacy notice or security questio
 
 | Data | What it holds |
 |---|---|
-| Events | Name, time, user and session ids, page URL, referrer, browser, operating system, country, **the full IP address** and your properties. |
+| Events | Name, time, user and session ids, page URL, referrer, browser, operating system, country, **the full IP address** and your properties. A PostHog SDK also adds properties of its own to each event, such as the language of the browser: Sequential keeps them, except a fixed list of the SDK's internal ones. |
 | Server events | The events and errors that your server sends with the [backend SDK](/docs/backend-sdk): name, time, user id, session id, account id and your properties. No browser, device, IP address, country or URL. |
 | Replay recordings | What the page or screen showed and what the visitor did, masked on the device. Each recording also holds its session id and, if there is one, a user id. |
 | DevTools data | Errors, console, network and performance data, stored with a replay by default. |
