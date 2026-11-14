@@ -137,7 +137,7 @@ The help line of the box "Also: it sends feedback to Sequential" says "It sends 
 The tool sends a bug, a feature request or an idea about Sequential, not about your own site. Each call sends one item. The text has at most 1,000 characters and no title. Before Sequential stores it, it removes names, emails and secrets.
 
 - The agent must show you the exact kind and text, and send only after you say yes, unless you ticked "Let it send feedback without asking".
-- If no words are left after Sequential removes names, emails and secrets, Sequential refuses the text.
+- If no words are left after Sequential removes emails and secrets, Sequential refuses the text. From 14 November 2026, a name counts as a word: if the text is only a name that Sequential removes, Sequential stores `[person]`.
 - The item is yours: it shows in Your threads, with the project of the connection. The team replies to it as to any other item.
 - In the list and in the thread, an item from an agent shows "sent by" and a name, for example "sent by Claude". The name is Sequential's name for a known app, else the name that the agent's app gives itself, else "Unknown agent". Sequential does not check a name that the app gives itself. An item that you sent from the app shows no "sent by".
 - After each send, Sequential emails you: "Your agent sent feedback #N". The email names the agent and the kind, and links to the item.
