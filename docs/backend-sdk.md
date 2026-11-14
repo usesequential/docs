@@ -226,6 +226,16 @@ The section "Backend activity, last 30 days" is at the bottom of the person's pa
 - If the last 30 days have no server event, the section does not show.
 - A person with only server events is not in People and not in the user counts.
 
+### On the Brief and in onboarding
+
+From 14 November 2026, a project that gets only server events no longer shows as a project where nothing has arrived:
+
+- The setup checklist on the Brief shows, for example, "Your server (Backend SDK) · last event 2 minutes ago".
+- The Install step in onboarding can say "The first event came from your server (Backend SDK), 2 minutes ago."
+- The Sources card on Settings › Setup does not show your server.
+
+This time is not the time of an event. It is the last time that Sequential accepted a server key of the project, and it can be up to about a minute late. A key that you revoked counts with its last use. Sequential notes the key before it checks the rate limits and the request, so a request that it then refuses, for example with 429, also counts.
+
 ### If events do not arrive
 
 - With neither `userId` nor `context`, the SDK does not send the event. See [How Sequential finds the person and the session](#how-sequential-finds-the-person-and-the-session).
