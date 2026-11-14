@@ -39,6 +39,8 @@
 
 Result: Two-factor authentication is now on.
 
+From 14 November 2026, a set-up that you do not confirm within 24 hours ends. Sequential then refuses the codes of that set-up, also its backup codes. For a code from the app, Settings › Security says "Two-factor setup was not started, or it was replaced. Start again." Start the set-up again and scan the new QR code: a new set-up has a new key and new backup codes. Sequential deletes the key and the backup codes of a set-up that ended within the next 2 hours.
+
 New phone or new backup codes? See [New phone, new backup codes or turning 2FA off](#backup-codes-turning-2fa-off-and-refused-codes).
 
 ### New phone, new backup codes or turning 2FA off
@@ -59,7 +61,7 @@ From 20 October 2026, an account that you create with an emailed code has no pas
 
 You set up 2FA in the same way, but Sequential does not ask for a password. In place of the password, Sequential checks that you signed in on this device in the last 15 minutes.
 
-From 11 November 2026, on an account with no password, that sign-in must be your own proof: an email code, a passkey, or a verification link that you clicked in time. A sign-in with Google, GitHub, Microsoft or single sign-on does not count. This applies when you turn 2FA on or off, show the QR code again, make new backup codes, and confirm 2FA with your first code. So enter the first code within the 15 minutes. If it is too late, Sequential refuses the code: sign in again with an email code, and the same QR code still works.
+From 11 November 2026, on an account with no password, that sign-in must be your own proof: an email code, a passkey, or a verification link that you clicked in time. A sign-in with Google, GitHub, Microsoft or single sign-on does not count. This applies when you turn 2FA on or off, show the QR code again, make new backup codes, and confirm 2FA with your first code. So enter the first code within the 15 minutes. If it is too late, Sequential refuses the code: sign in again with an email code, and the same QR code still works until the set-up ends, 24 hours after it started.
 
 1. Go to **Settings › Security**.
 
@@ -406,7 +408,7 @@ Two more limits apply to 2FA codes, per account:
 
 - After five wrong codes in one sign-in, the next try ends the sign-in with "Too many wrong codes for this sign-in, so it was closed." Start again with your password.
 - Ten wrong codes in a row on your account, across sign-ins, lock code entry for 15 minutes. The message says "Too many wrong codes. This account is locked for 15 minutes, then you can try again." A correct code resets the count.
-- From 12 November 2026, the first code that confirms a new 2FA set-up, or a backup code at that step, has its own limit: 5 tries in each quarter of an hour (from :00, :15, :30 and :45) and 20 tries in a UTC day. Over it, Sequential refuses even the right code. Settings › Security says when to try again, for example "Too many codes. Try again in 12 minutes." After the 20 tries of the day: "Too many codes today. The limit is 20 tries in one day. Try again after 00:00 UTC." Only the time clears the count: signing out other devices or a right code does not. The set-up does not end: you can try again later. If the wait does not end, write to support.
+- From 12 November 2026, the first code that confirms a new 2FA set-up, or a backup code at that step, has its own limit: 5 tries in each quarter of an hour (from :00, :15, :30 and :45) and 20 tries in a UTC day. Over it, Sequential refuses even the right code. Settings › Security says when to try again, for example "Too many codes. Try again in 12 minutes." After the 20 tries of the day: "Too many codes today. The limit is 20 tries in one day. Try again after 00:00 UTC." Only the time clears the count: signing out other devices or a right code does not. This limit does not end the set-up: you can try again later. But a set-up that is not confirmed within 24 hours ends, see [Set up two-factor authentication](#set-up-two-factor-authentication). If the wait does not end, write to support.
 
 Too many wrong passwords for one address: from 23 October 2026, after 10 wrong passwords for one email address within 15 minutes, Sequential pauses password sign-in for that address for 15 minutes, from every network address. The page says "Too many wrong passwords for this address. Try again in 15 minutes, or sign in with an emailed code."
 

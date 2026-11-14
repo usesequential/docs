@@ -320,6 +320,8 @@ Expired proposals show under Expired on the Changes page, with Restore. A person
 
 From 22 October 2026, Sequential does not keep the text of a proposal that nobody confirmed. Once a day, it clears the title, summary, links and evidence of each proposal that was rejected more than 30 days ago, or that was proposed more than 61 days ago and not confirmed. A restore starts the count again. It also clears them in the history of the proposal. The title then reads: "Text cleared: this proposal was not confirmed". The record that the proposal existed stays, with its status.
 
+From 14 November 2026, Sequential also keeps a keyed hash of the text of each change as the agent sent it, before Sequential replaces names of people with `[person]`. Sequential uses the hash only to know when the same agent sends the same change again: it then does not store the change again, and a rejected proposal stays rejected. The key is different for each organisation. Sequential never shows the hash, and no API, tool or export returns it. Nobody can search the hash for a name without Sequential's server key, so a request to erase one person's data does not find it by the name alone. The hash stays when Sequential clears the text of a proposal. Sequential deletes it with the project or the organisation.
+
 A project can have at most 1,000 open proposals.
 
 See also [Data retention and deletion](/docs/retention-and-deletion).
