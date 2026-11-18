@@ -188,7 +188,7 @@ Ask an agent that has `analytics:read`: "Is Sequential dropping or refusing any 
 | `malformed`, `replay_event_malformed` | refused uploads, or dropped recording events, that it could not read | Update the SDK |
 | `empty_batch` | received batches that held no events, and stored nothing | Update the SDK |
 | `heat_host_not_allowed` | dropped heatmap data from a page whose host is not in the allowed origins | |
-| `click_flood` | from 18 November 2026: dropped clicks that repeated on one element of one session more than 20 times in 10 seconds. An old copy of an SDK can send a click in a loop. Sequential stores the first 20 clicks and the other events of the batch | Update the SDK wherever it is installed. Clear any cached copy of the old script, such as in a CDN, a service worker or a pinned script tag |
+| `click_flood` | from 18 November 2026: dropped clicks that repeated on one element of one page, in one session, more than 20 times in 10 seconds, faster than a person clicks. An old copy of an SDK can send a click in a loop. Sequential stores the first 20 clicks and the other events of the batch | Update the SDK wherever it is installed. Clear any cached copy of the old script, such as in a CDN, a service worker or a pinned script tag |
 | `config_unavailable`, `trial_unavailable`, `not_stored` | could not check or store the data. The fault was on Sequential's side | Nothing to change. A sender that tries a 503 again sends the data again. If it continues, contact Sequential support |
 
 ### Console lines about the SDK settings
