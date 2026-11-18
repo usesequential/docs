@@ -165,7 +165,7 @@ Ask an agent that has `analytics:read`: "Is Sequential dropping or refusing any 
 `get_overview` has a setup check named `ingest_refusals`. It tells an agent what Sequential refused or did not store for this project in the window, and why. Or it tells that Sequential refused nothing.
 
 - The check shows at most 3 lines, the largest first. `more_reasons` counts the others. Each line has the reason, the source, the count, the last day and a sentence.
-- A count is of requests: event batches for the Sequential SDK, uploads for recordings, or the requests of another tool's SDK. For `replay_event_malformed` and `heat_host_not_allowed`, it is of events.
+- A count is of requests: event batches for the Sequential SDK, uploads for recordings, or the requests of another tool's SDK. For `replay_event_malformed` and `heat_host_not_allowed`, it is of events. For `click_flood`, it is of clicks.
 - A refusal shows about a minute after it happens. Sequential keeps the counts for 30 days, so the oldest day of a 30-day window can be incomplete.
 - A request with a wrong or revoked ingest key names no project, so Sequential cannot count it for your project. See [No events arrive](#no-events-arrive).
 - If Sequential cannot read the counts in time, the state is `unknown`.
@@ -188,6 +188,7 @@ Ask an agent that has `analytics:read`: "Is Sequential dropping or refusing any 
 | `malformed`, `replay_event_malformed` | refused uploads, or dropped recording events, that it could not read | Update the SDK |
 | `empty_batch` | received batches that held no events, and stored nothing | Update the SDK |
 | `heat_host_not_allowed` | dropped heatmap data from a page whose host is not in the allowed origins | |
+| `click_flood` | from 18 November 2026: dropped clicks that repeated on one element of one session more than 20 times in 10 seconds. An old copy of an SDK can send a click in a loop. Sequential stores the first 20 clicks and the other events of the batch | Update the SDK wherever it is installed. Clear any cached copy of the old script, such as in a CDN, a service worker or a pinned script tag |
 | `config_unavailable`, `trial_unavailable`, `not_stored` | could not check or store the data. The fault was on Sequential's side | Nothing to change. A sender that tries a 503 again sends the data again. If it continues, contact Sequential support |
 
 ### Console lines about the SDK settings
@@ -271,8 +272,8 @@ Hold the pointer on the column to read more. More about each state is in [Sessio
 | Symptom | Likely cause | Fix |
 |---|---|---|
 | Text shows as ███ and images are missing | Strict masking is the default. | Set Masking level to Balanced. Only new recordings change. Balanced also records attribute values and the full page address. |
-| Background images are missing | Strict masking cuts image addresses to their domain, so the player cannot load them. | Expected under Strict. |
-| Fonts look wrong | From 26 October 2026, a web font loads, unless an id-like part, such as a long build hash, masks its file name. A recording from before that date shows fallback fonts. | Expected under Strict. See [Masking and redaction](/docs/masking-and-redaction). |
+| Background images are missing | In a recording from before 18 November 2026, Strict masking cut image addresses to their domain, so the player cannot load them. From 18 November 2026, addresses keep their full path in every preset. | Expected for recordings from before 18 November 2026. |
+| Fonts look wrong | In a recording from before 18 November 2026, Strict masked a web font whose file name had an id-like part, such as a long build hash, so the replay shows a fallback font. A recording from before 26 October 2026 shows fallback fonts for every web font. From 18 November 2026, every web font keeps its full address. | Expected for recordings from before 18 November 2026. See [Masking and redaction](/docs/masking-and-redaction). |
 
 Other DevTools rows and the API error 400 `masking_preset_conflict` are in ["Session replay settings in detail"](#session-replay-settings-in-detail).
 
@@ -320,16 +321,16 @@ What to do for a state in the Recording column:
 
 Masking:
 
-- Strict masking: it masks all text, inputs and most attribute values. It blocks images, SVG, video, audio and iframes. It cuts addresses to their domain.
+- Strict masking: it masks all text, inputs and most attribute values. It blocks images, SVG, video, audio and iframes. From 18 November 2026, it does not change addresses: they keep their full path under every preset.
 - Balanced masking: you must type the project slug to switch. Mark sensitive elements with `data-sq-mask`. On mobile, the app's SDK sets masking. See [Masking and redaction](/docs/masking-and-redaction).
-- Fonts: From 26 October 2026, a web font loads, unless an id-like part, such as a long build hash, masks its file name. A recording from before that date shows fallback fonts.
+- Fonts: From 18 November 2026, every web font keeps its full address, so it loads. In a recording from before 18 November 2026, Strict masked a font file name with an id-like part, such as a long build hash, and a recording from before 26 October 2026 shows fallback fonts for every web font.
 - Masking API: a 400 `masking_preset_conflict` from PATCH `/api/projects/:id/config` means that the request names the preset `strict` and sets `mask_attributes` to `urls` or `off`. Sequential saved nothing. Send the preset `custom` to loosen attribute masking, with `confirm` and the project slug if the change records more. Or leave out `mask_attributes`, or set it to `strict`.
 
 | Symptom | Likely cause | Fix |
 |---|---|---|
-| In DevTools, a failed image, script or font shows only a domain and █ blocks. You cannot see which file failed | Strict masks the path of every file that the page loads. The kind, status and timing stay | Expected under Strict. Reproduce the issue in a browser. Or, on a staging project, set Attribute values (titles, labels, alt text, data-*) to "Kept, URLs cut to the path", under Settings › Recording & data › Privacy and masking. See [DevTools](/docs/devtools). |
-| In DevTools, a part of an API path shows as █ blocks, such as `/api/orders/███████/items` | Strict masks id-like segments of an API call's route | Expected under Strict. The route words stay, so you can still see which call failed. |
-| An error message or console text shows █ blocks in a path | Under Strict, Sequential masks UUIDs, long hex runs and runs of 6 or more digits after a `/` | Expected under Strict. |
+| In DevTools, a failed image, script or font shows only a domain and █ blocks, in a recording from before 18 November 2026 | Before 18 November 2026, Strict masked the path of every file that the page loaded | Expected for those recordings. From 18 November 2026, DevTools keeps the full path under every preset. See [DevTools](/docs/devtools). |
+| In DevTools, a part of an API path shows as █ blocks, such as `/api/orders/███████/items`, in a recording from before 18 November 2026 | Before 18 November 2026, Strict masked id-like segments of an API call's route | Expected for those recordings. From 18 November 2026, the full path stays. |
+| An error message or console text shows █ blocks in a path | Under Strict, Sequential masks UUIDs, long hex runs and runs of 6 or more digits after a `/`, outside an `http(s)` or `ws(s)` address | Expected under Strict. An address such as `https://api.example.com/users/<uuid>` keeps its path. |
 | A replay shows the value of a checkbox, radio button or drop-down option in the page's HTML | Balanced records page markup as it is. Only what people choose or type is masked | Use Strict, or put `data-rr-block` on the element. See [Masking and redaction](/docs/masking-and-redaction). |
 
 Upload and retention limits:
@@ -679,7 +680,7 @@ The Event property filter matches only the event's own properties.
 |---|---|---|
 | In the breakdown, but a filter finds nothing | "is" on Text matches only the exact text of the whole value. | Copy the value from the breakdown exactly, or use "contains". |
 | User properties you set do not appear | The Sequential SDK and PostHog do not store them as user properties. For Mixpanel's `people.set`, see [Known limitations](#known-limitations). | Read them on the event. With PostHog, use `posthog.setPersonProperties()`. |
-| A URL in a property reads `[redacted]` | Sequential redacts URL query values, except attribution parameters such as `utm_*`. | See [What Sequential keeps from page URLs](/docs/url-policy). |
+| A URL in a property reads `[redacted]` | The value looks like an email address, a JWT, a credential or a card number. Or the project has **Remove query values** on: then Sequential redacts URL query values, except attribution parameters such as `utm_*`. Events stored before 18 November 2026 follow that rule too. | See [What Sequential keeps from page URLs](/docs/url-policy). |
 
 More causes, also for these symptoms, are in [Event property values in detail](#event-property-values-in-detail).
 
@@ -698,7 +699,7 @@ More causes, also for these symptoms, are in [Event property values in detail](#
 - Filters: "is" on Text matches only the exact text of a value. A date and time value matches only with the type Date. For a number or a date and time, choose the type Number or Date.
 - JSON: examples of values the SDK cannot turn into JSON are a BigInt, or an object that refers to itself. Sequential stores objects and arrays as JSON text.
 - Mixpanel `$` properties: Sequential drops them when it stores the event.
-- URLs: Sequential redacts query values when it stores them.
+- URLs: Sequential redacts email addresses, credentials, card numbers and secrets in them. With Remove query values on, it also redacts query values.
 - User properties: check the support matrix before you rely on user properties. See [What each SDK supports](/docs/support-matrix).
 
 Where user properties go:

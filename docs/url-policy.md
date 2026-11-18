@@ -1,35 +1,36 @@
 # What Sequential keeps from page URLs
 
-> Before it stores an event, Sequential cleans the page URL and referrer. It keeps the host, path and attribution parameters, and redacts other query values.
+> Before it stores an event, Sequential cleans the page URL and referrer. It keeps the host, the path and the query values, and removes email addresses, credentials, card numbers and secrets. A project can also remove its query values.
 
 > **In short**
 >
-> - Sequential cleans the page URL and the referrer of every event before it stores them. You do not set anything up, and you cannot turn it off.
-> - It keeps the scheme, the host, the path and a fixed list of attribution parameters: campaign labels and ad-click ids.
-> - It replaces every other query value with `[redacted]`, and drops the `#fragment`. Sequential drops the whole `user:pass@` part of a URL. From 27 October 2026, this also holds when the password contains an `@`. From 9 October 2026, it keeps a hash route, such as `#/orders`. See **Hash routes** below.
-> - From 11 October 2026, it stores a secret in the path or the hash route as `[token]`, such as the token in a sign-in link. See **Secrets** below.
-> - This cleaning does **not** apply to web recordings, except the `[token]` rule for the page address. Masking decides what a recording keeps of the page URL. See **Page URLs in recordings**, below.
-> - Sequential does not clean events that it stored earlier.
+> - Sequential cleans the page URL and the referrer of every event before it stores them. You do not set anything up, and you cannot turn the cleaning off.
+> - From 18 November 2026, it keeps the scheme, the host, the path and the query values as sent.
+> - In the path and in the query, it replaces an email address, a JWT, a `Bearer` or `Basic` credential and a card number with `[redacted]`. It drops the `#fragment`. Sequential drops the whole `user:pass@` part of a URL. From 27 October 2026, this also holds when the password contains an `@`. From 9 October 2026, it keeps a hash route, such as `#/orders`. See **Hash routes** below.
+> - It stores a secret in the path, the hash route or a query value as `[token]`, such as the token in a sign-in link. See **Secrets** below.
+> - An owner or admin can turn on **Remove query values** for a project, in **Settings** › **Recording & data** › **Data and your team** › **Page addresses**. Then Sequential keeps only the attribution parameters, campaign labels and ad-click ids, and replaces every other query value with `[redacted]`. Before 18 November 2026, this was the rule for every project.
+> - From 18 November 2026, web recordings and DevTools follow the same rules. See **Page URLs in recordings**, below.
+> - Sequential does not clean events that it stored earlier. Events stored before 18 November 2026 keep their query values as `[redacted]`.
 
 ## What it is for
 
-A page URL can carry the campaign that brought a visitor to you. It can also carry a password-reset token, an email address or a session id. Sequential keeps the first kind of value and redacts the second.
+A page URL shows where a person was in your app, and the campaign that brought them. From 18 November 2026, Sequential keeps it readable, so that you can filter, group and replay by the real address.
 
-The rule is **whether a value identifies a real person**. Campaign labels and ad-click ids tell you where visitors come from, not who they are. This page calls their parameters the attribution parameters.
+A URL can also carry an email address, a password-reset token or a session id. Sequential removes the values that it can recognise by their shape: email addresses, JWTs, `Bearer` and `Basic` credentials, card numbers and long random tokens. It cannot recognise a name, a phone number, a customer number or a short token. If your query values can hold such values, turn on **Remove query values**. Keep such values out of your paths.
 
 ## What Sequential keeps and drops
 
-| Part of the URL | What Sequential stores |
-|---|---|
-| Scheme, host and path | Kept |
-| An attribution parameter | Kept, unless the value looks like a personal identifier |
-| Every other query value | `[redacted]`. The parameter name stays, so you can see which parameters a URL carried |
-| The `#fragment` | Dropped, except a hash route (from 9 October 2026) |
-| `user:pass@` credentials | Dropped. From 27 October 2026, also when the password contains an `@` |
-| A path segment that is an email address, JWT or card number | `[redacted]` |
-| A secret in the path or the hash route (from 11 October 2026) | `[token]` |
+| Part of the URL | Remove query values off (the default) | Remove query values on |
+|---|---|---|
+| Scheme, host and path | Kept | Kept |
+| An attribution parameter | Kept | Kept |
+| Every other query value | Kept | `[redacted]`. The parameter name stays, so you can see which parameters a URL carried |
+| A value or path segment that is an email address, JWT, `Bearer` or `Basic` credential or card number | `[redacted]` | `[redacted]` |
+| A secret in the path, the hash route or a query value | `[token]` | `[token]` |
+| The `#fragment` | Dropped, except a hash route | Dropped, except a hash route |
+| `user:pass@` credentials | Dropped | Dropped |
 
-The attribution parameters are the standard `utm_*` campaign parameters, Mailchimp's `mc_cid` and the click ids of the main ad platforms. The list is the same for every project. You cannot add to it.
+The attribution parameters are the standard `utm_*` campaign parameters, Mailchimp's `mc_cid` and the click ids of the main ad platforms. The list is the same for every project. You cannot add to it. Before 18 November 2026, every project used the rule of the third column.
 
 ## Hash routes
 
@@ -48,7 +49,7 @@ From 9 October 2026, Sequential keeps the route of a hash-routed page in the sto
 
 From 11 October 2026, Sequential stores a secret in a link as `[token]`, for new data. It uses the same rule as for the text that an agent receives. See [Privacy at a glance](/docs/privacy-overview#secrets-in-links).
 
-- It applies the rule to the path, to the hash route and to each query value that is not an attribution value. The host and the attribution values, such as `gclid`, stay.
+- It applies the rule to the path, to the hash route and to each query value that is not an attribution value. The host and the attribution values, such as `gclid`, stay. This does not change with **Remove query values**.
 - It applies the rule to the page URL and the referrer of an event, to a property value that is a URL, and to a property value that starts with `/`, such as `$pathname`.
 - It applies the rule to the page address of a web or mobile recording, with every masking setting, and to the page of a JavaScript error or a failed request.
 - Data that Sequential stored before 11 October 2026 keeps its secrets.
@@ -61,45 +62,41 @@ From 11 October 2026, Sequential stores a secret in a link as `[token]`, for new
 
 ## Examples
 
+From 18 November 2026, with **Remove query values** off, unless the row says otherwise:
+
 | Sent | Stored |
 |---|---|
 | `/checkout?utm_source=newsletter&gclid=Cj0KCQjw` | Unchanged |
 | `/reset?token=eyJhbGci…&email=jane@example.com` | `/reset?token=[redacted]&email=[redacted]` |
-| `/search?q=blue+shoes&page=2` | `/search?q=[redacted]&page=[redacted]` |
+| `/search?q=blue+shoes&page=2` | Unchanged. With **Remove query values** on: `/search?q=[redacted]&page=[redacted]` |
 | `https://admin:hunter2@app.example.com/billing#invoice-42` | `https://app.example.com/billing` |
 | `/claim/k3J9xQ2mV8pL4nR7tY1wZ6bA` (from 11 October 2026) | `/claim/[token]` |
 
 ## What this means for your reports
 
-- **Pages differ by path, not by query.** Sequential stores `/search?q=shoes` and `/search?q=boots` as the same URL. If a query value matters, send it as an event property. See [Send custom events](/docs/custom-events).
+- **From 18 November 2026, pages also differ by query.** Sequential stores `/search?q=shoes` and `/search?q=boots` as two URLs. With **Remove query values** on, or in events stored before 18 November 2026, they are the same URL. If a query value matters in that case, send it as an event property. See [Send custom events](/docs/custom-events).
 - **In a hash-routed app, events stored before 9 October 2026 have no route.** Sequential stored `https://app.example.com/#/settings/billing` as `https://app.example.com/`. From that date, it keeps the route. See **Hash routes** above.
-- **Use the lower-case `utm_*` campaign parameters.** Sequential redacts your own referral codes, such as `?ref=partner42`, and any other parameter, such as `utm_keyword`.
-- **Keep personal data out of paths.** Sequential replaces only segments shaped like an email address, JWT or card number, and, from 11 October 2026, secrets. It stores numeric ids and usernames in a path as sent.
+- **Use the lower-case `utm_*` campaign parameters.** With **Remove query values** on, Sequential redacts your own referral codes, such as `?ref=partner42`, and any other parameter, such as `utm_keyword`.
+- **Keep personal data out of paths and query values.** Sequential replaces only values shaped like an email address, JWT, credential or card number, and secrets. It stores numeric ids, usernames and search text as sent.
 
 > **Page URLs in recordings**
 >
-> | Masking | What a web recording keeps of the page URL |
-> |---|---|
-> | **Strict** (the default) | The domain and the route. Id-like segments are masked. No query, fragment or `;` parameters. |
-> | **Balanced** | The full URL, with query values and the fragment. |
-> | **Custom**, with **Attribute values (titles, labels, alt text, data-*)** set to **Kept, URLs cut to the path** | The domain and the full path. No query, fragment or `;` parameters. |
+> From 18 November 2026, a web recording keeps the domain and the full path of the page address, in every masking preset. Every other address on your own site in the recording does the same. A file that the player loads, such as an image, a script, a video, a font, a stylesheet or an icon, also keeps its full path on another site. A link, a form address, a frame or another reference that points to another site keeps only its domain, such as `https://www.linkedin.com`. A `javascript:` link is stored empty. In a `mailto:` link, the email address is stored as `[redacted]`, and the query follows **Remove query values**. Under **Strict**, the address is masked and the query is dropped. In a `tel:`, `sms:` or `callto:` link, the number is masked, one █ per character, under every masking setting. The query follows **Remove query values**: kept as sent, or only the attribution parameters with every other value `[redacted]`. The `#fragment` is dropped, except an element id, such as `#section-2`, or a hash route, such as `#/settings`. A `#access_token=…` fragment is never kept. `;` parameters are dropped. A stored event keeps a hash route, but not an element id.
 >
-> For example, under **Strict**, `https://app.example.com/orders/1234567?tab=2#notes` becomes `https://app.example.com/orders/███████`.
+> With every masking setting, an email address, a JWT, a credential or a card number in an address is stored as `[redacted]`, and a secret as `[token]`. A short or readable secret can still pass. If a page has secrets in its URL, keep it out of recordings. Add its path to **Never record these pages**, under **Recording** in **Settings** › **Recording & data**. See [Masking and redaction](/docs/masking-and-redaction).
 >
-> Under **Strict**, some parts of a route stay: numbers of 5 digits or fewer, and name slugs such as `/users/jane-doe`. [Masking and redaction](/docs/masking-and-redaction) lists the exact rule.
->
-> From 11 October 2026, with every masking setting, a secret in the page address of a new recording is stored as `[token]`. A short or readable secret can still pass. If a page has secrets in its URL, keep it out of recordings. Add its path to **Never record these pages**, under **Recording** in **Settings** › **Recording & data**. See [Masking and redaction](/docs/masking-and-redaction).
+> Recordings from before 18 November 2026 keep the address as it was stored then. Under **Strict**, that was the domain and the route, with id-like segments masked and no query.
 
 ## Limits
 
 - **Sequential does not clean stored events again.** It cleans each event once, when the event arrives. A stored event stays as it was cleaned until its retention period ends or you delete the project. See [Retention and deletion](/docs/retention-and-deletion).
-- **Identifier detection recognises shapes, not meaning.** Sequential stores names, phone numbers, numeric ids and short or readable tokens as sent, in paths and in kept parameters. From 11 October 2026, it stores a long random token in a path as `[token]`.
+- **Identifier detection recognises shapes, not meaning.** Sequential stores names, phone numbers, numeric ids, search text and short or readable tokens as sent, in paths and in query values. It stores a long random token as `[token]`.
 - **Sequential does not redact parameter names or bare query words.** An identifier in either is stored as sent. See "Exact behaviours of the query check" below.
-- **Parameter names are case-sensitive.** Sequential stores `UTM_SOURCE=newsletter` as `UTM_SOURCE=[redacted]`.
+- **Parameter names are case-sensitive.** With **Remove query values** on, Sequential stores `UTM_SOURCE=newsletter` as `UTM_SOURCE=[redacted]`.
 - **Sequential does not clean URL parts that an SDK sends as separate properties.** Examples are Mixpanel's `current_url_search` and PostHog's `$pathname`. From 11 October 2026, the one exception is the `[token]` rule for a value that starts with `/`, such as `$pathname`.
 - **Sequential does not change values that are not URLs.** Keep secrets and personal data out of properties. Do not rely on URL cleaning for them.
 - **The Sequential SDK cuts long URLs.** It sends at most the first 512 characters of a page URL or referrer. Campaign parameters past that point are lost. So keep landing-page URLs short.
-- **DevTools network requests use a different rule.** Sequential redacts every query value there, including attribution parameters, unless you list its key under **Query values kept**.
+- **DevTools network requests keep query values too.** With **Remove query values** on, Sequential redacts every query value there, including attribution parameters, unless you list its key under **Query values kept**.
 
 ### The full list of attribution parameters
 
@@ -108,9 +105,9 @@ From 11 October 2026, Sequential stores a secret in a link as `[token]`, for new
 
 The list is all lower case. Parameter names are case-sensitive. So Sequential redacts `UTM_SOURCE`.
 
-### Kept parameters that look like an identifier
+### Values that look like an identifier
 
-The attribution parameters are for marketing labels. They are not for any value that someone puts in them. Sequential still replaces a kept value when the value looks like one of these:
+Sequential replaces a query value or a path segment when the value looks like one of these, also in an attribution parameter:
 
 - an email address
 - a JWT
@@ -124,25 +121,28 @@ Sequential keeps card numbers of other lengths.
 | `utm_campaign=spring_sale_2026` | Unchanged |
 | `utm_campaign=jane@example.com` | `utm_campaign=[redacted]` |
 | `utm_campaign=4111111111111111` | `utm_campaign=[redacted]` |
+| `/users/jane@example.com/settings` | `/users/[redacted]/settings` |
 
-This check recognises shapes, not meaning. Sequential keeps an opaque value such as `utm_content=a8f3k2` as sent. So do not put identifiers into campaign parameters.
+This check recognises shapes, not meaning. Sequential keeps an opaque value such as `utm_content=a8f3k2` as sent. So do not put identifiers into URLs.
 
 ### More examples
 
+With **Remove query values** off (the default from 18 November 2026):
+
 | Sent | Stored |
 |---|---|
-| `/?ref=partner42` | `/?ref=[redacted]` |
+| `/?ref=partner42` | Unchanged. With **Remove query values** on: `/?ref=[redacted]` |
 | `/users/jane@example.com/settings` | `/users/[redacted]/settings` |
 | `/users/48213/settings` | Unchanged |
-| Referrer `https://www.google.com/search?q=session+replay` | `https://www.google.com/search?q=[redacted]` |
+| Referrer `https://www.google.com/search?q=session+replay` | Unchanged. With **Remove query values** on: `https://www.google.com/search?q=[redacted]` |
 
-For example, if the plan that a user picks on a sign-up page matters, send the plan as an event property.
+With **Remove query values** on, send a value that matters as an event property. For example, send the plan that a user picks on a sign-up page.
 
 Sequential cleans the referrer too. Its name in filters is **Referrer**. It is the referring URL, not a campaign parameter.
 
 ### Exact behaviours of the query check
 
-- **Sequential checks values, not parameter names.** It stores a name that is an identifier as sent. For example, `?jane@example.com=1` becomes `?jane@example.com=[redacted]`.
+- **Sequential checks values, not parameter names.** It stores a name that is an identifier as sent. For example, with **Remove query values** on, `?jane@example.com=1` becomes `?jane@example.com=[redacted]`.
 - **Sequential keeps a bare query word.** Sequential stores a query part with no `=`, such as `/invite?8f3a9c2b1d`, as sent, unless it has one of the identifier shapes.
 
 ### Why ad-click ids are kept
@@ -150,6 +150,8 @@ Sequential cleans the referrer too. Its name in filters is **Referrer**. It is t
 Of the attribution parameters, ad-click ids come closest to identifying a person. The ad or social platform can link a click id to a person. Sequential cannot. Ad attribution does not work without these ids, so Sequential keeps them.
 
 ### Parameters that are not on the list, such as mc_eid
+
+This applies when **Remove query values** is on.
 
 Mailchimp adds two parameters to the links in its emails. The names differ by one character.
 
@@ -208,13 +210,13 @@ Before it sends an event, the Sequential SDK:
 - redacts identifier-shaped values
 - sends at most the first 512 characters of a page URL or referrer, and ends a cut URL with `…`
 
-Other query values still reach Sequential, which redacts them.
+Other query values reach Sequential, which keeps them, unless the project turns on **Remove query values**.
 
 Sequential does not receive campaign parameters after the 512th character. It stores a parameter that crosses that point cut short. So keep landing-page URLs short.
 
 ### Network requests in DevTools
 
-Network requests in [DevTools](/docs/devtools) follow their own rule. Sequential redacts every query value, unless you list its key in **Query values kept**. This list is under **Network requests**, in **Settings** › **Recording & data** › **What a recording carries**. Sequential does not keep the attribution parameters there unless you list them. Under **Strict** masking, DevTools also masks paths: a file that the page loads keeps only its domain, and an API call keeps its route with id-like parts masked. See [DevTools](/docs/devtools).
+From 18 November 2026, network requests in [DevTools](/docs/devtools) keep their full path and their query values, in every masking preset. With **Remove query values** on, Sequential redacts every query value there, unless you list its key in **Query values kept**. This list is under **Network requests**, in **Settings** › **Recording & data** › **What a recording carries**. Then Sequential does not keep the attribution parameters there unless you list them. See [DevTools](/docs/devtools).
 
 ## Related
 

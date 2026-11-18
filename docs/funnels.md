@@ -31,7 +31,7 @@ Under the steps, two settings show: Conversion window and Break down by. Convers
 
 All the conditions in a step test one event. So a step cannot combine an Event from one event with a URL from another event.
 
-A custom event for each milestone, such as `checkout_completed`, gives each step one clear Event. A URL step cannot tell pages apart if your app routes by query string, because Sequential does not keep query values.
+A custom event for each milestone, such as `checkout_completed`, gives each step one clear Event. A URL step can tell pages apart in an app that routes by query string only for events from 18 November 2026, and only while **Remove query values** is off.
 
 You can also start a funnel from a session: in What they did, click New funnel from this event on a row. See [Session replay](/docs/sessions-and-replay#what-they-did-and-info).
 
@@ -391,14 +391,14 @@ Before 9 October 2026, each event counted only toward the first step that it mat
 - A breakdown shows the 20 largest groups by step-1 people. See [Break a funnel down by campaign](#break-a-funnel-down-by-campaign).
 - With more than 1,000 people who left, the lists in Who left here look at the latest 1,000 of them. See [Why can the panel and View them in People list different people?](#why-can-the-panel-and-view-them-in-people-list-different-people)
 - Events with no user id are not a user. They never enter a funnel, and no drop-off list shows them.
-- A URL step cannot tell pages apart if your app routes by query string, because Sequential does not keep query values. See [URL steps and event properties](#url-steps-and-event-properties).
+- A URL step can tell pages apart in an app that routes by query string only for events from 18 November 2026, and only while **Remove query values** is off. See [URL steps and event properties](#url-steps-and-event-properties).
 
 ### URL steps and event properties
 
 - A URL step must match the whole stored address.
 - Sequential does not store the part of the address after `#`, except a hash route such as `#/orders`, from 9 October 2026.
-- Sequential stores query values as `[redacted]`, except campaign and ad-click parameters. See [What Sequential keeps from page URLs](/docs/url-policy).
-- So a URL step cannot tell pages apart in an app that routes by query string, or by `#/…` for events before 9 October 2026.
+- From 18 November 2026, Sequential stores query values as sent. With **Remove query values** on, and for events stored before 18 November 2026, it stores them as `[redacted]`, except campaign and ad-click parameters. See [What Sequential keeps from page URLs](/docs/url-policy).
+- So a URL step can tell pages apart in an app that routes by query string only for events from 18 November 2026, with **Remove query values** off. It cannot tell pages apart by `#/…` for events before 9 October 2026.
 - In an app that routes by `#/…`, a URL step can tell pages apart for events from 9 October 2026, because Sequential keeps the route from that date.
 - To separate outcomes by a number or a range, use Event property with the type Number, for example is between.
 - Visitor property tests visitor properties. PostHog and the Sequential SDK do not send them.

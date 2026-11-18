@@ -156,7 +156,7 @@ How the filters work: Sequential applies the filter before it splits the list in
 
 2. Under **What a recording carries**, select or clear the captures, the Console output levels and **Console message text**.
 
-3. To keep the values of some query parameters, add their names to **Query values kept**.
+3. With **Remove query values** on, to keep the values of some query parameters, add their names to **Query values kept**.
 
 4. To skip some requests, add URL patterns to **Requests ignored**. Write `**/health`, not `/health`: a pattern must match the whole URL without its query.
 
@@ -178,7 +178,7 @@ What each capture records:
 |---|---|---|---|
 | JavaScript errors | Uncaught exceptions and unhandled promise rejections, with their message and stack trace | — | On. Web only |
 | Console output | For each selected level: each call's level, how often it happened and where. A stack trace for warnings and errors | Message text, unless Console message text is on | On for `error`, `warn`, `info` and `log`. `debug` off. Text off |
-| Network requests | Method, URL, status, timing and size. Under Masked attribute values, the URL is shorter (see [How masking changes DevTools addresses](#how-masking-changes-devtools-addresses)) | Headers and bodies. Query values, except for keys under Query values kept. Requests that match Requests ignored | On, keeping no query values |
+| Network requests | Method, URL, status, timing and size. From 18 November 2026, the URL keeps its full path in every preset (see [How masking changes DevTools addresses](#how-masking-changes-devtools-addresses)) | Headers and bodies. With Remove query values on: query values, except for keys under Query values kept. Requests that match Requests ignored | On. From 18 November 2026, query values are kept unless Remove query values is on |
 | Performance timings | Core Web Vitals and page-load timing, once per page load | Long tasks | On. Web only |
 
 Whatever the settings, Sequential replaces some values with `[redacted]` in DevTools data. This redaction catches only known formats. It is not a guarantee. See [What does Sequential redact in DevTools data?](#what-does-sequential-redact-in-devtools-data) and [Masking and redaction](/docs/masking-and-redaction).
@@ -192,7 +192,7 @@ The settings page:
 - A pattern matches the whole URL, scheme and host included, but not the query. So write `https://api.example.com/health` or `**/health`, not `/health`.
 - In a pattern, `*` stays within a path segment. `**` crosses path segments.
 - The help under Requests ignored says: "One pattern per line, matched against the whole URL without its query. * stays within a path segment, ** crosses them. For example https://api.example.com/health*."
-- These changes record more than before, so the page asks for the project slug before it saves: errors, console or network capture turned on; a level added; message text turned on; a query value kept; a request pattern removed.
+- These changes record more than before, so the page asks for the project slug before it saves: errors, console or network capture turned on; a level added; message text turned on; a query value kept; a request pattern removed; Remove query values turned off.
 
 Sequential applies your current settings to every upload as it arrives. So when you turn a capture off, Sequential stops storing that data immediately. See [Recording settings](/docs/recording-settings) and [Session replay (web)](/docs/session-replay).
 
@@ -213,29 +213,18 @@ From 8 November 2026, under the box Console message text, the page says "Keeps t
 
 ### How masking changes DevTools addresses
 
-The Attribute values (titles, labels, alt text, data-*) masking setting also changes the addresses in DevTools. The Strict level uses Masked. The Balanced level uses Recorded as on the page. The recorder applies the rule in the browser, and Sequential's servers apply it again under the project's current setting. For iOS and Android apps, only the servers apply it.
+From 18 November 2026, masking no longer changes the addresses in DevTools. In every preset, a network request, a code location (the file of an error, each stack frame, and where a console entry came from) and an `http(s)` or `ws(s)` address in error messages and console text keep their domain and full path. The recorder applies the rule in the browser, and Sequential's servers apply it again under the project's current setting. For iOS and Android apps, only the servers apply it.
 
-| What | Masked | Kept, URLs cut to the path (Custom) | Recorded as on the page (Balanced) |
-|---|---|---|---|
-| A network request for a file that the page loads, such as an image, CSS, a script, a font or media | Domain kept. Every path segment masked. No query | Path kept. No `;` parameters. Query values `[redacted]` | Path kept. Query values `[redacted]` |
-| A fetch or XHR call, and the page itself | Domain and route kept. Id-like segments masked. No `;` parameters. Query values `[redacted]` | Path kept. No `;` parameters. Query values `[redacted]` | Path kept. Query values `[redacted]` |
-| Code locations: the file of an error, each stack frame, and where a console entry came from | A script or other asset file: domain kept, every path segment masked, no query. Any other address: domain and route kept, id-like segments masked, query values `[redacted]`. Line and column kept | Path kept. No `;` parameters. Query values `[redacted]` | Path kept. Query values `[redacted]` |
-| `http(s)` and `ws(s)` addresses in error messages and console text | Changed as code locations are | Changed as code locations are | Kept. Only redaction runs |
-| UUIDs, hex runs of 16 or more characters and runs of 6 or more digits after a `/` in error messages, console text and stack frames | Masked | Kept | Kept |
+| What | Remove query values off (the default) | Remove query values on |
+|---|---|---|
+| The query values of a network request | Kept as sent | `[redacted]`, except the keys under Query values kept |
+| The query values of a code location, or of an address in error messages and console text | Kept as sent | `[redacted]` |
 
-- A request with no kind, or a kind that Sequential does not know, counts as a file.
-- Query values kept applies to network requests only. In every setting, query parameter names stay, and addresses lose the `#fragment` and any `user:pass@`.
-- Under Masked and Kept, URLs cut to the path, a query item with no `=`, such as `?<uuid>`, becomes `[redacted]`.
-- A segment is id-like when it holds a UUID, a hex run of 16 or more characters or an email address anywhere, such as `<uuid>.json`. [Masking and redaction](/docs/masking-and-redaction) gives the full rule.
-- The text rule reads each word that holds a `/`, and masks only what comes after the first `/`. Prose such as `and/or`, `2026/09/29` and `v1/2` stays as it is.
+- In every setting, an email address, a JWT, a `Bearer` or `Basic` credential and a card number in an address become `[redacted]`, and a secret becomes `[token]`. Query parameter names stay. Addresses lose the `#fragment` and any `user:pass@`. Line and column stay.
+- Under Masked attribute values, the Strict choice, Sequential still masks UUIDs, hex runs of 16 or more characters and runs of 6 or more digits after a `/` in error messages and console text. Under the other choices, it keeps them.
+- The text rule reads each word that holds a `/`, and masks only what comes after the first `/`. Prose such as `and/or`, `2026/09/29` and `v1/2` stays as it is. An id in text with no `/` before it in its word, such as `id=<uuid>`, and the keys of a logged object stay.
 
-What Masked does not mask in DevTools:
-
-- Domain names, and query parameter names.
-- Numbers of 5 digits or fewer, and name slugs, in the route of an API call.
-- An id in text with no `/` before it in its word, such as `id=<uuid>`. The keys of a logged object.
-
-Under Masked, you cannot see which file failed to load. A failed image, script or font shows only its domain, its kind, its status and its timing. To find the file, reproduce the issue in a browser, or use Kept, URLs cut to the path on a staging project.
+Recordings from before 18 November 2026 keep the addresses as Sequential stored them then. Under Masked, a file that the page loaded showed only its domain, and an API call its route with id-like segments masked.
 
 ## What mobile apps send
 

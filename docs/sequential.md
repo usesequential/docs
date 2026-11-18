@@ -251,12 +251,14 @@ Rage clicks:
 Dead clicks:
 
 - The event has the wait (`$wait_ms`, 2500) and the time of the click.
-- From 5 November 2026, in the snippet from the CDN, a dead click on an element that was already selected when it was clicked also has `$el_state: "selected"`. Already selected means: `aria-pressed`, `aria-checked` or `aria-selected` is `true`, `aria-current` is set and is not `false`, or a class word ends in `active`, `selected`, `checked`, `current` or `on`, for example `is-active` but not `not-active`. The SDK sends only the word `selected`, never the class. It never sends it for an element in `data-sq-private`. Rage clicks and other clicks do not change.
+- From 5 November 2026, in the snippet from the CDN, and from version 1.0.3 of `@usesequential/browser` (18 November 2026), a dead click on an element that was already selected when it was clicked also has `$el_state: "selected"`. Already selected means: `aria-pressed`, `aria-checked` or `aria-selected` is `true`, `aria-current` is set and is not `false`, or a class word ends in `active`, `selected`, `checked`, `current` or `on`, for example `is-active` but not `not-active`. The SDK sends only the word `selected`, never the class. It never sends it for an element in `data-sq-private`. Rage clicks and other clicks do not change.
 - These clicks are not counted: links with `download`, links that open a new tab (`target="_blank"`), `mailto:`, `tel:` and `sms:` links, clicks on or in a `label`, inputs that are not buttons, and clicks while the tab is hidden.
 - A new click stops the wait for the click before it, and that click sends no event. If the person leaves the page during the wait, the SDK sends no dead click.
 - A click on a disabled button counts.
 
 For both: the SDK counts only clicks with the main mouse button and no modifier key (Ctrl, Cmd, Shift or Alt). Both need `MutationObserver` in the browser. Without it, the SDK sends neither.
+
+Clicks that a script makes: from 18 November 2026, the SDK records a click that a script makes (`el.click()` or `dispatchEvent`) only while the person acts: while the page has user activation, or for 1 second after the person's own tap, pointer release or key press. So a tap that the page sends again as its own click, for example with FastClick, is recorded. A script that clicks on a timer from page load is not: no `$click` and no dead click. The SDK also sends at most 5 `$click` events for one element in one second. Sequential knows the element by its selector. This limit does not apply to rage clicks and dead clicks.
 
 The Rage clicks signal of the default [rubric](/docs/rubric) also works with this SDK: the judge reads repeated clicks in the session’s events. The replay player also marks the rage clicks and dead clicks that it finds in the recording.
 
@@ -283,7 +285,7 @@ If the recorder has started, `optOut()` stops it for the rest of that page load,
 | What | What the SDK does |
 |---|---|
 | Page URLs, in the browser | Before sending, the SDK drops the `#fragment` and any `user:pass@` credentials, redacts values that look like JWTs, `Bearer` / `Basic` credentials, emails or card numbers, and caps the URL at 512 characters. Other query values, such as an opaque `token=abc123`, are sent as they are. |
-| Page URLs, at Sequential | Before anything is stored, every query value is replaced with `[redacted]` unless it is a marketing-attribution parameter (`utm_*`, `gclid`, `fbclid` and similar). The same rule applies to every source; see [What Sequential keeps from page URLs](/docs/url-policy). So do not treat URLs as a place where secrets are safe from Sequential: some reach its servers, and are only discarded there. |
+| Page URLs, at Sequential | Before anything is stored, Sequential replaces an email address, a JWT, a credential or a card number with `[redacted]`, and a secret with `[token]`. From 18 November 2026, other query values are kept, unless the project turns on **Remove query values**: then every query value is replaced with `[redacted]` unless it is a marketing-attribution parameter (`utm_*`, `gclid`, `fbclid` and similar). The same rule applies to every source; see [What Sequential keeps from page URLs](/docs/url-policy). So do not treat URLs as a place where secrets are safe from Sequential: some reach its servers, and are only discarded there. |
 | Clicks and form submits | Autocapture records clicks on interactive elements and form submits, never what anyone types. Click text is redacted with the same rules as replay DevTools, which catch JWTs, `Bearer` / `Basic` credentials, emails and card numbers. A JWT written straight after a letter, digit, `_` or `-` can slip through. |
 | Marked elements | Anything inside an element marked `data-sq-mask` contributes no text. `data-sq-private` on an element or an ancestor goes further: the click is still recorded, but with no text, no `data-*` values and no element id, and its selector has no ids. |
 | Account UI and the signed-in person | From 10 October 2026, the SDK also leaves out a click's text and `data-*` values by default when the element or one of its 3 nearest ancestors is account UI, or when the text names the signed-in person. To turn this off, add `data-identity-text="off"` to the script tag. See [Which elements count as account UI?](#which-elements-count-as-account-ui) |
@@ -357,7 +359,7 @@ From 26 October 2026, a click also carries `$el_label`, the `aria-label` of the 
 - The label follows the rules of the click text: Sequential redacts it and keeps up to 128 characters.
 - For a link on the same site, `$el_href` is the address with no query, `#fragment` or user name. For a link to another site, it is only the origin of that site, such as `https://www.linkedin.com`. For a link that is not `http(s)`, such as an email or phone link, it is only the type, such as `mailto:`.
 - The SDK leaves out both fields together under `data-sq-mask` or `data-sq-private`. Unless the script tag has `data-identity-text="off"`, it also leaves them out in account UI, and when the text, the label or the link names the signed-in person, as for the click text.
-- When Sequential stores `$el_href`, a project with Strict masking keeps only the origin of each link. Other projects keep the route of a link on the same site, with id-like parts masked.
+- When Sequential stores `$el_href`, from 18 November 2026, it keeps the full path of a link on the same site, under every masking preset. An email address, a JWT or a card number in the path becomes `[redacted]`, and a secret becomes `[token]`. Before 18 November 2026, a project with Strict masking kept only the origin of each link, and other projects masked id-like parts.
 
 ### When does the SDK write the context cookie?
 

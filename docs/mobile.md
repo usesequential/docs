@@ -254,7 +254,7 @@ val client = OkHttpClient.Builder()
   .build()
 ```
 
-Mobile network rows are metrics only: method, URL with query values redacted, status, duration and size. PostHog’s SDKs never send headers or bodies. React Native: network telemetry is iOS only.
+Mobile network rows are metrics only: method, URL, status, duration and size. From 18 November 2026, the URL keeps its query values, unless the project turns on Remove query values: then they are redacted unless listed under Query values kept. PostHog’s SDKs never send headers or bodies. React Native: network telemetry is iOS only.
 
 ### Why does the replay not show the SDK’s own calls to Sequential?
 

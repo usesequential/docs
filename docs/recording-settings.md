@@ -58,7 +58,8 @@ For a change that asks for the slug, a box opens: "This records more than before
 | Remove an entry from Never record these pages or Never record these app screens. | The slug |
 | Turn on JavaScript errors, Console output or Network requests, add a console level, or turn on Console message text. | The slug |
 | Add a name to Query values kept, or remove a pattern from Requests ignored. | The slug |
-| Lower Attribute values: from "Masked" to either other choice, or from "Kept, URLs cut to the path" to "Recorded as on the page". A move from Strict to Balanced counts. | The slug |
+| Turn off Remove query values. The list says "query values in page addresses will be stored as sent". | The slug |
+| Lower Attribute values: from "Masked" to another choice. A move from Strict to Balanced counts. | The slug |
 | Turn on Heatmaps. | A question of its own: "Turn on heatmaps for …?" |
 | A new Allowed sites list that refuses sites which sent data recently. | A question of its own: "Refuse events from these sites?" |
 | Turn Record sessions or a platform on. | No slug |
@@ -201,7 +202,7 @@ Masking level chooses how much of each page you can see in a replay. Masking hap
 
 | Masking level | What it does |
 |---|---|
-| Strict (default) | Masks all text and every input. Blocks images, SVG, video, audio, iframes and embeds. Masks attribute values, except structure, id references and known state values. Cuts link and image addresses to their domain, and the page address and web font files to their route with id-like parts masked. You see the layout and where people clicked, not what they read. |
+| Strict (default) | Masks all text and every input. Blocks images, SVG, video, audio, iframes and embeds. Masks attribute values, except structure, id references and known state values. From 18 November 2026, it does not change addresses: they keep their full path, as under Balanced. You see the layout and where people clicked, not what they read. |
 | Balanced | Masks every input. Masks text only inside elements with the `data-sq-mask` or `data-sq-private` attribute or the `sq-mask` class. Records images and SVG. Still blocks video, audio, iframes and embeds. Records attribute values and the full page address as they are. |
 | Custom | Any other combination. |
 
@@ -211,7 +212,7 @@ From 10 October 2026, the recorder always gets `[data-sq-private]` in its Masked
 
 From 10 October 2026, when Record canvas is on, the recorder records each canvas as a series of snapshots, not as its drawing calls. By default, it takes 2 snapshots a second, as WebP images at quality 0.6. A canvas that does not change adds nothing to the recording after its first snapshot. While Record canvas is on, two fields change this: Canvas snapshots per second, a whole number from 1 to 10, and Canvas snapshot quality, from 10 to 100 %. An owner or admin can also set them through the settings API, with PATCH `/api/projects/:id/config`, as `replay.masking.canvas_fps` and `replay.masking.canvas_quality` (0.1 to 1.0). The API refuses a value outside these ranges, and the recorder uses the default when it gets no valid value. A preset does not change them, and a change to them keeps the preset.
 
-Attribute values (titles, labels, alt text, data-*) has three choices: "Masked", "Kept, URLs cut to the path" and "Recorded as on the page". Strict uses "Masked", and Balanced uses "Recorded as on the page". "Kept, URLs cut to the path" is a Custom choice only. This field also sets how DevTools shortens network addresses and code locations. See [Masking and redaction](/docs/masking-and-redaction).
+Attribute values (titles, labels, alt text, data-*) sets the values of attributes only. Strict uses "Masked", and Balanced uses "Kept". From 18 November 2026, it no longer changes addresses: page, link, image and DevTools addresses keep their full path in every preset, and their query values follow Remove query values. A project that has the older choice "Kept, URLs cut to the path" saved keeps it, and it works as "Kept". Under Masked, it also masks ids after a `/` in DevTools error and console text, outside an address. See [Masking and redaction](/docs/masking-and-redaction).
 
 The masking on this page applies to the web only. The one exception is Attribute values: it also shortens the DevTools addresses that iOS and Android apps send.
 
@@ -266,7 +267,7 @@ The help beside the box says: "Messages can hold what people typed or saw. Off b
 
 The network request settings work like this:
 
-- Query values kept lists the query parameter names whose values you want to keep. Sequential records every other query value as `[redacted]`.
+- Query values kept lists the query parameter names whose values you want to keep. Sequential uses this list only when Remove query values is on. Then it records every other query value as `[redacted]`.
 - Requests ignored takes patterns, one per line. `*` stays within a path segment and `**` crosses segments.
 - The help under Requests ignored says: "One pattern per line, matched against the whole URL without its query. * stays within a path segment, ** crosses them. For example https://api.example.com/health*."
 - Unlike the page lists, these patterns match the request's full address without its query string. So include the domain, as in `https://api.example.com/health`, or start with `**`, as in `**/health`.
@@ -332,6 +333,8 @@ The replay period has no control. It is how long replays stay available: one of 
 By default, after 30 days you cannot play a replay. The storage deletes the recording files about 2 days after that. If you delete the project, its recordings become unreadable at once, and the storage deletes the files later.
 
 Replays stay available by default for 30 days, counted from when the first part of the recording arrived at Sequential. How long data is kept, under Data and your team, shows the organisation's two periods: Events and Recordings (the replay period). If the server sets a shorter limit, the page shows the limit, with a line that says why. See [A server-wide limit](/docs/retention-and-deletion#a-server-wide-limit). The organisation sets both periods for all its projects. The page has no control for them, and only Sequential support can change them. A shorter period deletes nothing: stored recordings keep their old period. Through the settings API, a change of either period gets 409 `retention_set_by_organisation` and saves nothing. After the period, you cannot play the recording in Sequential. See [Retention and deletion](/docs/retention-and-deletion).
+
+From 18 November 2026, **Page addresses**, under Data and your team, comes after How long data is kept. It has one box, **Remove query values**. It applies to every page address that Sequential stores: in events, recordings and DevTools. The help says: "Off (the default): page addresses keep their query values as sent, in events, recordings and DevTools. On: Sequential keeps only campaign and ad-click values (utm_*, gclid, fbclid and similar), and stores every other query value as [redacted]. The parameter names stay." A second line says: "In every case, Sequential removes email addresses, card numbers, credentials and secret tokens from page addresses. A change applies to data that arrives after it." Turning the box on needs no confirmation. Turning it off again asks for the project slug. See [URL policy](/docs/url-policy).
 
 Sequential support can also save a new version. Who changed what then names "Sequential support" for that version. Every role sees each save under Who changed what, as a sentence such as "Ana Novak changed 3 settings", with the time. Open a version to see each change. Owners and admins also see the project's audit rows under Recent changes. The audit log also shows each save, with what changed. See [Audit log](/docs/audit-log).
 

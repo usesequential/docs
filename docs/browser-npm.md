@@ -112,7 +112,7 @@ import type { Sequential, InitOptions } from '@usesequential/browser';
 
 ### How does the package compare with the script tag?
 
-The package sends the same data as the [script tag](/docs/sequential): page views, clicks, form submits, rage clicks and dead clicks, custom events, `identify` and accounts. In Sequential, events from the package and events from the tag look the same. When session replay is on for the project, the package loads the recorder from your API URL, as the tag does. The script tag on the CDN gets each fix of the SDK at once.
+The package sends the same data as the [script tag](/docs/sequential): page views, clicks, form submits, rage clicks and dead clicks, custom events, `identify` and accounts. In Sequential, events from the package and events from the tag look the same. When session replay is on for the project, the package loads the recorder from your API URL, as the tag does. The script tag on the CDN gets each fix of the SDK at once. From version 1.0.3 (18 November 2026), the package also records a click that a script makes only while the person acts, and sends at most 5 `$click` events for one element in one second, as the script tag does. See [Exact rules for rage clicks and dead clicks](/docs/sequential#rage-clicks-and-dead-clicks).
 
 ## Next steps
 

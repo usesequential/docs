@@ -96,7 +96,7 @@ A filter is a set of conditions. Each condition is one field, an operator and a 
 | Session id | The session id stored on the event |
 | Person id | The person. With the Sequential SDK, PostHog or Mixpanel, your own id also finds the events sent before your app called `identify`. See [How does a Person id condition match?](#how-does-a-person-id-condition-match) |
 | Account id | Pendo data, and Sequential SDK events after `sequential.account()` |
-| URL | The whole stored address. Sequential stores query values as `[redacted]`, unless the parameter is a campaign or ad-click parameter, such as `utm_source` or `gclid`. It does not keep the `#…` part, except a hash route, such as `#/orders`, from 9 October 2026. Pick the value from the list. Do not type it. Empty for Amplitude events. See [What Sequential keeps from page URLs](/docs/url-policy) |
+| URL | The whole stored address. From 18 November 2026, Sequential stores query values as sent. With **Remove query values** on, and for events stored before 18 November 2026, query values are `[redacted]`, unless the parameter is a campaign or ad-click parameter, such as `utm_source` or `gclid`. It does not keep the `#…` part, except a hash route, such as `#/orders`, from 9 October 2026. Pick the value from the list. Do not type it. Empty for Amplitude events. See [What Sequential keeps from page URLs](/docs/url-policy) |
 | Page | The path of the URL, as Workbench › Heatmaps groups pages: no host, no query and no `#…` part, without a slash at the end, and numbers, UUIDs and long hex ids read `:id`. For example, `/orders/:id` matches `/orders/123?tab=2`. From 6 November 2026, for a mobile app event with no URL, it is the page of its screen, for example `/Checkout`. See [Screens are pages](/docs/mobile#screens-are-pages) |
 | Referrer | The page the person came from (the referrer). Empty for Amplitude events |
 | Element | The clicked element, by its CSS selector. Empty for PostHog, Mixpanel and Amplitude events |
@@ -374,7 +374,7 @@ To share a filter, flow, funnel, retention view or sessions search with everyone
 - To filter your own events by Event, send them as custom events. See [Send custom events](/docs/custom-events).
 - For Person id to hold your own ids, call `identify`. See [Identify your users](/docs/identify-users).
 - Element, Account id and the properties depend on your SDK. Some fields are empty for some SDKs. See [What each SDK supports](/docs/support-matrix).
-- A typed URL with query values does not match, because Sequential redacts query values. A `#…` part matches only when it is a hash route, such as `#/orders`. Pick the URL from the list.
+- A typed URL with query values matches only events that kept their query values: from 18 November 2026, with **Remove query values** off. A `#…` part matches only when it is a hash route, such as `#/orders`. Pick the URL from the list.
 - For Mixpanel and Smartlook, a Visitor property condition finds only identify events. PostHog and Sequential SDK events have no visitor properties.
 
 ### For agents

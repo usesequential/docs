@@ -410,7 +410,7 @@ The recorder masks content on the person's device during recording. So a replay 
 
 - Blocked elements show as empty boxes of the same size.
 - Canvas and WebGL are not recorded unless your project turns on Record canvas. From 10 October 2026, the replay then shows snapshots of each canvas, 2 a second by default, not smooth motion. See [Recording settings](/docs/recording-settings).
-- Under Strict, CSS background images do not load, and the page address shows its route without a query. From 26 October 2026, web fonts load, unless an id-like part masks the file name. In DevTools, a file that the page loads shows only its domain, and an API call shows its route with id-like parts masked.
+- From 18 November 2026, addresses keep their full path under Strict too, so CSS background images and web fonts load, and DevTools shows the full address of each file and API call. In recordings from before 18 November 2026, Strict had masked them: CSS background images did not load, the page address showed its route without a query, a web font with an id-like part in its file name did not load, and DevTools showed only the domain of a file and the route of an API call with id-like parts masked.
 - DevTools never keeps request or response headers or bodies. It keeps console message text only if your project turns it on.
 - DevTools always keeps redacted error messages from uncaught exceptions and unhandled rejections, even with console message text off.
 - Mobile apps mask on the device: set mobile masking in your app's PostHog SDK.
@@ -423,7 +423,7 @@ Masking presets:
 
 | Preset | Masks | Blocks |
 |---|---|---|
-| Strict (the default) | All text, every input and most attribute values. Link and image addresses keep only their domain. The page address keeps its route, with id-like parts masked | Images, SVG, video, audio, iframes and embeds |
+| Strict (the default) | All text, every input and most attribute values. From 18 November 2026, addresses keep their full path, as in every preset. A link to another site keeps only its domain | Images, SVG, video, audio, iframes and embeds |
 | Balanced | Every input, and only the text you mark. Attribute values and the full page address are recorded as they are | Video, audio, iframes and embeds |
 
 - Record canvas is under Privacy and masking. Ticking it switches the Masking level to Custom. It is off in both Strict and Balanced.

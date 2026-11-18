@@ -26,7 +26,7 @@ Read this before you describe Sequential in a privacy notice or security questio
 | Export | Owners and admins can export the events and sessions of a project as files, in the app or with an access token that has `exports:write`. The files hold the data as Sequential stores it: user ids, full IP addresses, URLs and properties. You cannot export only one person's data. You can download the files for 7 days after the export finishes. If you delete the project, Sequential deletes them at once. See [Export your data](/docs/export-your-data). |
 | IP addresses | Sequential stores the full IP address with every event. No working option shortens or drops it. |
 | Property values | If a property holds an email, name or phone number, Sequential stores it as you sent it. From 18 October 2026, element text is the exception: an email or a card number in it becomes `[redacted]`. Names and phone numbers stay. |
-| Page URLs under Balanced | With **Balanced** masking, a web recording keeps each page's full address, with the query string and the `#fragment`. Only a secret, such as a long random token, is stored as `[token]`. **Strict**, the default, keeps only the route. |
+| Page URLs in recordings | From 18 November 2026, a web recording keeps each page's domain and full path in every preset. Its query values follow **Remove query values**. An email address, a JWT, a credential or a card number becomes `[redacted]`, and a secret, such as a long random token, `[token]`. Recordings from before 18 November 2026 keep the address as it was stored then. |
 | Settings not applied | **Recordings at the same time**, **Never record these app screens**, **Allowed app ids** and some other settings do nothing yet. In the app, each says "Saved; nothing applies it yet." Do not describe them as controls. |
 
 ### Erasure, properties and page URLs
@@ -36,7 +36,7 @@ Read this before you describe Sequential in a privacy notice or security questio
 - If you delete an organisation, Sequential deletes the data of each of its projects in the same way.
 - The property values limit covers event, user and account properties.
 - From 14 November 2026, for each change that an agent records, Sequential keeps a keyed hash of the text as the agent sent it, before it replaces names of people. A request to erase one person's data does not find the hash by the name alone. See [Changes](/docs/changes).
-- Under **Strict**, the default, a web recording stores each page's address as its route: the domain and the path, with id-like parts masked, and no query string or `#fragment`. Under **Balanced**, it stores the full address. From 11 October 2026, with every masking setting, a secret in the page address is stored as `[token]`. The other URL redaction rules apply to analytics events, not to recordings.
+- From 18 November 2026, a web recording stores each page's address with its domain and full path, in every preset. Its query values follow **Remove query values**. The `#fragment` is dropped, except an element id or a hash route. An email address, a JWT, a credential or a card number becomes `[redacted]`, and a secret `[token]`. Before 18 November 2026, **Strict** stored only the route, with id-like parts masked and no query string.
 
 ### How the replay retention period works
 
@@ -47,7 +47,7 @@ Read this before you describe Sequential in a privacy notice or security questio
 
 ### Which property values Sequential redacts
 
-- On the server, Sequential redacts property values that are URLs. These are values that start with `http://`, `https://`, `ws://` or `wss://`. Sequential treats them like page URLs.
+- On the server, Sequential cleans property values that are URLs. These are values that start with `http://`, `https://`, `ws://` or `wss://`. Sequential treats them like page URLs.
 - From 18 October 2026, Sequential also redacts element text on the server, for every SDK. It replaces an email address, a card number of 15 or 16 digits that passes the Luhn check, a JWT, and a Bearer or Basic credential with `[redacted]`. Names, phone numbers, addresses and other text stay as sent. Events stored before that date keep their text.
 - Element text is a property with one of these names, in any letter case: `text`, `form`, `selector`, `element`, `element_text`, `el_text`, `aria_label`, `aria-label`, `$text`, `$selector`, `$form_selector`, `$form_id`, `$selected_content` and, from 26 October 2026, `$external_click_url` (PostHog's outbound-link target). It is also a property whose name starts with `$el_` or `$element` (for example `$el_text`, `$el_label`, `$el_href` and `$elements_chain`), `[Amplitude] Element` or `[Amplitude] Form`. Sequential checks the selector of the event too.
 - In a JSON value, such as `$elements`, Sequential checks each text. In a selector, it also reads the CSS escapes, so it finds an email that a selector writes with escapes.
@@ -501,11 +501,11 @@ A coding agent can set up a trial for an email address before anyone has an acco
 
 | Data | What happens |
 |---|---|
-| Page URLs in events | Keeps the scheme, host and path. Replaces every query value with `[redacted]`, except campaign and ad-click parameters. Drops the `#fragment`. From 9 October 2026, it keeps a hash route, such as `#/orders`, and cleans its parts like the path. |
-| DevTools data | Replaces JWTs, Bearer and Basic credentials, email addresses and card numbers before storage. Console message text is off by default, but Sequential keeps JavaScript error messages even with console text off. Under **Strict**, a file that the page loads keeps only its domain, an API call keeps its route with id-like parts masked, and ids after a `/` in error and console text are masked. |
-| Click text (Sequential SDK) | Replaces emails, tokens and card numbers. Leaves out the text of an element marked `data-sq-mask` or `data-sq-private`. From 10 October 2026, also leaves out the text of a click in account UI, or that names the signed-in person. From 26 October 2026, the same rules apply to the `aria-label` and to where a clicked link goes. Sequential stores only the origin of a link for a project with **Strict**. See [Sequential SDK](/docs/sequential). |
+| Page URLs in events | Keeps the scheme, host and path. From 18 November 2026, keeps the query values, unless the project turns on **Remove query values**: then it replaces every query value with `[redacted]`, except campaign and ad-click parameters. Replaces an email address, a JWT, a credential or a card number in any part with `[redacted]`, and a secret with `[token]`. Drops the `#fragment`. From 9 October 2026, it keeps a hash route, such as `#/orders`, and cleans its parts like the path. |
+| DevTools data | Replaces JWTs, Bearer and Basic credentials, email addresses and card numbers before storage. Console message text is off by default, but Sequential keeps JavaScript error messages even with console text off. From 18 November 2026, request addresses and code locations keep their full path in every preset. Under **Strict**, ids after a `/` in error and console text are masked. |
+| Click text (Sequential SDK) | Replaces emails, tokens and card numbers. Leaves out the text of an element marked `data-sq-mask` or `data-sq-private`. From 10 October 2026, also leaves out the text of a click in account UI, or that names the signed-in person. From 26 October 2026, the same rules apply to the `aria-label` and to where a clicked link goes. From 18 November 2026, Sequential stores the full path of a link to your own site, and only the origin of a link to another site. See [Sequential SDK](/docs/sequential). |
 | Element text in events | From 18 October 2026, for every SDK: an email, a card number, a JWT or a Bearer or Basic credential becomes `[redacted]` when Sequential stores the event. Element text is the text, label or selector of an element, in autocaptured events and in properties with names such as `text` or `selector`. See **Which property values Sequential redacts** above. |
-| What recordings show | Default **Strict** masking masks all text, inputs and most attribute values, and blocks images, SVG, video, audio and iframes. It cuts link and image addresses to their domain, and the page address to its route. Both presets mask what users type, checkbox and radio values, file names and hidden fields. |
+| What recordings show | Default **Strict** masking masks all text, inputs and most attribute values, and blocks images, SVG, video, audio and iframes. From 18 November 2026, link, image and page addresses keep their full path in every preset. Both presets mask what users type, checkbox and radio values, file names and hidden fields. |
 
 These rules catch common patterns only. They are not a guarantee. Names, addresses, phone numbers and custom tokens match no pattern, so Sequential keeps them. The one exception is click text with the signed-in person's own name or email, which the Sequential SDK leaves out. On recorded page text, masking in the visitor's browser is the only protection.
 
@@ -519,26 +519,25 @@ These rules catch common patterns only. They are not a guarantee. Names, address
 
 ### Page URLs in events
 
-- Every query value becomes `[redacted]`, unless the parameter is a campaign or ad-click parameter, such as `utm_source` or `gclid`.
-- Sequential also redacts the value of those parameters if it looks like an email address, JWT or card number.
-- Sequential replaces a path segment that looks like one of those.
+- From 18 November 2026, query values are kept as sent. With **Remove query values** on, every query value becomes `[redacted]`, unless the parameter is a campaign or ad-click parameter, such as `utm_source` or `gclid`.
+- Sequential always redacts a query value or a path segment that looks like an email address, JWT, credential or card number, also in those parameters.
 
 ### DevTools data
 
 - A card number is 15–16 digits that pass a card checksum.
 - On the web, the replacement also happens before anything leaves the browser.
 - In logged JSON, Sequential also replaces values under keys such as `password` or `token`.
-- Network URLs keep no query values, unless you list the parameter under **Query values kept**.
+- From 18 November 2026, network URLs keep their query values. With **Remove query values** on, they keep none, unless you list the parameter under **Query values kept**.
 
 ### Recordings
 
-- **Strict** also masks attribute values, such as `title`, `alt` and `data-*`. It keeps ids, classes and known state values. It keeps the domain of each link and image address, and the route of the page address and of web font files, with id-like parts masked.
-- **Balanced** masks inputs. It masks text only in elements you mark with `data-sq-mask` or the class `sq-mask`, and it records images, attribute values and the full page address.
+- **Strict** also masks attribute values, such as `title`, `alt` and `data-*`. It keeps ids, classes and known state values. From 18 November 2026, it keeps the full path of link, image, font and page addresses, as every preset does.
+- **Balanced** masks inputs. It masks text only in elements you mark with `data-sq-mask` or the class `sq-mask`, and it records images and attribute values.
 - **Strict** and **Balanced** both leave out anything marked `data-rr-block`.
 - If a change records more, Sequential usually asks you to type the project slug. An example is a switch from **Strict** to **Balanced**. The **Audit log** flags these changes.
-- When a recording arrives, Sequential masks attribute values and addresses again, under the project's current setting. It also masks the values in input events again. It does not re-mask page text. A stored recording keeps the masking it was stored with.
+- When a recording arrives, Sequential masks attribute values again, under the project's current setting, and cleans addresses. It also masks the values in input events again. It does not re-mask page text. A stored recording keeps the masking it was stored with.
 - Choosing **Strict** or **Balanced** also sets attribute masking. An owner or admin can also set it on its own, with **Attribute values (titles, labels, alt text, data-*)** under **Privacy and masking**. See [Masking and redaction](/docs/masking-and-redaction).
-- On mobile, you set masking in your app's SDK, not in Sequential. Attribute masking does not apply to mobile recordings, which carry no HTML attributes. The SDK's own masking still masks them. **Attribute values** still sets how Sequential's servers shorten the request addresses and code locations in the DevTools data of an app.
+- On mobile, you set masking in your app's SDK, not in Sequential. Attribute masking does not apply to mobile recordings, which carry no HTML attributes. The SDK's own masking still masks them. From 18 November 2026, the request addresses and code locations in the DevTools data of an app keep their full path; their query values follow **Remove query values**.
 
 ## Consent
 

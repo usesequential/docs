@@ -261,7 +261,7 @@ Next to each reading is a word for how sure the judge was. Hover over it to see 
 
 Sequential never judges a session with fewer than 3 events. System events do not count.
 
-Sequential retries temporary errors, such as a rate limit, a server error or a network error. Any other error from the judge leaves the session not judged, for good. Evidence shows failed and too-short sessions in "Not judged".
+Sequential tries again later when the judge cannot answer: a rate limit, a server error, a network error, or a problem with the account of the AI provider. From 18 November 2026, Sequential then waits before it judges more sessions of the project, and it marks no session as failed. A session fails for good only when the judge refuses the session itself: for example, the session is too large, or the same session fails 3 times. Evidence shows failed and too-short sessions in "Not judged".
 
 ### What happens when the daily allowance runs out?
 

@@ -65,15 +65,16 @@ Redaction runs in these places:
 | Images and SVG | Blocked | Recorded |
 | What people type, a checkbox or radio value that a person picks, the name of a file that a person picks, hidden field values | Masked | Masked |
 | Other attribute values | Masked, except a fixed list | Recorded as they are |
-| Link and image addresses | Cut down to the domain | Recorded as they are |
-| The page address, and the addresses of web font files | Cut down to the route | Recorded as they are |
-| DevTools addresses | Keeps only the domain of each file that the page loads, and the route of each API call | Path kept. Query values `[redacted]` |
+| Link and image addresses, and the page address | Full path. Query values follow **Remove query values** | The same as Strict |
+| DevTools addresses | Full path. Query values follow **Remove query values** | The same as Strict |
 
 Every preset records element ids and classes, and whether a checkbox or radio button is ticked.
 
 Custom is any other combination of the six fields under Masking level ([Custom masking, selectors and the settings API](#custom-masking)).
 
-A Strict replay can show fallback fonts and no CSS background images. Balanced has none of these costs ([What each preset masks (web)](#what-each-preset-masks-web)).
+From 18 November 2026, addresses follow one rule under both presets. See [URL policy](/docs/url-policy).
+
+A Strict replay can lose the styles that select on a masked attribute value. Balanced has none of these costs ([What each preset masks (web)](#what-each-preset-masks-web)).
 
 ### What each preset masks (web)
 
@@ -90,19 +91,15 @@ What "masked" means for inputs:
 - Under Balanced, the `value` of a checkbox, radio button or drop-down option in the page's HTML is page markup, not user input. Sequential records it as the page has it. The visible label shows the same choice, because Balanced records page text. Strict masks it.
 - Only a Custom set-up with Mask every input off records input values as people type them.
 
-Under Strict, the player cannot load what the masked addresses pointed to:
-
-- From 26 October 2026, a web font loads when the recording has the address of its file. If its file name has an id-like part, Sequential masks the name, the font does not load, and the replay shows a fallback font. A build hash of 16 or more hex characters is id-like, as in `a34f9d1a6d4c0d1e-s.p.woff2`. A shorter hash stays, as in `inter.4f2a9c8d.woff2` or `inter-latin-400-normal.Bx3k2_9c.woff2`. Recordings from before that date keep fallback fonts.
-- CSS background images do not show.
-- CSS rules that select on a masked attribute value stop matching, such as `[data-variant="primary"]` or `[title="Close"]`. Rules on `id`, `class` and the state values in [Strict in detail: attributes, addresses and id-like segments](#strict-which-attributes-keep-their-value) still match, such as `[data-state="open"]`.
-- A stylesheet whose file name has a build hash cannot load, if the recorder could not copy its CSS. The recorder usually copies it.
-- In DevTools, the address of a file that the page loads shows only its domain and masked path segments. To find a file that failed, reproduce the issue in a browser, or use a Custom set-up with Attribute values set to "Kept, URLs cut to the path" on a staging project.
+Under Strict, CSS rules that select on a masked attribute value stop matching, such as `[data-variant="primary"]` or `[title="Close"]`. Rules on `id`, `class` and the state values in [Strict in detail: attributes, addresses and id-like segments](#strict-which-attributes-keep-their-value) still match, such as `[data-state="open"]`.
 
 Balanced has none of these costs.
 
-The third column is a Custom set-up with Attribute values set to "Kept, URLs cut to the path". "Your setting" means that the row follows your own value of another field under Privacy and masking, not Attribute values.
+Recordings made under Strict before 18 November 2026 have masked addresses. In those replays, a web font with an id-like file name shows a fallback font, CSS background images do not show, and a stylesheet with a build hash in its file name cannot load if the recorder could not copy its CSS. In DevTools, a file that the page loaded shows only its domain and masked path segments. From 18 November 2026, addresses keep their path under Strict, so new recordings do not have these costs.
 
-| What | Strict (the default) | Balanced | Custom, Attribute values set to "Kept, URLs cut to the path" |
+The third column is a Custom set-up with Attribute values set to Kept, or to the older choice. "Your setting" means that the row follows your own value of another field under Privacy and masking, not Attribute values. From 18 November 2026, the address rows are the same in all three columns.
+
+| What | Strict (the default) | Balanced | Custom, Attribute values not Masked |
 |---|---|---|---|
 | Page text | All masked | Masked only inside elements with the `data-sq-mask` or `data-sq-private` attribute or the `sq-mask` class | Your setting (Masked text), and always inside elements with `data-sq-private` |
 | Images and SVG | Blocked | Recorded | Your setting (Blocked elements) |
@@ -115,13 +112,11 @@ The third column is a Custom set-up with Attribute values set to "Kept, URLs cut
 | Inputs: whether a checkbox or radio button is ticked | Recorded | Recorded | Recorded |
 | Inputs: the `value` of checkboxes, radio buttons and drop-down options in the page's HTML | Masked | Recorded as the page has it | Recorded as the page has it |
 | Other attribute values, such as `title`, `alt`, `aria-label` and `data-*` | Masked, except a fixed list (see [Strict in detail: attributes, addresses and id-like segments](#strict-which-attributes-keep-their-value)) | Recorded as they are | Recorded as they are |
-| Addresses in attributes and CSS, such as links and image sources | Domain kept. Every path segment masked, except the address of a web font file and some stylesheets in CSS (see [Strict in detail: attributes, addresses and id-like segments](#strict-which-attributes-keep-their-value)). No query or fragment | Recorded as they are | Domain and path kept. No query, fragment or `;` parameters |
-| The page address | Domain and route kept. Id-like segments masked. No query or fragment | Recorded in full | Domain and path kept. No query, fragment or `;` parameters |
-| DevTools: files that the page loads, such as images, CSS, scripts, fonts and media | Domain kept. Every path segment masked. No query | Path kept. Query values `[redacted]` | Path kept. No `;` parameters. Query values `[redacted]` |
-| DevTools: API calls (fetch and XHR), and the page itself | Domain and route kept. Id-like segments masked. No `;` parameters. Query values `[redacted]` | Path kept. Query values `[redacted]` | Path kept. No `;` parameters. Query values `[redacted]` |
-| DevTools: code locations: the file of an error, the stack frames, and where a console entry came from | A script or other asset file: domain kept, every path segment masked, no query. Any other address: domain and route kept, id-like segments masked, query values `[redacted]`. Line and column kept | Path kept. Query values `[redacted]` | Path kept. No `;` parameters. Query values `[redacted]` |
-| DevTools: `http(s)` and `ws(s)` addresses written in error messages and console text | Changed as code locations are | Kept. Only redaction runs | Changed as code locations are |
-| DevTools: ids after a `/` in error messages, console text and stack frames | UUIDs, hex runs of 16 or more characters and runs of 6 or more digits masked | Kept | Kept |
+| Addresses in attributes and CSS, such as links and image sources | Domain and full path. A link, a form address or a frame that points to another site keeps only its domain. A file that the player loads keeps its full path on any site. No `;` parameters. Query values follow **Remove query values** | The same as Strict | The same as Strict |
+| The page address | Domain and full path. No `;` parameters. Query values follow **Remove query values** | The same as Strict | The same as Strict |
+| DevTools: network requests, and code locations: the file of an error, the stack frames, and where a console entry came from | Domain and full path. No `;` parameters and no `#fragment`. Query values follow **Remove query values** (see [Redaction and network requests in detail](#exact-shapes-redaction-catches)). Line and column kept | The same as Strict | The same as Strict |
+| DevTools: `http(s)` and `ws(s)` addresses written in error messages and console text | Changed as code locations are | The same as Strict | The same as Strict |
+| DevTools: ids after a `/` in error messages, console text and stack frames, outside an `http(s)` or `ws(s)` address | UUIDs, hex runs of 16 or more characters and runs of 6 or more digits masked | Kept | Kept |
 
 Balanced records any text you have not marked, names and addresses included. It also records what people type into a rich-text editor or other `contenteditable` element. To mask it, put the editor inside an element with `data-sq-mask`.
 
@@ -148,24 +143,29 @@ Under Balanced, attribute values are recorded as they are. The exceptions are th
 
 Addresses and the page address:
 
-| Address | Under Strict | Example |
+From 18 November 2026, Strict does not mask the path of an address. These rules hold under every preset:
+
+| Address | Stored | Example |
 |---|---|---|
-| Links, image sources and other URL attributes (`href`, `src`, `srcset`, `action`, `poster`), and other `url(…)` in CSS and SVG | Domain kept. Every path segment masked. No query, fragment or `;` parameters | `https://cdn.example.com/avatars/jane.png?v=2` becomes `https://cdn.example.com/███████/████████` |
-| From 26 October 2026: the address of a web font file in CSS or in the recorded fonts. The file name ends in `.woff2`, `.woff`, `.ttf`, `.otf` or `.eot` | Domain and route kept. Id-like segments masked. No query or fragment | `https://cdn.example.com/fonts/inter.woff2?v=3` becomes `https://cdn.example.com/fonts/inter.woff2` |
-| From 26 October 2026: a `.css` file in `url(…)` in CSS, when the first folder of its path is `_app`, `_next`, `assets`, `static`, `dist`, `build`, `css`, `styles`, `fonts`, `wp-content` or `wp-includes` | Domain and route kept. Id-like segments masked. No query or fragment | `/assets/app.css` keeps its route. `/u/jane/css/theme.css` does not start with such a folder, so every segment is masked |
-| A stylesheet link, and `@import '…'` in CSS | Domain and route kept. Id-like segments masked. No query | |
-| The page address | Domain and route kept. Id-like segments masked. No query, fragment or `;` parameters | `https://app.example.com/orders/1234567?tab=2#notes` becomes `https://app.example.com/orders/███████` |
-| A link to an element on the page, such as `#pricing` | Kept | |
-| Other fragment-only links, such as `#/users/42` | `#` | |
+| Any address on your own site. On any site, a file that the player loads: the source of an image, a script, a video, audio, an embed or an SVG image (`src`, `srcset`, `poster`, the `data` of an object element, `background`), a stylesheet, an icon, a preload or manifest link, the `xlink:href` of SVG `<image>`, `<use>` and `<feImage>`, a web font, and `url(…)` and `@import` in CSS | Domain and full path. Query values follow **Remove query values**. No `;` parameters | `https://cdn.example.com/avatars/jane.png?v=2` stays as it is. With Remove query values on, it becomes `https://cdn.example.com/avatars/jane.png?v=[redacted]` |
+| A reference to another site that the player does not load: a link (`<a>`, `<area>`, `<base>`, and a `<link>` such as `canonical` or `alternate`), a form address (`action`, `formaction`), a frame (an iframe or a frame element), `cite`, `longdesc`, `itemid`, `codebase`, `ping`, and the address in `<meta http-equiv="refresh">`, with or without `url=` | The domain only | `https://www.linkedin.com/in/jane-doe` becomes `https://www.linkedin.com` |
+| The page address | Domain and full path. Query values follow **Remove query values**. No `;` parameters | `https://app.example.com/orders/1234567?tab=2#notes` stays as it is |
+| A link to an element on the page, such as `#pricing`, or a hash route, such as `#/users/42` | Kept | |
+| Another `#fragment`, such as `#access_token=…` | Dropped | |
 | `javascript:` links | Removed | |
-| `data:` addresses | `data:` only | |
-| `mailto:` and `tel:` links | Scheme kept, address masked | `mailto:████████████████` |
+| `data:` addresses | Under Strict, `data:` only. Under Balanced, kept | |
+| `mailto:` links | Under Strict, the scheme is kept, the address is masked and the query is dropped. Under Balanced, the email address becomes `[redacted]`, and the query follows Remove query values | `mailto:████████████████` |
+| `tel:`, `sms:` and `callto:` links, also in the `tel://` form | The scheme is kept and the number is masked | `tel:█████████████` |
 
-Under Balanced, all of these are recorded as they are.
+When a page changes an attribute later, the new address follows the rule of its element. For example, the `src` that a page sets later on an iframe keeps only its domain if it points to another site. If the element came in an earlier part of the recording, Sequential cannot see what kind of element it is. Then every `href` and `src` that points to another site keeps only its domain. So an image from another site that a page loads late can be missing in the replay.
 
-Id-like segments in the page address:
+In an address, an email address, a JWT, a credential or a card number becomes `[redacted]`, and a secret becomes `[token]`. See [URL policy](/docs/url-policy).
 
-Under Strict, Sequential keeps the route of the page address. It masks a whole path segment in these cases:
+Recordings from before 18 November 2026 keep their addresses as they were stored then. Under Strict, that was the domain with masked path segments, and the route of the page address with id-like segments masked.
+
+Id-like segments in heatmap page keys:
+
+Heatmap data groups clicks by page. For that page key, Sequential uses the rule from before 18 November 2026 under every preset. It keeps the route, and masks a whole path segment in these cases:
 
 - A UUID, a hex run of 16 or more characters or an email address is anywhere in the segment. Examples are `<uuid>.json`, `<uuid>:activate` and `uuid:<uuid>`. Sequential decodes the segment first, so `id%3A<uuid>` is masked too.
 - The segment is id-like.
@@ -180,7 +180,7 @@ Id-like means one of these:
 - an email address
 - a JWT
 
-| Path | Under Strict |
+| Path | In the page key |
 |---|---|
 | `/settings/2fa`, `/blog/2026/09`, `/v2/api`, `/users/me` | Kept |
 | `/orders/1234567` | `/orders/███████` |
@@ -188,7 +188,7 @@ Id-like means one of these:
 | `/invoices/ORD-1234567` | `/invoices/███████████` |
 | `/files/<uuid>.json` | `/files/` and one block for each character of the segment |
 
-The same rule applies to a stylesheet link, and to API calls and the page itself in DevTools. A stylesheet file name with a build hash, such as `app.0123456789abcdef.css`, is masked too.
+From 18 November 2026, recordings and DevTools keep these segments. Before 18 November 2026, Strict also masked them in the page address, in stylesheet links and in DevTools API calls.
 
 ## What it needs
 
@@ -241,18 +241,31 @@ If you choose Strict or Balanced, the preset overwrites all six. If you edit any
 
 Masking level shows Custom whenever the saved six settings do not match Strict or Balanced exactly.
 
-Attribute values (titles, labels, alt text, data-*) is under Privacy and masking. It sets attribute masking on its own. It also sets how DevTools shortens addresses. It has three choices:
+Attribute values (titles, labels, alt text, data-*) is under Privacy and masking. It sets attribute masking on its own. From 18 November 2026, it does not change addresses. It has three choices:
 
 | Choice | What it does |
 |---|---|
-| Masked | Masks attribute values, addresses and DevTools addresses as the Strict column of [What each preset masks (web)](#what-each-preset-masks-web) and [Strict in detail: attributes, addresses and id-like segments](#strict-which-attributes-keep-their-value) describe. Strict uses it. |
-| Kept, URLs cut to the path | Keeps attribute values. Removes the query, the `#fragment` and `;` parameters from addresses: links, image sources, `url(…)` in CSS and the page address. In DevTools, keeps paths and redacts query values. No preset uses it. |
-| Recorded as on the page | Records attribute values and addresses as they are. DevTools keeps paths and redacts query values. Balanced uses it. |
+| Masked | Masks attribute values as the Strict column of [What each preset masks (web)](#what-each-preset-masks-web) and [Strict in detail: attributes, addresses and id-like segments](#strict-which-attributes-keep-their-value) describe. Strict uses it. |
+| Kept | Records attribute values as they are. Balanced uses it. |
+| Kept (an older choice: addresses are no longer cut) | Shows only on a project that saved "Kept, URLs cut to the path" before 18 November 2026. From 18 November 2026, it records the same as Kept. No preset uses it. |
 
-- Choosing Strict sets it to Masked. Choosing Balanced sets it to Recorded as on the page.
-- "Kept, URLs cut to the path" is a Custom choice only. If you choose it, the level changes to Custom.
-- A change from Masked to either other choice, or from "Kept, URLs cut to the path" to "Recorded as on the page", records more. When you save, the app asks you to confirm with the project slug.
-- A project saved before this setting existed gets Masked if its preset is Strict or Custom, and Recorded as on the page if its preset is Balanced.
+From 18 November 2026, addresses follow one rule under every choice. Links, image sources, `url(…)` in CSS, the page address and DevTools network requests keep their full path. Their query values follow **Remove query values**. See [URL policy](/docs/url-policy).
+
+Before 18 November 2026, this choice was named Kept, and it kept every address as it was on the page. From 18 November 2026, it is named Kept. From 18 November 2026, Sequential changes these parts under it too, as under the other choices:
+
+- A `javascript:` link. The address is stored empty.
+- The email address in a `mailto:` link becomes `[redacted]`. The query of the link, such as `?subject=…`, follows **Remove query values**.
+- The number in a `tel:`, `sms:` or `callto:` link is masked, one █ per character, under every choice. The query of such a link is dropped.
+- `;` parameters in a path, such as `;jsessionid=…`.
+- The path and the query of a link, a form address or a frame that points to another site. Only its domain stays.
+- A `#fragment`, except an element id or a hash route.
+
+So for addresses, Kept records less than before, not more. A `data:` address stays as it is.
+
+- Choosing Strict sets it to Masked. Choosing Balanced sets it to Kept.
+- The older choice is a Custom choice only.
+- A change from Masked to another choice records more. When you save, the app asks you to confirm with the project slug. From 18 November 2026, a change between the other two choices records the same, and the app does not ask.
+- A project saved before this setting existed gets Masked if its preset is Strict or Custom, and Kept if its preset is Balanced.
 
 A selector browsers cannot read: if a Masked text or Blocked elements selector is not valid CSS, Sequential records nothing rather than record unmasked content. An empty part in Masked text is the one exception. An example is a comma at the end of the list. Sequential sends Masked text to the recorder without its empty parts, so the page still records.
 
@@ -286,15 +299,14 @@ Owners and admins can also change masking through the settings API, with PATCH `
 
 > **What Strict does not mask**
 >
-> Keep personal data out of ids, classes, domain names and routes. If a route must carry it, add that path to Never record these pages in [Recording settings](/docs/recording-settings).
+> Keep personal data out of ids, classes, domain names and paths. If a path must carry it, add that path to Never record these pages in [Recording settings](/docs/recording-settings).
 >
 > These are known and accepted. Do not read Strict as more than this:
 >
 > - `id`, `class` and id references keep their values. An id such as `user-jane@example.com` stays readable.
 > - Domain names stay everywhere: in addresses, in the page address and in DevTools. A domain such as `janedoe.example.com` stays readable.
-> - Numbers of 5 digits or fewer in a route stay, such as `/orders/12345`.
-> - Name slugs in a route stay, such as `/users/jane-doe`.
-> - In DevTools, query parameter names stay, such as `user_id` in `?user_id=[redacted]`.
+> - From 18 November 2026, every path segment stays, such as `/orders/1234567` or `/users/jane-doe`. Only an email address, a JWT, a credential, a card number or a secret in it is replaced.
+> - Query values stay, unless the project turns on Remove query values. Query parameter names always stay, such as `user_id` in `?user_id=[redacted]`.
 >
 > The other items of this list are in [What Sequential records as it is](#attributes-that-balanced-records).
 
@@ -307,11 +319,8 @@ Sequential records some things as they are under both presets, and more under Ba
 
 What Strict does not mask, continued:
 
-- A digit run joined to letters with no separator stays in a route, such as `/u/user1234567`.
 - Custom-event values that are not addresses stay, such as `{ email: 'jane@example.com' }` or a path with no `?`, `#` or `;`.
 - In DevTools text, an id with no `/` before it in its word stays, such as `id=<uuid>` or `order 1234567 failed`. The keys of a logged object stay. A user name in a file path stays, such as `jane` in `/Users/jane/app.js`.
-- The route of a web font file stays, such as `/fonts/inter.woff2`. So does the route of a `.css` file in a known asset folder, such as `/assets/app.css`.
-- In DevTools, you cannot see which file failed to load. A failed image, script or font shows only its domain, its kind, its status and its timing.
 
 Under both presets, Sequential records these as they are:
 
@@ -324,7 +333,7 @@ An agent's heatmap answer withholds element text, class names, ids and the names
 
 Under Balanced, Sequential also records these as they are:
 
-- All attribute values except the values of hidden fields and file inputs. Examples: link targets, `mailto:` addresses included; `title`, `aria-label`, `placeholder`, `alt` and `data-*` values; the labels of `<input type="submit">` and `type="button"` buttons; and the `value` of checkboxes, radio buttons and drop-down options in the page's HTML. Under Strict, Sequential masks all of these.
+- All attribute values except the values of hidden fields and file inputs. Examples: `title`, `aria-label`, `placeholder`, `alt` and `data-*` values; the labels of `<input type="submit">` and `type="button"` buttons; and the `value` of checkboxes, radio buttons and drop-down options in the page's HTML. Under Strict, Sequential masks all of these. From 18 November 2026, addresses are not on this list. They follow one rule under every preset. See [URL policy](/docs/url-policy).
 - Inline styles, including CSS background images such as avatars.
 - The page's full address, with its query string and its `#fragment`.
 - The paths of network requests and code locations in DevTools, and the addresses in error and console text.
@@ -347,7 +356,7 @@ Strict masks the replay's page address only. Your analytics events keep their ow
 
 ### What click events carry
 
-When Sequential stores `$el_href`, a project with Strict keeps only the origin of each link. Other projects keep the origin of a link to another site, and the route of a link on the same site, with id-like segments masked. A query, a `#fragment` and a user name never stay.
+When Sequential stores `$el_href`, it keeps only the origin of a link to another site. From 18 November 2026, it keeps the origin and the full path of a link on the same site, under every preset. Before 18 November 2026, Strict kept only the origin, and the other presets masked id-like segments. In the path, an email address, a JWT or a card number becomes `[redacted]`, and a secret becomes `[token]`. A query, a `#fragment`, `;` parameters and a user name never stay. A `mailto:`, `tel:` or other non-web link keeps only its scheme, such as `mailto:`.
 
 `data-sq-private` also keeps out the element's id and the ids in its selector. From 10 October 2026, the Sequential SDK also leaves out the text and `data-*` values of a click in account UI, or whose text names the signed-in person. See [Sequential SDK](/docs/sequential).
 
@@ -396,42 +405,37 @@ Two lists control the URL:
 
 | Setting | What it does |
 |---|---|
-| Query values kept | Keeps the values of the query parameters you list. Sequential replaces every other `name=value` value with `[redacted]`. |
+| Query values kept | From 18 November 2026, it is used only when **Remove query values** is on. Then it keeps the values of the query parameters you list, and Sequential replaces every other `name=value` value with `[redacted]`. With Remove query values off, request addresses keep every query value. |
 | Requests ignored | Leaves out every request whose URL matches a pattern. For example, `**/oauth/**` leaves out every call under an `/oauth/` path. |
 
 When you add a parameter to Query values kept, the app asks for the project slug.
 
 - Parameter names stay. For a redacted value, the request in a replay shows `[redacted]`.
-- Under Masked and "Kept, URLs cut to the path", a query item with no `=` (such as `?a1b2c3`) becomes `[redacted]`. Under Balanced, Sequential keeps it, unless it looks like a JWT, email address or card number.
+- With Remove query values on, a query item with no `=` (such as `?a1b2c3`) becomes `[redacted]`. With it off, Sequential keeps it, unless it looks like a JWT, email address or card number.
 - If a kept value contains a JWT, a `Bearer` or `Basic` credential, an email address or a card number, Sequential replaces the whole value with `[redacted]`.
-- Sequential drops the `#fragment` and any `user:pass@`.
-- Sequential replaces a path segment that looks like a JWT, email address or card number.
-- "Attribute values" also changes the path. Under Strict, a file that the page loads keeps only its domain and has no query, and an API call keeps its route. See [What each preset masks (web)](#what-each-preset-masks-web).
+- Sequential drops the `#fragment`, any `user:pass@` and `;` parameters.
+- Sequential replaces a path segment that looks like a JWT, email address or card number, and stores a secret as `[token]`.
+- From 18 November 2026, the preset does not change the address. Every request keeps its full path under every preset.
 
 Pattern syntax. Patterns match the full URL without its query. `*` stays within a path segment. `**` crosses segments. The help under the field says: "One pattern per line, matched against the whole URL without its query. * stays within a path segment, ** crosses them. For example https://api.example.com/health*."
 
-Errors and console entries. Script URLs and stack traces keep no `name=value` query values. Each value becomes `[redacted]`, whatever "Query values kept" lists. A query item with no `=` follows the same rule as in request URLs.
+Errors and console entries. Script URLs, stack traces and addresses in error and console text follow the same rule as request addresses: the full path, and the query values as sent. With Remove query values on, they keep no `name=value` query values: each value becomes `[redacted]`, whatever "Query values kept" lists. A query item with no `=` follows the same rule as in request URLs.
 
 The DevTools rows of [What each preset masks (web)](#what-each-preset-masks-web), in detail:
 
-- The DevTools rows follow Attribute values, not the preset name. A Custom set-up with Attribute values set to Masked gets the Strict column.
-- A network request with no kind, or a kind that Sequential does not know, counts as a file that the page loads.
+- From 18 November 2026, the addresses are the same under every preset. Only the id rule in text follows Attribute values: a Custom set-up with Attribute values set to Masked gets it, as Strict does.
 - Query parameter names stay in every preset, so an address still shows what was asked: `?user_id=[redacted]&page=2`.
-- In network requests, Sequential keeps the values of the parameters that you list under Query values kept. Code locations and addresses in text keep no query values.
-- In every preset, network addresses lose the `#fragment` and any `user:pass@`.
-- Under Masked and "Kept, URLs cut to the path", a query item with no `=`, such as `?<uuid>`, becomes `[redacted]`. Under Balanced, Sequential keeps a query item with no `=`, such as `?a1b2c3`, unless it looks like a JWT, email address or card number.
-- In code locations and in text, a script or other asset file is an address whose last segment ends in a script, stylesheet, image, font, media or `.pdf` extension, such as `.js`, `.css`, `.png` or `.woff2`. A `.json` address counts as a route.
 - Console text is kept only while Console message text is on. Error messages are always kept.
-- The id rule in text reads each word that holds a `/`. It masks only what comes after the first `/` in that word. Prose such as `and/or`, `2026/09/29` and `v1/2` stays as it is. A trailing `:line:col` stays.
+- The id rule in text reads each word that holds a `/`, outside an `http(s)` or `ws(s)` address. It masks only what comes after the first `/` in that word. Prose such as `and/or`, `2026/09/29` and `v1/2` stays as it is. A trailing `:line:col` stays.
 
 Example, under Strict:
 
 | Recorded | Stored |
 |---|---|
-| An image, `https://cdn.example.com/avatars/jane.png?v=2` | `https://cdn.example.com/███████/████████` |
-| An API call, `https://api.example.com/api/orders/1234567/items?user_id=42` | `https://api.example.com/api/orders/███████/items?user_id=[redacted]` |
-| An error message, `Failed to fetch https://api.example.com/users/<uuid>?user_id=42` | The UUID masked, `user_id=[redacted]` |
-| Console text, `GET /api/users/<uuid> failed` | The UUID masked |
+| An image, `https://cdn.example.com/avatars/jane.png?v=2` | Unchanged. With Remove query values on: `?v=[redacted]` |
+| An API call, `https://api.example.com/api/orders/1234567/items?user_id=42` | Unchanged. With Remove query values on: `?user_id=[redacted]`, unless `user_id` is in Query values kept |
+| An error message, `Failed to fetch https://api.example.com/users/<uuid>?user_id=42` | The address is unchanged. With Remove query values on: `user_id=[redacted]` |
+| Console text, `GET /api/users/<uuid> failed` | The UUID masked, because it is not in an `http(s)` address |
 
 ## Console message text
 

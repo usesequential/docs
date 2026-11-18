@@ -288,7 +288,7 @@ Sequential captures errors, console, network and performance by default.
 
 ### Change to Balanced masking
 
-Strict also blocks images, SVG, media and iframes. It cuts link and image addresses to their domain, so CSS background images do not load in the replay. From 26 October 2026, web fonts load, unless an id-like part masks the file name.
+Strict also blocks images, SVG, media and iframes. From 18 November 2026, it keeps the full path of addresses, so CSS background images and web fonts load in the replay. A link to another site keeps only its domain. In recordings from before 18 November 2026, Strict cut link and image addresses to their domain, so CSS background images do not load there.
 
 Balanced masks all inputs. It masks only the text you mark with `data-sq-mask` or the `sq-mask` class. It records images and SVG. It still blocks video, audio and iframes. It records attribute values and the full page address. See [Masking and redaction](/docs/masking-and-redaction).
 

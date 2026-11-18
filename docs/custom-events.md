@@ -210,7 +210,7 @@ Sequential splits a key into words at `_`, `-`, `.`, spaces and capital letters.
 
 Sequential stores a value written as a date and time, such as `2026-10-01T09:00:00Z`, as a date. Evidence and Ask do not pass it to the judge. Sequential still stores it.
 
-If a value is a web address, Sequential replaces its query values with `[redacted]` before it stores the value. It keeps `utm_*` parameters. See [What happens to a web address in a property value?](#what-happens-to-a-web-address-in-a-property-value)
+If a value is a web address, Sequential removes email addresses, credentials, card numbers and secrets from it before it stores the value. With **Remove query values** on, it also replaces its query values with `[redacted]`, except `utm_*` and ad-click parameters. See [What happens to a web address in a property value?](#what-happens-to-a-web-address-in-a-property-value)
 
 ## Check it arrived
 
@@ -287,7 +287,7 @@ In Window, Last 24 hours counts the 24 hours up to now. The other windows count 
 
 ### What happens to a web address in a property value?
 
-If a property value is a web address, Sequential replaces its query values with `[redacted]` before it stores the value. It keeps marketing parameters such as `utm_*`. This does not filter personal data. Keep personal data out of properties. See [What Sequential keeps from page URLs](/docs/url-policy).
+If a property value is a web address, Sequential removes email addresses, credentials, card numbers and secrets from it before it stores the value. With **Remove query values** on, it also replaces its query values with `[redacted]`, except marketing parameters such as `utm_*`. This does not filter personal data. Keep personal data out of properties. See [What Sequential keeps from page URLs](/docs/url-policy).
 
 ### Can a custom event be a retention event?
 

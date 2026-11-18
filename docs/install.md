@@ -52,7 +52,7 @@ The full rule, with examples: [What Sequential keeps from page URLs](/docs/url-p
 
 ### How Sequential cleans page URLs
 
-Before anything is stored, from every source: page URLs lose their `#fragment` (a hash route, such as `#/orders`, stays) and any `user:pass@` credentials, a secret in the path reads `[token]`, and every query-string value becomes `[redacted]` unless it is a marketing-attribution parameter (`utm_*`, `gclid`, `fbclid` and similar).
+Before anything is stored, from every source: page URLs lose their `#fragment` (a hash route, such as `#/orders`, stays) and any `user:pass@` credentials, an email address, a JWT, a credential or a card number in the path or the query reads `[redacted]`, and a secret reads `[token]`. From 18 November 2026, query values are kept as sent, unless the project turns on **Remove query values**: then every query value becomes `[redacted]` unless it is a marketing-attribution parameter (`utm_*`, `gclid`, `fbclid` and similar).
 
 ## What each SDK supports
 

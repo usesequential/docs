@@ -63,7 +63,7 @@ Some old names still show in the API, the agent tools or old links.
 - Archive: The project no longer shows in the project switcher. All projects lists it under Archived. Sequential keeps its data, keys and settings. Unarchive brings it back with the same keys.
 - Ask: The judge rates how likely each candidate session is to match. Ask does not list sessions that it rates unlikely.
 - Attention score: Each question adds its Attention weight, which owners and admins set on the Questions page. Evidence calculates the score each time it loads. So a weight change re-orders the sessions at once.
-- Attribution parameters: Examples: `utm_source`, `utm_campaign` and ad click ids like `gclid`. Every other query value becomes `[redacted]`.
+- Attribution parameters: Examples: `utm_source`, `utm_campaign` and ad click ids like `gclid`. With Remove query values on, every other query value becomes `[redacted]`.
 - Audit log: It covers changes in your organisation. Examples: saved recording settings, saved questions and deleted projects. Owners and admins can read it, under Settings › Organisation.
 - Autocapture: The events are page views, clicks and form submits.
 - Block: Sequential blocks elements with the `data-rr-block` attribute under both Strict and Balanced. Compare Masking.

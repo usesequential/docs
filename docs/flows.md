@@ -180,7 +180,7 @@ Without identify, each browser or device is a separate person. What happens to a
 - Page matches the route, like `/invoices/:id`. A step that you type with `/` at the start is a Page step.
 - A URL condition with is must match the whole stored address, with the scheme and host. For example: `https://app.example.com/projects/123`.
 - `/projects/123` alone matches no URL with is. Each project's address is a separate value.
-- Sequential drops anything after `#`, except a hash route that starts with `#/` or `#!/`, such as `#/orders`, from 9 October 2026. The route ends before its first `?`, `&` or a second `#`. It stores most query values as `[redacted]`. See [What Sequential keeps from page URLs](/docs/url-policy).
+- Sequential drops anything after `#`, except a hash route that starts with `#/` or `#!/`, such as `#/orders`, from 9 October 2026. The route ends before its first `?`, `&` or a second `#`. From 18 November 2026, it stores query values as sent, unless the project turns on **Remove query values**. Then, and before 18 November 2026, it stores most query values as `[redacted]`. See [What Sequential keeps from page URLs](/docs/url-policy).
 - A condition with is, such as URL is …, matches one whole value. Fields also take contains, starts with, ends with and matches pattern.
 - Event property matches an event's own properties, with a type and an operator. So a step can be `upgraded` with `plan` is `pro`, or `checkout_completed` with `amount` is more than `100`.
 - If "upgraded to Pro" and "upgraded to Team" must be separate steps, send separate event names.
